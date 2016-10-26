@@ -1,5 +1,6 @@
 package mod.upcraftlp.playerluckyblocks;
 
+import core.upcraftlp.craftdev.API.common.ModHelper;
 import core.upcraftlp.craftdev.API.common.ModLogger;
 import core.upcraftlp.craftdev.API.common.ModRegistry;
 import mod.upcraftlp.playerluckyblocks.proxy.CommonProxy;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(name = Reference.MODNAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSION, modid = Reference.MODID, canBeDeactivated = false)
+@Mod(name = Reference.MODNAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSION, modid = Reference.MODID, canBeDeactivated = false, dependencies = Reference.DEPENDENCIES)
 public class Main {
 
 	@Instance
@@ -28,6 +29,7 @@ public class Main {
 		
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		ModHelper.validateCodeBase(Reference.CODEBASE, Reference.MINIMUM_BUILD, Reference.MODID);
 		ModRegistry.registerMod(Reference.MODID, Reference.VERSION, Reference.INTERNAL_UPDATE_URL, Reference.UPDATE_URL);
 		proxy.preInit(event);
 		log.println("Pre-Initialization finished.");
