@@ -13,7 +13,7 @@ public class Reference {
 	
 	//increase when adding new features
 	//set to 0 when MAJOR version increases
-	private static final int MINOR = 1;
+	private static final int MINOR = 2;
 	
 	//increase when fixing bugs;
 	//set to 0 when MINOR version increases
@@ -21,7 +21,7 @@ public class Reference {
 	
 	//increase every time code is changed and pushed to GitHub;
 	//never decrease
-	private static final int BUILD = 1;
+	private static final int BUILD = 2;
 	
 	//current version of CraftDev-Core codebase version when releasing this mod
 	//must be equal or the coremod won't allow Forge to launch successfully!

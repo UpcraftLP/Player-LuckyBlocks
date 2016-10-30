@@ -22,7 +22,7 @@ public class EventItemDrop implements IEventProvider {
 	@Override
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		for(ItemStack stack : this.drops) {
-			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+			EntityItem item = new EntityItem(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, stack);
 			item.setDefaultPickupDelay();
 			world.spawnEntityInWorld(item);
 		}

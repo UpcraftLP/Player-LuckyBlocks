@@ -16,8 +16,11 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,6 +30,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,6 +47,24 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	}
 	
 	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+		NBTTagCompound nbt = new NBTTagCompound();
+		if(stack.hasTagCompound()) nbt = stack.getTagCompound();
+		int luck = 0;
+		if(nbt.hasKey(KEY_LUCK)) {
+			luck = nbt.getInteger(KEY_LUCK);
+		}
+		else {
+			nbt.setInteger(KEY_LUCK, luck);
+			stack.setTagCompound(nbt);
+		}
+		TextFormatting textformatting = TextFormatting.GOLD;
+		if(luck < -50) textformatting = TextFormatting.RED;
+		if(luck > 50) textformatting = TextFormatting.GREEN;
+		tooltip.add(TextFormatting.GRAY + "Luck: " + textformatting + luck);
+	}
+	
+	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		// TODO re-roll when using creative key!
@@ -52,16 +74,26 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if(worldIn.isRemote) return;
-		int meta = ((TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos)).getLuck();
+		if(worldIn.isRemote || player.worldObj.isRemote || player.capabilities.isCreativeMode) return;
+		TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
+		int meta = te.getLuck();
+		ItemStack stack = player.getHeldItemMainhand();
+		if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+			ItemStack dropStack = new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK);
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setInteger(KEY_LUCK, meta);
+			NBTUtil.writeGameProfile(nbt, te.getGameProfile());
+			dropStack.setTagCompound(nbt);
+			EntityItem item = new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, dropStack);
+			worldIn.spawnEntityInWorld(item);
+			return;
+		}
+		
 		EnumLuck luck = EnumLuck.rollTheDice(meta);
 		IEventProvider event = EventRegistry.getEvent(luck);
 		if(event != null) {
-			boolean flag = (!player.capabilities.isCreativeMode);
-			//HOW IT WORKS: CHECK EVERYTHING AND SET FLAG TO FALSE TO PREVENT FURTER PROCESSING
-			//TODO: Silk TOUCH HANDLING
-			//TODO: ITEMS WITH SPECIAL PROPERTIES TO PREVENT LUCKY BLOCKS FROM ACTIVATING BAD EVENTS (re-roll)!
-			if(flag) event.execute(worldIn, pos, state, player);
+			Main.getLogger().println(event.getName());
+			event.execute(worldIn, pos, state, player); 
 		}
 		else {
 			Main.getLogger().println("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");

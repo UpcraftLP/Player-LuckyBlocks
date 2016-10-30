@@ -4,14 +4,30 @@ import java.util.Arrays;
 
 import mod.upcraftlp.playerluckyblocks.API.EnumLuck;
 import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
+import mod.upcraftlp.playerluckyblocks.baseEvents.EventEnderPigZombie;
+import mod.upcraftlp.playerluckyblocks.baseEvents.EventLuckyBlockTower;
 import mod.upcraftlp.playerluckyblocks.baseEvents.EventNotFound;
+import mod.upcraftlp.playerluckyblocks.baseEvents.EventNuke;
+import mod.upcraftlp.playerluckyblocks.baseEvents.EventSwapPositions;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class LuckyEvents {
 	
 	public static void initEvents() {
+		/**NEUTRAL**/
 		EventRegistry.registerEvent(new EventNotFound(), EnumLuck.NEUTRAL);
+		EventRegistry.registerEvent(new EventLuckyBlockTower(), EnumLuck.NEUTRAL);
+		
+		/**POSTIVIE**/
+		
+		/**NEGATIVE**/
+		EventRegistry.registerEvent(new EventSwapPositions(), EnumLuck.NEGATIVE);
+		EventRegistry.registerEvent(new EventEnderPigZombie(), EnumLuck.NEGATIVE);
+		
+		/**BADASS**/
+		EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
+		
 	}
 	
 	public static void initDrops() {
