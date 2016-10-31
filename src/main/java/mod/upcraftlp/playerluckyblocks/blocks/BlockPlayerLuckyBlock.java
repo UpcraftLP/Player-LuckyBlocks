@@ -12,6 +12,7 @@ import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
 import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
+import mod.upcraftlp.playerluckyblocks.init.LuckyConfig;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -92,7 +93,14 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		EnumLuck luck = EnumLuck.rollTheDice(meta);
 		IEventProvider event = EventRegistry.getEvent(luck);
 		if(event != null) {
-			Main.getLogger().println(event.getName());
+			//TODO DEBUG
+			if(LuckyConfig.isDebugMode()) {
+				Main.getLogger().println(event.getName());
+				Main.getLogger().println(worldIn.toString());
+				Main.getLogger().println(pos.toString());
+				Main.getLogger().println(state.toString());
+				Main.getLogger().println(player.toString());
+			}
 			event.execute(worldIn, pos, state, player); 
 		}
 		else {

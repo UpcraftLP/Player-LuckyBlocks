@@ -19,7 +19,7 @@ public class LuckyConfig {
 		config.save();
 	}
 	
-	public static boolean debugMode() {
+	public static boolean isDebugMode() {
 		return enableDebug;
 	}
 	
