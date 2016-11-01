@@ -19,6 +19,7 @@ public class EventItemDrop implements IEventProvider {
 		this.drops = toDrop;
 		this.name = dropsName;
 	}
+	
 	@Override
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		for(ItemStack stack : this.drops) {
@@ -28,6 +29,7 @@ public class EventItemDrop implements IEventProvider {
 			world.spawnEntityInWorld(item);
 		}
 	}
+	
 	@Override
 	public String getName() {
 		return "EventDropItem_" + this.name;
