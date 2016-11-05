@@ -21,6 +21,7 @@ public class ItemTeleportStaff extends Item {
 		super("teleport_staff");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(128);
+		this.setFull3D();
 	}
 	
 	@Override
