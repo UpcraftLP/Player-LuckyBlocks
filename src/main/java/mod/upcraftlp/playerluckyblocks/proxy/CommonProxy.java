@@ -4,6 +4,7 @@ import core.upcraftlp.craftdev.API.common.ModRegistry;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.crafting.LuckCrafting;
+import mod.upcraftlp.playerluckyblocks.crafting.ShapedCrafting;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import mod.upcraftlp.playerluckyblocks.init.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
@@ -32,7 +33,7 @@ public class CommonProxy {
 	
 	public void init(FMLInitializationEvent event) {
 		//TODO: Crafting!
-		//ShapedCrafting.init();
+		ShapedCrafting.init();
 		LuckCrafting.init();
 		GameRegistry.registerTileEntity(TileEntityPlayerLuckyBlock.class, Reference.MODID + "_luckyBlock");
 	}
