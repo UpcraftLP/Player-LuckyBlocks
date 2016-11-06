@@ -3,19 +3,15 @@ package mod.upcraftlp.playerluckyblocks.init;
 import core.upcraftlp.craftdev.API.common.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.events.EnderArmorHandler;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class LuckyMisc {
 
 	public static void init() {
 		MinecraftForge.EVENT_BUS.register(new EnderArmorHandler());
-		
-		OreDictionary.registerOre("ingotGold", Items.GOLD_INGOT);
 	}
 	
 	public static class ArmorMaterials {
