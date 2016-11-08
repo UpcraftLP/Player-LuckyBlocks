@@ -1,0 +1,11 @@
+{
+	"homepage": "https://minecraft.curseforge.com/projects/player-lucky-blocks",
+	"promos": {
+		"1.10.2-latest": "0.2.1",
+		"1.10.2-recommended": "0.2.1"
+	},
+	"1.10.2": {
+		"0.2.1": "* now using Forge's version System!\n* new potion effect\n*various special fruits can be dropped from lucky blocks\n"
+	}
+}
+
