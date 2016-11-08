@@ -7,11 +7,16 @@ import net.minecraft.world.World;
 
 public abstract class AbstractItemFruit extends ItemFood {
 
+	protected final String KEY;
+	
 	public AbstractItemFruit(String name) {
 		super("fruit_" + name, 3, 3.0f, false);
+		this.KEY = name;
 	}
 	
 	@Override
-	public abstract void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player);
+	public void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+		player.addTag(KEY);
+	}
 
 }

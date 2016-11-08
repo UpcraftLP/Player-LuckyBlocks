@@ -10,6 +10,7 @@ import mod.upcraftlp.playerluckyblocks.items.ItemWaterOrb;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemJetPack;
 import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitFlight;
+import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitMagic;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -23,6 +24,7 @@ public class LuckyItems {
 	
 	/**Fruits**/
 	public static Item FRUIT_FLIGHT = new ItemFruitFlight();
+	public static Item FRUIT_GIANT = new ItemFruitMagic();
 	
 	/**JetPack**/
 	public static Item JETPACK = new ItemJetPack();
@@ -42,6 +44,7 @@ public class LuckyItems {
 		
 		/**Fruits**/
 		items.add(FRUIT_FLIGHT);
+		items.add(FRUIT_GIANT);
 		
 		/**JetPack**/
 		items.add(JETPACK);
