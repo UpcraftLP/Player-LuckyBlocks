@@ -10,6 +10,7 @@ import mod.upcraftlp.playerluckyblocks.init.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc;
+import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -21,6 +22,7 @@ public class CommonProxy {
 		LuckyConfig.init(event);
 		LuckyBlocks.init();
 		LuckyItems.init();
+		LuckyPotions.init();
 		
 		//FIXME:May change, test custom itemBlocks!
 		ModRegistry.registerBlocks(LuckyBlocks.blockMap);

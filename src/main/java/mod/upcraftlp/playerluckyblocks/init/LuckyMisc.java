@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.init;
 
 import core.upcraftlp.craftdev.API.common.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
-import mod.upcraftlp.playerluckyblocks.events.EnderArmorHandler;
+import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.DamageSource;
@@ -19,6 +19,7 @@ public class LuckyMisc {
 		
 		//TODO: currently just iron stats
 		public static ArmorMaterial ENDER = ModHelper.registerArmor("ender", MODID, 15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0f);
+		public static ArmorMaterial JETPACK = ModHelper.registerArmor("jetpack", MODID, 11, new int[]{3, 6, 7, 3}, 9, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0.5f);
 		
 		/**WIP**/
 		//public static ArmorMaterial INFINITY = ModHelper.registerArmor("infinity", MODID, 30, new int[]{3, 4, 7, 3}, 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 5.0f);

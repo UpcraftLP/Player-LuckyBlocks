@@ -8,6 +8,8 @@ import java.util.Map;
 import mod.upcraftlp.playerluckyblocks.items.ItemTeleportStaff;
 import mod.upcraftlp.playerluckyblocks.items.ItemWaterOrb;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
+import mod.upcraftlp.playerluckyblocks.items.armor.ItemJetPack;
+import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitFlight;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -18,6 +20,12 @@ public class LuckyItems {
 	
 	public static Item WATER_ORB = new ItemWaterOrb();
 	public static Item TELEPORT_STAFF = new ItemTeleportStaff();
+	
+	/**Fruits**/
+	public static Item FRUIT_FLIGHT = new ItemFruitFlight();
+	
+	/**JetPack**/
+	public static Item JETPACK = new ItemJetPack();
 	
 	/**Ender Armor**/
 	public static Item ENDER_HELMET = new ItemEnderArmor(EntityEquipmentSlot.HEAD);
@@ -31,6 +39,12 @@ public class LuckyItems {
 		
 		items.add(WATER_ORB);
 		items.add(TELEPORT_STAFF);
+		
+		/**Fruits**/
+		items.add(FRUIT_FLIGHT);
+		
+		/**JetPack**/
+		items.add(JETPACK);
 		
 		/**Ender Armor**/
 		items.add(ENDER_HELMET);

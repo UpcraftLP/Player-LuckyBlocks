@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.events;
+package mod.upcraftlp.playerluckyblocks.event;
 
 import java.util.Arrays;
 import java.util.List;
