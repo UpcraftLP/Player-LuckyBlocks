@@ -4,8 +4,8 @@ import net.minecraftforge.common.ForgeVersion;
 
 public class Reference {
 
-	public static final String MCVERSIONS = "1.9.4,1.10.2";
-	public static final String VERSION = "0.2.2";
+	public static final String MCVERSIONS = "1.11";
+	public static final String VERSION = "0.2.3";
 	
 	/** TEAM **/
 	public static final String[] authors = {"UpcraftLP"};
