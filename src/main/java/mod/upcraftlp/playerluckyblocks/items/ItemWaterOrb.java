@@ -25,7 +25,7 @@ public class ItemWaterOrb extends Item {
 				//TODO: respiration(enchantment)-sensitive!
 				entity.setAir(MAX_AIR);
 				stack.attemptDamageItem(1, itemRand);
-				if(stack.stackSize <= 0) stack = null;
+				if(stack.func_190916_E() <= 0) stack = null; //TODO: ItemStack#getStackSize() ??
 				entity.replaceItemInInventory(itemSlot, stack);
 			}
 		}

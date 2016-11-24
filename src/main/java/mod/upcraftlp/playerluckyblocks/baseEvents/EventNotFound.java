@@ -13,7 +13,7 @@ public class EventNotFound implements IEventProvider {
 
 	@Override
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		player.addChatComponentMessage(new TextComponentString(ChatFormatting.RED + "Error 404: Event not found."));
+		player.addChatComponentMessage(new TextComponentString(ChatFormatting.RED + "Error 404: Event not found."), true); //TODO: what is this boolean?
 	}
 
 	@Override

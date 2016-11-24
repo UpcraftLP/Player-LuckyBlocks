@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -69,7 +70,7 @@ public class LuckRecipe implements IRecipe {
 		luck = MathHelper.clamp_int(luck, -100, 100);
 		nbt.setInteger(KEY_LUCK, luck);
 		output.setTagCompound(nbt);
-		output.stackSize = 1;
+		output.func_190920_e(1); //set stacksize
 		return output;
 	}
 	
@@ -100,17 +101,17 @@ public class LuckRecipe implements IRecipe {
 	}
 
 	//derived from net.minecraft.item.crafting.ShapelessRecipe
-	public ItemStack[] getRemainingItems(InventoryCrafting inv)
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
+        NonNullList<ItemStack> stacks = NonNullList.func_191196_a();
 
-        for (int i = 0; i < aitemstack.length; ++i)
+        for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
             ItemStack itemstack = inv.getStackInSlot(i);
-            aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
+            stacks.add(net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
         }
 
-        return aitemstack;
+        return stacks;
     }
 	
 }

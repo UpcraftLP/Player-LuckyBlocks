@@ -25,6 +25,39 @@ public class ItemTeleportStaff extends Item {
 	}
 	
 	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack itemStackIn = playerIn.getActiveItemStack();
+		if(!worldIn.isRemote && playerIn.isSneaking()) {
+			RayTraceResult result = playerIn.rayTrace(32, 1);
+			BlockPos pos = playerIn.getPosition();
+			switch(result.typeOfHit) {
+			case ENTITY:
+				pos = result.getBlockPos();
+				break;
+			case BLOCK:
+				pos = result.getBlockPos().offset(result.sideHit);
+				break;
+			case MISS:
+				Vec3d lookVec = playerIn.getLookVec();
+				pos = new BlockPos(playerIn.posX + lookVec.xCoord * 16.0D, playerIn.posY + lookVec.yCoord * 16.0D, playerIn.posZ + lookVec.zCoord * 16.0D);
+				break;
+			}
+			if(worldIn.isAirBlock(pos.up())) {
+				if(!playerIn.capabilities.isCreativeMode) itemStackIn.damageItem(1, playerIn);
+				worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
+				playerIn.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 0.2D, pos.getZ() + 0.5D);
+				worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+			}
+		}
+		return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+	}
+	
+	//leaving this here becuase the new method seems to be corrupt!
+	/*
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
 			EnumHand hand) {
 		if(!worldIn.isRemote && playerIn.isSneaking()) {
@@ -54,4 +87,5 @@ public class ItemTeleportStaff extends Item {
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
 	}
+	*/
 }
