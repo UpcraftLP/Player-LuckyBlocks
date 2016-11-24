@@ -43,13 +43,14 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	public static final String KEY_OWNER = "Owner";
 	
 	public BlockPlayerLuckyBlock() {
-		super("player_luckyblock", Material.CLAY);
+		super("player_luckyblock", Material.CLAY, true);
 		this.setHardness(0.6f);
 		this.setResistance(3.0f);
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+	public void func_190948_a(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+		super.func_190948_a(stack, player, tooltip, advanced);
 		NBTTagCompound nbt = new NBTTagCompound();
 		if(stack.hasTagCompound()) nbt = stack.getTagCompound();
 		int luck = 0;

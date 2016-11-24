@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
 
-version = "1.11-0.2.3"
+version = "1.11-0.3.0"
 group= "mod.upcraftlp.playerluckyblocks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "playerluckyblocks"
 
@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.11-13.19.0.2144"
+    version = "1.11-13.19.0.2157"
     if(file('../run').exists()) {
 		runDir = "../run"
 	}
@@ -42,7 +42,7 @@ minecraft {
 dependencies {
 
 	//craftdev-core
-	compile files("/libs/craftdev-core-1.11-0.2.3.jar")
+	compile files("/libs/craftdev-core-1.11-1.0.0.jar")
 
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
