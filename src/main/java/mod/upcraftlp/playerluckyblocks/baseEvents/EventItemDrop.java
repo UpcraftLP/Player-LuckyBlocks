@@ -26,7 +26,7 @@ public class EventItemDrop implements IEventProvider {
 			//use stack.copy() here or drop itemStacks will be invalid if this is called more than once per running Minecraft session!
 			EntityItem item = new EntityItem(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, stack.copy());
 			item.setDefaultPickupDelay();
-			world.spawnEntityInWorld(item);
+			world.spawnEntity(item);
 		}
 	}
 	

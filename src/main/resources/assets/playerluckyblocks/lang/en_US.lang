@@ -17,3 +17,6 @@ item.ender_feet.name=Ender Boots
 #DamageSources
 death.attack.enderDenyWater=%1$s's Ender Armor couldn't handle water
 death.attack.enderDenyWater.player=%1$s's Ender Armor couldn't handle water when trying to escape %2$s
+
+#Config
+config.playerluckyblocks.name=Player Lucky Blocks

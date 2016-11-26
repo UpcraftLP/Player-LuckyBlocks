@@ -18,12 +18,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EnderArmorHandler {
 
-	private List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.drown, DamageSource.outOfWorld, DamageSource.inWall, DamageSource.fallingBlock});
+	private List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK});
 	
 	@SubscribeEvent
 	public void onEnderHit(LivingAttackEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
-		if(!restrictedSources.contains(event.getSource()) && !entity.worldObj.isRemote && event.getAmount() < entity.getHealth() && event.getAmount() > 0) {
+		if(!restrictedSources.contains(event.getSource()) && !entity.world.isRemote && event.getAmount() < entity.getHealth() && event.getAmount() > 0) {
 			for(ItemStack stack : entity.getArmorInventoryList()) {
 				if(stack == null || !(stack.getItem() instanceof ItemEnderArmor)) return;
 			}
@@ -32,7 +32,7 @@ public class EnderArmorHandler {
 	}
 	
 	public static void randomTeleport(EntityLivingBase entity) {
-		World world = entity.worldObj;
+		World world = entity.world;
 		double d0 = entity.posX;
         double d1 = entity.posY;
         double d2 = entity.posZ;
@@ -40,7 +40,7 @@ public class EnderArmorHandler {
         for (int i = 0; i < 16; ++i)
         {
             double d3 = entity.posX + (entity.getRNG().nextDouble() - 0.5D) * 16.0D;
-            double d4 = MathHelper.clamp_double(entity.posY + (double)(entity.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
+            double d4 = MathHelper.clamp(entity.posY + (double)(entity.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
             double d5 = entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * 16.0D;
 
             if (entity.isRiding())

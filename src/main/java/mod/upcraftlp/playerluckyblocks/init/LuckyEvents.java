@@ -7,6 +7,7 @@ import java.util.List;
 import mod.upcraftlp.playerluckyblocks.API.EnumLuck;
 import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
 import mod.upcraftlp.playerluckyblocks.baseEvents.EventEnderPigZombie;
+import mod.upcraftlp.playerluckyblocks.baseEvents.EventKill;
 import mod.upcraftlp.playerluckyblocks.baseEvents.EventLuckyBlockTower;
 import mod.upcraftlp.playerluckyblocks.baseEvents.EventNotFound;
 import mod.upcraftlp.playerluckyblocks.baseEvents.EventNuke;
@@ -29,7 +30,15 @@ public class LuckyEvents {
 		EventRegistry.registerEvent(new EventEnderPigZombie(), EnumLuck.NEGATIVE);
 		
 		/**BADASS**/
-		EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
+		if(LuckyConfig.pussyMode) {
+			EventRegistry.registerEvent(new EventNotFound(), EnumLuck.BADASS);
+		}
+		else
+		{
+			EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
+			EventRegistry.registerEvent(new EventKill(), EnumLuck.BADASS);
+		}
+		
 		
 	}
 	

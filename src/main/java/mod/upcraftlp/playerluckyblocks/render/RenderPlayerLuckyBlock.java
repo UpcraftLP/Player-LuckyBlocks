@@ -28,7 +28,7 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 			int destroyStage) {
 		GameProfile profile = te.getGameProfile();
 		Minecraft mc = Minecraft.getMinecraft();
-		if(profile == null) profile = mc.thePlayer.getGameProfile();
+		if(profile == null) profile = mc.player.getGameProfile();
 		
 		SkinManager manager = mc.getSkinManager();
 		Map<Type, MinecraftProfileTexture> skinmap = manager.loadSkinFromCache(profile);

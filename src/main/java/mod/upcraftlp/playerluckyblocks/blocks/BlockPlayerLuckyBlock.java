@@ -49,8 +49,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	}
 	
 	@Override
-	public void func_190948_a(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-		super.func_190948_a(stack, player, tooltip, advanced);
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
 		NBTTagCompound nbt = new NBTTagCompound();
 		if(stack.hasTagCompound()) nbt = stack.getTagCompound();
 		int luck = 0;
@@ -76,7 +75,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if(worldIn.isRemote || player.worldObj.isRemote || player.capabilities.isCreativeMode) return;
+		if(worldIn.isRemote || player.capabilities.isCreativeMode) return;
 		TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
 		int meta = te.getLuck();
 		ItemStack stack = player.getHeldItemMainhand();
@@ -87,7 +86,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 			NBTUtil.writeGameProfile(nbt, te.getGameProfile());
 			dropStack.setTagCompound(nbt);
 			EntityItem item = new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, dropStack);
-			worldIn.spawnEntityInWorld(item);
+			worldIn.spawnEntity(item);
 			return;
 		}
 		

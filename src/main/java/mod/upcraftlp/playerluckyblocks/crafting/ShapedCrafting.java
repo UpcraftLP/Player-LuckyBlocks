@@ -14,7 +14,7 @@ public class ShapedCrafting {
 	public static void init() {
 		
 		//Player Lucky Block
-		NonNullList<ItemStack> skulls = NonNullList.func_191196_a();
+		NonNullList<ItemStack> skulls = NonNullList.create();
 		Items.SKULL.getSubItems(Items.SKULL, null, skulls);
 		for(ItemStack stack : skulls) {
 			crafting.addRecipe(new ShapedOreRecipe(LuckyBlocks.PLAYER_LUCKYBLOCK, "ggg", "ghg", "ggg", 'g', "ingotGold", 'h', stack));

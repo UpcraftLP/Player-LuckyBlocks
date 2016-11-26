@@ -29,7 +29,7 @@ public class EventSwapPositions implements IEventProvider {
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (player.isRiding()) player.dismountRidingEntity();
 		if(FMLCommonHandler.instance().getMinecraftServerInstance().getCurrentPlayerCount() > 1) {
-			List<EntityPlayerMP> playerList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerList();
+			List<EntityPlayerMP> playerList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers();
 			EntityPlayer player2 = playerList.get(random.nextInt(playerList.size()));
 			if (player2.isRiding()) player2.dismountRidingEntity();
 			player.setPositionAndUpdate(player2.posX, player2.posY, player2.posZ);
@@ -47,7 +47,7 @@ public class EventSwapPositions implements IEventProvider {
             for (int i = 0; i < 16; ++i)
             {
             	double posX = player.posX + (player.getRNG().nextDouble() - 0.5D) * 16.0D;
-            	double posY = MathHelper.clamp_double(player.posY + (double)(player.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
+            	double posY = MathHelper.clamp(player.posY + (double)(player.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
                 double posZ = player.posZ + (player.getRNG().nextDouble() - 0.5D) * 16.0D;
 
                 if (player.attemptTeleport(posX, posY, posZ))

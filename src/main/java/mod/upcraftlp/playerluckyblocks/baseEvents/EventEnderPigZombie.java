@@ -32,7 +32,7 @@ public class EventEnderPigZombie implements IEventProvider {
 		pigZombie.forceSpawn = true;
 		pigZombie.setCustomNameTag("Ender Bob");
 		pigZombie.enablePersistence();
-		world.spawnEntityInWorld(pigZombie);
+		world.spawnEntity(pigZombie);
 	}
 
 }

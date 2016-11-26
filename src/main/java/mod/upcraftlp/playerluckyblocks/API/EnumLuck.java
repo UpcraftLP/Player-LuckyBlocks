@@ -25,7 +25,7 @@ public enum EnumLuck implements IStringSerializable {
 	
 	public static EnumLuck rollTheDice(int luck)
 	{
-		luck = MathHelper.clamp_int(luck, -100, 100);
+		luck = MathHelper.clamp(luck, -100, 100);
 		//REAL BAD LUCK
 		if(luck <= -90) return BADASS;
 		

@@ -20,7 +20,7 @@ public class EventLuckyBlockTower implements IEventProvider {
 		for(int i = 0; i < 5; i++) {
 			EntityFallingBlock block = new EntityFallingBlock(world, pos.getX(), pos.getY() + 10 + 2*i, pos.getZ(), LuckyBlocks.PLAYER_LUCKYBLOCK.getDefaultState());
 			block.fallTime = 10;
-			world.spawnEntityInWorld(block);
+			world.spawnEntity(block);
 		}
 	}
 

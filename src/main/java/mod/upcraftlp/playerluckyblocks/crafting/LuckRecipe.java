@@ -67,10 +67,10 @@ public class LuckRecipe implements IRecipe {
 		}
 		int luck = nbt.getInteger(KEY_LUCK);
 		luck += getLuckForItems(inputItems);
-		luck = MathHelper.clamp_int(luck, -100, 100);
+		luck = MathHelper.clamp(luck, -100, 100);
 		nbt.setInteger(KEY_LUCK, luck);
 		output.setTagCompound(nbt);
-		output.func_190920_e(1); //set stacksize
+		output.setCount(1);
 		return output;
 	}
 	
@@ -103,7 +103,7 @@ public class LuckRecipe implements IRecipe {
 	//derived from net.minecraft.item.crafting.ShapelessRecipe
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        NonNullList<ItemStack> stacks = NonNullList.func_191196_a();
+        NonNullList<ItemStack> stacks = NonNullList.create();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {

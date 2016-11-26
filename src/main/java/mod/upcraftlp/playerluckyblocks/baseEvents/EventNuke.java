@@ -22,13 +22,15 @@ public class EventNuke implements IEventProvider {
 
 	@Override
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		player.addChatComponentMessage(new TextComponentString(TextFormatting.DARK_PURPLE + "May death rain upon them!"), true); //TODO: what is this boolean?
+		player.sendStatusMessage(new TextComponentString(TextFormatting.DARK_PURPLE + "May death rain upon them!"), false);
 		for(int i = random.nextInt(20); i > 0; i--) {
 			EntityTNTPrimed tnt = new EntityTNTPrimed(world, pos.getX() + 0.5D, pos.getY() + 10 + random.nextInt(3), pos.getZ() + 0.5D, null);
 			tnt.addVelocity(-0.5D, 0, -0.5D);
 			tnt.addVelocity(random.nextDouble(), 0, random.nextDouble());
-			tnt.setFuse(20);
-			world.spawnEntityInWorld(tnt);
+			tnt.setFuse(40);
+			tnt.setGlowing(true); //fancy
+			tnt.forceSpawn = true;
+			world.spawnEntity(tnt);
 		}
 	}
 
