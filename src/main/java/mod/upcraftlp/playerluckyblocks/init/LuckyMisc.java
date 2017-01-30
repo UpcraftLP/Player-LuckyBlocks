@@ -2,21 +2,13 @@ package mod.upcraftlp.playerluckyblocks.init;
 
 import core.upcraftlp.craftdev.API.common.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
-import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
-import mod.upcraftlp.playerluckyblocks.event.PotionHandler;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.DamageSource;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class LuckyMisc {
-
-	public static void init() {
-		MinecraftForge.EVENT_BUS.register(new EnderArmorHandler());
-		MinecraftForge.EVENT_BUS.register(new PotionHandler());
-	}
 	
 	public static class ArmorMaterials {
 		private static final String MODID = Reference.MODID;

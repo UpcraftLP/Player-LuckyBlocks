@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.baseEvents;
+package mod.upcraftlp.playerluckyblocks.baseevents;
 
 import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;

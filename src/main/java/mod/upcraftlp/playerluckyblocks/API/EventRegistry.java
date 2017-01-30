@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import mod.upcraftlp.playerluckyblocks.Main;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventItemDrop;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventItemDrop;
 import net.minecraft.item.ItemStack;
 
 public class EventRegistry {

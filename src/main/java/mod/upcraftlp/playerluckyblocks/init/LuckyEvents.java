@@ -6,12 +6,13 @@ import java.util.List;
 
 import mod.upcraftlp.playerluckyblocks.API.EnumLuck;
 import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventEnderPigZombie;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventKill;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventLuckyBlockTower;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventNotFound;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventNuke;
-import mod.upcraftlp.playerluckyblocks.baseEvents.EventSwapPositions;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventDizzyPotion;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventEnderPigZombie;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventKill;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventLuckyBlockTower;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventNotFound;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventNuke;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventSwapPositions;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,7 @@ public class LuckyEvents {
 		/**NEGATIVE**/
 		EventRegistry.registerEvent(new EventSwapPositions(), EnumLuck.NEGATIVE);
 		EventRegistry.registerEvent(new EventEnderPigZombie(), EnumLuck.NEGATIVE);
+		EventRegistry.registerEvent(new EventDizzyPotion(), EnumLuck.NEGATIVE);
 		
 		/**BADASS**/
 		if(LuckyConfig.pussyMode) {

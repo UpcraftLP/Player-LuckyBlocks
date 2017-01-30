@@ -18,30 +18,29 @@ import net.minecraft.item.Item;
 
 public class LuckyItems {
 
-	public static Map<Item, CreativeTabs> itemMap;
+	public static Map<Item, CreativeTabs> itemMap = new HashMap<Item, CreativeTabs>();;
 	
 	/**Misc**/
-	public static Item WATER_ORB = new ItemWaterOrb();
-	public static Item TELEPORT_STAFF = new ItemTeleportStaff();
+	public static final Item WATER_ORB = new ItemWaterOrb();
+	public static final Item TELEPORT_STAFF = new ItemTeleportStaff();
 	
 	/**Fruits**/
-	public static Item FRUIT_FLIGHT = new ItemFruitFlight();
-	public static Item FRUIT_GIANT = new ItemFruitMagic();
+	public static final Item FRUIT_FLIGHT = new ItemFruitFlight();
+	public static final Item FRUIT_GIANT = new ItemFruitMagic();
 	
 	/**JetPack**/
-	public static Item JETPACK = new ItemJetPack();
+	public static final Item JETPACK = new ItemJetPack();
 	
 	/**Ender Armor**/
-	public static Item ENDER_HELMET = new ItemEnderArmor(EntityEquipmentSlot.HEAD);
-	public static Item ENDER_CHESTPLATE = new ItemEnderArmor(EntityEquipmentSlot.CHEST);
-	public static Item ENDER_LEGGINGS = new ItemEnderArmor(EntityEquipmentSlot.LEGS);
-	public static Item ENDER_BOOTS = new ItemEnderArmor(EntityEquipmentSlot.FEET);
+	public static final Item ENDER_HELMET = new ItemEnderArmor(EntityEquipmentSlot.HEAD);
+	public static final Item ENDER_CHESTPLATE = new ItemEnderArmor(EntityEquipmentSlot.CHEST);
+	public static final Item ENDER_LEGGINGS = new ItemEnderArmor(EntityEquipmentSlot.LEGS);
+	public static final Item ENDER_BOOTS = new ItemEnderArmor(EntityEquipmentSlot.FEET);
 	
 	/**Swords**/
-	public static Item ADMIN_ARK = new ItemAdminArk();
+	public static final Item ADMIN_ARK = new ItemAdminArk();
 	
 	public static void init() {
-		itemMap = new HashMap<Item, CreativeTabs>();
 		List<Item> items = new ArrayList<Item>();
 		
 		/**Misc**/

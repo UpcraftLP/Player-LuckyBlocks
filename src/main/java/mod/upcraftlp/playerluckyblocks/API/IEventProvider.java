@@ -18,7 +18,6 @@ public interface IEventProvider {
 
 	/**
 	 * Executes the Event.
-	 * Player is never null
 	 * 
 	 * @param world
 	 * @param pos

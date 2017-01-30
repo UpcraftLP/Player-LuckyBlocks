@@ -9,7 +9,6 @@ import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import mod.upcraftlp.playerluckyblocks.init.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
-import mod.upcraftlp.playerluckyblocks.init.LuckyMisc;
 import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -30,10 +29,12 @@ public class CommonProxy {
 		
 		LuckyEvents.initEvents();
 		LuckyEvents.initDrops();
-		LuckyMisc.init();
 	}
 	
 	public void init(FMLInitializationEvent event) {
+		LuckyItems.itemMap = null;
+		LuckyBlocks.blockMap = null;
+		System.gc();
 		//TODO: Crafting!
 		ShapedCrafting.init();
 		LuckCrafting.init();

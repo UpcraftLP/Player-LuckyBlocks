@@ -14,14 +14,16 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@EventBusSubscriber
 public class EnderArmorHandler {
 
-	private List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK});
+	private static final List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK});
 	
 	@SubscribeEvent
-	public void onEnderHit(LivingAttackEvent event) {
+	public static void onEnderHit(LivingAttackEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		if(!restrictedSources.contains(event.getSource()) && !entity.world.isRemote && event.getAmount() < entity.getHealth() && event.getAmount() > 0) {
 			for(ItemStack stack : entity.getArmorInventoryList()) {

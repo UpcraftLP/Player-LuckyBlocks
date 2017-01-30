@@ -14,12 +14,11 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class LuckyBlocks {
 
-	public static Map<Block, CreativeTabs> blockMap;
+	public static Map<Block, CreativeTabs> blockMap = new HashMap<Block, CreativeTabs>();
 	
-	public static Block PLAYER_LUCKYBLOCK = new BlockPlayerLuckyBlock();
+	public static final Block PLAYER_LUCKYBLOCK = new BlockPlayerLuckyBlock();
 	
 	public static void init() {
-		blockMap = new HashMap<Block, CreativeTabs>();
 		List<Block> blocks = new ArrayList<Block>();
 		blocks.add(PLAYER_LUCKYBLOCK);
 		for (Block block : blocks) {
