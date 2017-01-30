@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-    	"layer0": "playerluckyblocks:items/water_orb"
-    }
-}
