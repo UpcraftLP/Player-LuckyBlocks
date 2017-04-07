@@ -31,6 +31,7 @@ public class EventEnderPigZombie implements IEventProvider {
 		pigZombie.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(LuckyItems.ENDER_BOOTS));
 		pigZombie.forceSpawn = true;
 		pigZombie.setCustomNameTag("Ender Bob");
+		pigZombie.setAlwaysRenderNameTag(true);
 		pigZombie.enablePersistence();
 		world.spawnEntity(pigZombie);
 	}
