@@ -11,8 +11,9 @@ import net.minecraft.world.World;
 
 public class ItemEnderArmor extends ItemArmor {
 
-	public ItemEnderArmor(EntityEquipmentSlot equipmentSlot) {
-		super("ender", ArmorMaterials.ENDER, equipmentSlot);
+    private static int number_of_invocations = 2;
+	public ItemEnderArmor() {
+		super("ender", ArmorMaterials.ENDER, EntityEquipmentSlot.values()[number_of_invocations++]);
 	}
 	
 	@Override

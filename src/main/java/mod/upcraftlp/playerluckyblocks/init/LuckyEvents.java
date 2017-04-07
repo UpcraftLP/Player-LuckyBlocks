@@ -16,9 +16,18 @@ import mod.upcraftlp.playerluckyblocks.baseevents.EventSwapPositions;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class LuckyEvents {
 	
+    /**
+     * helper method for instantiating event handlers that extend {@link core.upcraftlp.craftdev.API.util.EventHandler}
+     * @param side
+     */
+    public static void initHandlers(Side side) {
+
+    }
+    
 	public static void initEvents() {
 		/**NEUTRAL**/
 		EventRegistry.registerEvent(new EventNotFound(), EnumLuck.NEUTRAL);

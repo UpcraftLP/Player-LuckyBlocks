@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import core.upcraftlp.craftdev.API.common.ModHelper;
+import core.upcraftlp.craftdev.API.util.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.ConfigElement;

@@ -1,8 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.proxy;
 
-import core.upcraftlp.craftdev.API.common.ModRegistry;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
-import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -14,9 +12,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		LuckyBlocks.registerRenders();
-		ModRegistry.registerBlockRenders(LuckyBlocks.blockMap);
-		ModRegistry.registerItemRenders(LuckyItems.itemMap);
+		LuckyBlocks.registerSpecialRenders();
 		LuckyTabs.setIcons();
 		//FIXME Check for offline player and enable troll events!
 		/**mcmod.info**/
