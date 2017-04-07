@@ -1,7 +1,7 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import core.upcraftlp.craftdev.API.client.ClientHandler;
 import core.upcraftlp.craftdev.API.templates.Item;
+import core.upcraftlp.craftdev.API.world.WorldHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 
 public class ItemTeleportStaff extends Item {
 
+    public static final double MAX_TELEPORT_DISTANCE = 32.0D;
+    
 	public ItemTeleportStaff() {
 		super("teleport_staff");
 		this.setMaxStackSize(1);
@@ -26,9 +28,9 @@ public class ItemTeleportStaff extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		ItemStack itemStackIn = playerIn.getActiveItemStack();
+		ItemStack itemStackIn = playerIn.getHeldItem(hand);
 		if(!worldIn.isRemote && playerIn.isSneaking()) {
-			RayTraceResult result = playerIn.rayTrace(32, 1);
+			RayTraceResult result = playerIn.rayTrace(MAX_TELEPORT_DISTANCE, 1);
 			BlockPos pos = playerIn.getPosition();
 			switch(result.typeOfHit) {
 			case ENTITY:
@@ -38,54 +40,26 @@ public class ItemTeleportStaff extends Item {
 				pos = result.getBlockPos().offset(result.sideHit);
 				break;
 			case MISS:
+			default:
 				Vec3d lookVec = playerIn.getLookVec();
-				pos = new BlockPos(playerIn.posX + lookVec.xCoord * 16.0D, playerIn.posY + lookVec.yCoord * 16.0D, playerIn.posZ + lookVec.zCoord * 16.0D);
+				pos = new BlockPos(playerIn.posX + lookVec.xCoord * MAX_TELEPORT_DISTANCE, playerIn.posY + lookVec.yCoord * MAX_TELEPORT_DISTANCE, playerIn.posZ + lookVec.zCoord * MAX_TELEPORT_DISTANCE);
 				break;
 			}
 			if(worldIn.isAirBlock(pos.up())) {
-				if(!playerIn.capabilities.isCreativeMode) itemStackIn.damageItem(1, playerIn);
+				itemStackIn.damageItem(1, playerIn);
 				worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
+				for(int i = 0; i < 70; i++) {
+				    WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, true, playerIn.posX, playerIn.posY, playerIn.posZ, 0.05D, 0.05D, 0.05D);
+				}
 				playerIn.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 0.2D, pos.getZ() + 0.5D);
+				playerIn.fallDistance = 0.0f;
 				worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
+				for(int i = 0; i < 70; i++) {
+                    WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, true, playerIn.posX, playerIn.posY, playerIn.posZ, 0.05D, 0.05D, 0.05D);
+                }
 				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
 			}
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
 	}
-	
-	//leaving this here becuase the new method seems to be corrupt!
-	/*
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
-			EnumHand hand) {
-		if(!worldIn.isRemote && playerIn.isSneaking()) {
-			RayTraceResult result = playerIn.rayTrace(32, 1);
-			BlockPos pos = playerIn.playerLocation;
-			switch(result.typeOfHit) {
-			case ENTITY:
-				pos = result.getBlockPos();
-				break;
-			case BLOCK:
-				pos = result.getBlockPos().offset(result.sideHit);
-				break;
-			case MISS:
-				Vec3d lookVec = playerIn.getLookVec();
-				pos = new BlockPos(playerIn.posX + lookVec.xCoord * 16.0D, playerIn.posY + lookVec.yCoord * 16.0D, playerIn.posZ + lookVec.zCoord * 16.0D);
-				break;
-			}
-			if(worldIn.isAirBlock(pos.up())) {
-				if(!playerIn.capabilities.isCreativeMode) itemStackIn.damageItem(1, playerIn);
-				worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
-				playerIn.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 0.2D, pos.getZ() + 0.5D);
-				worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-				ClientHandler.spawnParticles(EnumParticleTypes.PORTAL, worldIn, true, playerIn.getPosition(), 70, 0.7D);
-				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
-			}
-		}
-		return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
-	}
-	*/
 }
