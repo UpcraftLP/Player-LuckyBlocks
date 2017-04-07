@@ -58,6 +58,7 @@ public class EventSwapPositions implements IEventProvider {
 		    if (EnderArmorHandler.randomTeleport(player, 32))
             {
 		        player.sendMessage(new TextComponentTranslation("message.lucky.whoosh"));
+		        player.setHealth(MathHelper.clamp(player.getHealth() * random.nextFloat(), 0.5f, player.getMaxHealth()));
             }
 		}
 		
