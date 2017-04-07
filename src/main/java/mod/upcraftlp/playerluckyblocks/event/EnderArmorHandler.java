@@ -4,13 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import core.upcraftlp.craftdev.API.world.WorldHelper;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -25,41 +28,55 @@ public class EnderArmorHandler {
 	@SubscribeEvent
 	public static void onEnderHit(LivingAttackEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
+		if(entity.getEntityWorld().isRemote) return;
 		if(!restrictedSources.contains(event.getSource()) && event.getAmount() < entity.getHealth() && event.getAmount() > 0) {
 			for(ItemStack stack : entity.getArmorInventoryList()) {
-				if(stack == null || !(stack.getItem() instanceof ItemEnderArmor)) return;
+				if(stack.isEmpty() || !(stack.getItem() instanceof ItemEnderArmor)) return;
 			}
-			randomTeleport(entity);
+			randomTeleport(entity, 16.0D);
 		}
 	}
 	
-	public static void randomTeleport(EntityLivingBase entity) {
+	public static boolean randomTeleport(EntityLivingBase entity, double radius) {
 		World world = entity.getEntityWorld();
-		if(world.isRemote) return;
+		if(world.isRemote) return false;
 		Random rand = entity.getRNG();
-		double d0 = entity.posX;
-        double d1 = entity.posY;
-        double d2 = entity.posZ;
-
-        for (int i = 0; i < 16; ++i)
-        {
-            double d3 = entity.posX + (rand.nextDouble() - 0.5D) * 16.0D;
-            double d5 = entity.posZ + (rand.nextDouble() - 0.5D) * 16.0D;
-            //double d4 = MathHelper.clamp(entity.posY + (double)(rand.nextInt(16) - 8), 0.0D, (double)(world.getTopSolidOrLiquidBlock(new BlockPos(d3, world.getActualHeight(), d5)).getY() + 1));
-            double d4 = MathHelper.clamp(entity.posY + (double)(entity.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
-            
+		double originX = entity.posX;
+		double originY = entity.posY;
+		double originZ = entity.posZ;
+		
+		double d1,d2,d3;
+		d1 = d2 = d3 = 0;
+		
+		boolean foundPos = false;
+        BlockPos targetPos = entity.getPosition();
+		for(int i = 0; i < 64 && !foundPos; i++) { //max 64 attempts to not cause lag
+		    d1 = originX + (rand.nextDouble() - 0.5D) * radius;
+		    d2 = MathHelper.clamp(originY + (rand.nextDouble() - 0.5D) * radius, 0.0D, world.getActualHeight() - 1);
+		    d3 = originZ + (rand.nextDouble() - 0.5D) * radius;
+		    
+		    targetPos = new BlockPos(d1, d2, d3);
+		    if(!world.isBlockLoaded(targetPos)) continue;
+		    foundPos = world.getBlockState(targetPos.down()).getMaterial().blocksMovement() && world.isAirBlock(targetPos) && world.isAirBlock(targetPos.up());
+		}
+        if(foundPos) {
             entity.dismountRidingEntity();
             entity.removePassengers();
-            if (entity.attemptTeleport(d3, d4, d5))
-            {
-                if(entity instanceof EntityPlayerMP) {
-                    ((EntityPlayerMP) entity).connection.setPlayerLocation(d3, d4, d5, entity.rotationYaw, entity.rotationPitch);
-                }
-                //hearing the teleport sound twice if too close to the origin point is intentional!
-                world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, entity.getSoundCategory(), rand.nextFloat() * 0.4f + 0.6f, rand.nextFloat()); //origin pos
-                entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, rand.nextFloat() * 0.4f + 0.6f, rand.nextFloat()); //new pos
-                break;
+            entity.setPositionAndUpdate(targetPos.getX() + 0.5D, targetPos.getY(), targetPos.getZ() + 0.5D);
+            entity.fallDistance = 0.0f;
+            if(entity instanceof EntityCreature) {
+                ((EntityCreature) entity).getNavigator().clearPathEntity();
+            }
+            world.playSound(null, originX, originY, originZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, entity.getSoundCategory(), 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
+            entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
+            for(int i = 0; i < 70; i++) {
+                WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, true, d1, d2, d3, getRandom(rand), (rand.nextDouble() - 0.5D) * 0.5D, getRandom(rand));
             }
         }
+        return foundPos;
+	}
+	
+	public static double getRandom(Random random) {
+	    return random.nextDouble() * 2 * (random.nextInt(2) * 2 - 1);
 	}
 }

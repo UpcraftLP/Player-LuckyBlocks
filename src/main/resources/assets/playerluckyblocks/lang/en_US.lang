@@ -20,3 +20,6 @@ death.attack.enderDenyWater.player=%1$s's Ender Armor couldn't handle water when
 
 #Config
 config.playerluckyblocks.name=Player Lucky Blocks
+
+#Messages
+message.lucky.whoosh=Whooosh!

@@ -19,7 +19,7 @@ public class ItemEnderArmor extends ItemArmor {
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		if(player.isInWater()) {
 			player.attackEntityFrom(DamageSources.enderDenyWater, 8.0f);
-			if(!player.isDead) EnderArmorHandler.randomTeleport(player);
+			if(!player.isDead) EnderArmorHandler.randomTeleport(player, 64);
 			return;
 		}
 		if(player.isWet()) {
