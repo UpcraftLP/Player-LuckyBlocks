@@ -7,6 +7,7 @@ import java.util.Random;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -19,8 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber
 public class EnderArmorHandler {
 
-	private static final List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK});
-	private static final Random rand = new Random();
+	private static final List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK, DamageSource.FALL, DamageSource.FLY_INTO_WALL});
 	
 	@SubscribeEvent
 	public static void onEnderHit(LivingAttackEvent event) {
@@ -36,19 +36,25 @@ public class EnderArmorHandler {
 	public static void randomTeleport(EntityLivingBase entity) {
 		World world = entity.getEntityWorld();
 		if(world.isRemote) return;
+		Random rand = entity.getRNG();
 		double d0 = entity.posX;
         double d1 = entity.posY;
         double d2 = entity.posZ;
 
         for (int i = 0; i < 16; ++i)
         {
-            double d3 = entity.posX + (entity.getRNG().nextDouble() - 0.5D) * 16.0D;
+            double d3 = entity.posX + (rand.nextDouble() - 0.5D) * 16.0D;
+            double d5 = entity.posZ + (rand.nextDouble() - 0.5D) * 16.0D;
+            //double d4 = MathHelper.clamp(entity.posY + (double)(rand.nextInt(16) - 8), 0.0D, (double)(world.getTopSolidOrLiquidBlock(new BlockPos(d3, world.getActualHeight(), d5)).getY() + 1));
             double d4 = MathHelper.clamp(entity.posY + (double)(entity.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
-            double d5 = entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * 16.0D;
+            
             entity.dismountRidingEntity();
             entity.removePassengers();
             if (entity.attemptTeleport(d3, d4, d5))
             {
+                if(entity instanceof EntityPlayerMP) {
+                    ((EntityPlayerMP) entity).connection.setPlayerLocation(d3, d4, d5, entity.rotationYaw, entity.rotationPitch);
+                }
                 //hearing the teleport sound twice if too close to the origin point is intentional!
                 world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, entity.getSoundCategory(), rand.nextFloat() * 0.4f + 0.6f, rand.nextFloat()); //origin pos
                 entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, rand.nextFloat() * 0.4f + 0.6f, rand.nextFloat()); //new pos
