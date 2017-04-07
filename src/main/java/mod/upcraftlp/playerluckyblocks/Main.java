@@ -1,6 +1,7 @@
 package mod.upcraftlp.playerluckyblocks;
 
-import core.upcraftlp.craftdev.API.common.ModLogger;
+import core.upcraftlp.craftdev.API.util.Loggers;
+import core.upcraftlp.craftdev.API.util.Loggers.ModLogger;
 import mod.upcraftlp.playerluckyblocks.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -16,7 +17,7 @@ public class Main {
 	@Instance
 	public static Main instance;
 	
-	private static ModLogger log = new ModLogger(Reference.MODID);
+	private static ModLogger log = Loggers.get(Reference.MODID);
 	
 	public static ModLogger getLogger() {
 		return log;

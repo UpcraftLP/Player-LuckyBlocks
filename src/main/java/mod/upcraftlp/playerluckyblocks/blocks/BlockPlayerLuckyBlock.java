@@ -46,6 +46,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		super("player_luckyblock", Material.CLAY, true);
 		this.setHardness(0.6f);
 		this.setResistance(3.0f);
+		this.setTickRandomly(false);
 	}
 	
 	@Override
@@ -73,11 +74,13 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY);
 	}
 	
+	
+	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if(worldIn.isRemote || player.capabilities.isCreativeMode) return;
 		TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
-		int meta = te.getLuck();
+        int meta = te.getLuck();
 		ItemStack stack = player.getHeldItemMainhand();
 		if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
 			ItemStack dropStack = new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK);
@@ -89,25 +92,25 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 			worldIn.spawnEntity(item);
 			return;
 		}
-		
-		EnumLuck luck = EnumLuck.rollTheDice(meta);
-		IEventProvider event = EventRegistry.getEvent(luck);
-		if(event != null) {
-			//TODO DEBUG
-			if(LuckyConfig.isDebugMode()) {
-				Main.getLogger().println(event.getName());
-				Main.getLogger().println(worldIn.toString());
-				Main.getLogger().println(pos.toString());
-				Main.getLogger().println(state.toString());
-				Main.getLogger().println(player.toString());
-			}
-			event.execute(worldIn, pos, state, player); 
-		}
 		else {
-			Main.getLogger().println("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");
+		    EnumLuck luck = EnumLuck.rollTheDice(meta);
+	        IEventProvider event = EventRegistry.getEvent(luck);
+	        if(event != null) {
+	            //TODO DEBUG
+	            if(LuckyConfig.isDebugMode()) {
+	                Main.getLogger().println(event.getName());
+	                Main.getLogger().println(worldIn.toString());
+	                Main.getLogger().println(pos.toString());
+	                Main.getLogger().println(state.toString());
+	                Main.getLogger().println(player.toString());
+	            }
+	            event.execute(worldIn, pos, state, player);
+	        }
+	        else {
+	            Main.getLogger().println("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");
+	        }
 		}
 	}
-	
 	
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
@@ -154,7 +157,10 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 			else if(placer instanceof EntityPlayer) {
 				gp = ((EntityPlayer) placer).getGameProfile();
 			}
-			else gp = new GameProfile(null, "Notch");
+			else {
+			    gp = new GameProfile(null, "Notch");
+			    Main.getLogger().errFatal(placer.getDisplayName() + " placed a lucky block and has no game profile!");
+			}
 			te.setGameProfile(gp, true);
 			te.setLuck(nbt.getInteger(KEY_LUCK));
 		}

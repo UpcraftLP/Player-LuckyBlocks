@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class TileEntityPlayerLuckyBlock extends TileEntity {
 	
@@ -22,7 +23,7 @@ public class TileEntityPlayerLuckyBlock extends TileEntity {
 		}
 		else
 		{
-			this.profile = Minecraft.getMinecraft().getSessionService().fillProfileProperties(profile, false);
+		    FMLCommonHandler.instance().getMinecraftServerInstance().getMinecraftSessionService().fillProfileProperties(profile, false);
 		}
 		if(markDirty) this.markDirty();
 	}

@@ -10,19 +10,18 @@ import net.minecraft.world.World;
 public interface IEventProvider {
 	
 	/**
-	 * The name of the Event
-	 * @return
+	 * @return the name of the event
 	 */
 	@Nonnull
 	public String getName();
 
 	/**
-	 * Executes the Event.
+	 * executes the event.
 	 * 
-	 * @param world
-	 * @param pos
-	 * @param state
-	 * @param player
+	 * @param world		the world
+	 * @param pos		the block's position
+	 * @param state		the current blockstate
+	 * @param player	the player who opened the block
 	 */
 	public void execute(World world, BlockPos pos, IBlockState state, @Nonnull EntityPlayer player);
 	
