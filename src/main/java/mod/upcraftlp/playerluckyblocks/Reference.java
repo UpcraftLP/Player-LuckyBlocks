@@ -2,7 +2,6 @@ package mod.upcraftlp.playerluckyblocks;
 
 import java.time.Year;
 
-import mod.upcraftlp.playerluckyblocks.config.LuckyConfigGuiFactory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 
@@ -25,6 +24,6 @@ public class Reference {
     public static final String CLIENTSIDE_PATH = "mod.upcraftlp." + MODID + ".proxy.ClientProxy";
     public static final String SERVERSIDE_PATH = "mod.upcraftlp." + MODID + ".proxy.ServerProxy";
     public static final String ID_PREFIX = MODID + ":";
-    public static final String GUI_FACTORY = LuckyConfigGuiFactory.class.getName();
+    public static final String GUI_FACTORY = "mod.upcraftlp.playerluckyblocks.config.LuckyConfigGuiFactory";
 
 }
