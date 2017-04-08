@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.init;
+package mod.upcraftlp.playerluckyblocks.config;
 
 import java.util.Set;
 

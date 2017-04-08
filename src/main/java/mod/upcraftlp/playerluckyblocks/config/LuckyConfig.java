@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.init;
+package mod.upcraftlp.playerluckyblocks.config;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class LuckyConfig {
 
 	public static Configuration config;
