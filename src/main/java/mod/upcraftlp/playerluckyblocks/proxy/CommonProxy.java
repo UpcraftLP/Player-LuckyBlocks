@@ -2,9 +2,9 @@ package mod.upcraftlp.playerluckyblocks.proxy;
 
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
+import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.crafting.LuckCrafting;
 import mod.upcraftlp.playerluckyblocks.crafting.ShapedCrafting;
-import mod.upcraftlp.playerluckyblocks.init.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

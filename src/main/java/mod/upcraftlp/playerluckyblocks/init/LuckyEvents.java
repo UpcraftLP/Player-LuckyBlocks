@@ -13,6 +13,7 @@ import mod.upcraftlp.playerluckyblocks.baseevents.EventLuckyBlockTower;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventNotFound;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventNuke;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventSwapPositions;
+import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

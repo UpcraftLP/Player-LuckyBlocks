@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import core.upcraftlp.craftdev.API.world.WorldHelper;
+import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import net.minecraft.entity.EntityCreature;
@@ -20,7 +21,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class EnderArmorHandler {
 
 	private static final List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK, DamageSource.FALL, DamageSource.FLY_INTO_WALL});

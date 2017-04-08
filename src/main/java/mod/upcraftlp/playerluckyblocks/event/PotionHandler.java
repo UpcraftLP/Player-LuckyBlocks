@@ -5,13 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = Reference.MODID)
 public class PotionHandler {
 
 private static final Random RANDOM = new Random();
