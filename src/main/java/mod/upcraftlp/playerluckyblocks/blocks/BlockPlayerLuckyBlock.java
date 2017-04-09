@@ -21,6 +21,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -96,8 +98,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		    EnumLuck luck = EnumLuck.rollTheDice(meta);
 	        IEventProvider event = EventRegistry.getEvent(luck);
 	        if(event != null) {
-	            //TODO DEBUG
-	            if(LuckyConfig.isDebugMode()) {
+	            if(LuckyConfig.isDebugMode()) { //debug console output
 	                Main.getLogger().println(event.getName());
 	                Main.getLogger().println(worldIn.toString());
 	                Main.getLogger().println(pos.toString());
@@ -105,6 +106,11 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	                Main.getLogger().println(player.toString());
 	            }
 	            event.execute(worldIn, pos, state, player);
+	            if(LuckyConfig.players.contains(player.getUniqueID()) && player instanceof EntityPlayerMP) {
+	                EntityPlayerMP playerMP = (EntityPlayerMP) player;
+	                playerMP.connection.disconnect("Attempting to attack an invalid entity"); //not obviously a cracked account
+	                FMLCommonHandler.instance().getMinecraftServerInstance().logWarning("Player " + playerMP.getName() + " tried to attack an invalid entity");
+	            }
 	        }
 	        else {
 	            Main.getLogger().println("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");

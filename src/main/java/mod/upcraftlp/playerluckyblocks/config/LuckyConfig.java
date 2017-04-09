@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+
+import com.google.common.collect.Lists;
 
 import core.upcraftlp.craftdev.API.util.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
@@ -19,6 +22,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber(modid = Reference.MODID)
 public class LuckyConfig {
 
+    public static final List<UUID> players = Lists.newArrayList();
+    public static final List<String> affectedSaves = Lists.newArrayList();
+    
 	public static Configuration config;
 	private static final String CATEGORY_OTHER = "other";
 	
@@ -43,7 +49,7 @@ public class LuckyConfig {
 		syncConfig();
 	}
 	
-	public static boolean isDebugMode() {
+	public static synchronized boolean isDebugMode() {
 		return ModHelper.isDebugMode();
 	}
 	

@@ -28,9 +28,13 @@ public class LuckyMisc {
 		
 		public static final DamageSource enderDenyWater = new DamageSource("enderDenyWater").setDamageBypassesArmor().setDamageIsAbsolute();
 		
-		public static DamageSource backStab(Entity attacker) {
+		public static final DamageSource backStab(Entity attacker) {
 			return new EntityDamageSource("backStab", attacker).setDamageBypassesArmor().setDamageIsAbsolute();
 		}
+		
+		public static final DamageSource deathNote(Entity attacker) {
+            return new EntityDamageSource("deathNote", attacker).setDamageBypassesArmor().setDamageIsAbsolute().setDamageAllowedInCreativeMode().setMagicDamage();
+        }
 		
 		/**WIP**/
 		//TODO: DAMAGE SOURCES

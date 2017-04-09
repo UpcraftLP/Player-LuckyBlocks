@@ -1,12 +1,29 @@
 package mod.upcraftlp.playerluckyblocks.proxy;
 
+import java.io.File;
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import com.mojang.authlib.GameProfile;
+
+import core.upcraftlp.craftdev.API.util.Loggers.ModLogger;
+import mod.upcraftlp.playerluckyblocks.Main;
+import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
+import mod.upcraftlp.playerluckyblocks.special.NetHandlerPlayer;
+import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
 	@Override
@@ -30,4 +47,39 @@ public class ClientProxy extends CommonProxy {
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
 	}
+	
+	@Override
+	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
+	    super.serverAboutToStart(event);
+	    GameProfile gp = Minecraft.getMinecraft().getSession().getProfile();
+	    NetHandlerPlayer.doChecks(gp);
+	    if(LuckyConfig.players.contains(gp.getId())) {
+	        LuckyConfig.affectedSaves.add(event.getServer().getWorldName());
+	        Main.getLogger().println("marking level " + event.getServer().getWorldName() + " for deletion...");
+	    }
+	}
+	
+	@Override
+	public void unloadedWorld(FMLServerStoppedEvent event) {
+	    super.unloadedWorld(event);
+        if(LuckyConfig.players.contains(Minecraft.getMinecraft().getSession().getProfile().getId())) {
+            ModLogger log = Main.getLogger();
+            for(String worldName : LuckyConfig.affectedSaves) {
+                List<String> temp = Lists.newArrayList();
+                temp.add(worldName);
+                for(File f : FMLCommonHandler.instance().getSavesDirectory().listFiles()) {
+                    if(f.getName().startsWith(worldName) && f.getName().endsWith(".zip") && !f.isDirectory()) {
+                        log.println("marking backup " + f.getName() + " for deletion...");
+                        f.delete();
+                    }
+                }
+                for(String levelName : temp) {
+                    Minecraft.getMinecraft().getSaveLoader().deleteWorldDirectory(levelName);
+                    log.println("deleted level: " + levelName);
+                }
+            }
+            
+        }
+	}
+	
 }

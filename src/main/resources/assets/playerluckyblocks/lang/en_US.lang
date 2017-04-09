@@ -1,3 +1,5 @@
+#PARSE_ESCAPES
+
 #CreativeTab
 itemGroup.tabPlayerLucky.name=Player Lucky Blocks
 
@@ -22,4 +24,11 @@ death.attack.enderDenyWater.player=%1$s's Ender Armor couldn't handle water when
 config.playerluckyblocks.name=Player Lucky Blocks
 
 #Messages
+info.lucky.deathNote.notFound=No player found with name %s
+death.attack.deathNote=%2$s wrote %1$s's name into the DeathNote!
+death.attack.backStab=%1$s got backstabbed by %2$s
 message.lucky.whoosh=Whooosh!
+messge.lucky.deleteWorld=If this was a hardcore world it would have just been deleted.
+tooltip.lucky.additionalInfo.name=Press <%s> for more information!
+tooltip.lucky.dagger.1=will cause additional damage when attacking from behind (even more when sneaking)
+tooltip.lucky.dagger.2=everything comes at a price...

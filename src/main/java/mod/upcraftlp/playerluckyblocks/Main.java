@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
 @Mod(name = Reference.MODNAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSIONS, modid = Reference.MODID, canBeDeactivated = false, dependencies = Reference.DEPENDENCIES, updateJSON = Reference.UPDATE_JSON, guiFactory = Reference.GUI_FACTORY)
 public class Main {
@@ -43,5 +45,14 @@ public class Main {
         proxy.postInit(event);
         log.println("Post-Initialization finished.");
     }
-
+    
+    @EventHandler
+    public void onWorldLoad(FMLServerAboutToStartEvent event) {
+        proxy.serverAboutToStart(event);
+    }
+    
+    @EventHandler
+    public void onWorldEnd(FMLServerStoppedEvent event) {
+        proxy.unloadedWorld(event);
+    }
 }

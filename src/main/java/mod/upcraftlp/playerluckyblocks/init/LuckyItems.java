@@ -2,6 +2,7 @@ package mod.upcraftlp.playerluckyblocks.init;
 
 import mod.upcraftlp.playerluckyblocks.items.ItemAdminArk;
 import mod.upcraftlp.playerluckyblocks.items.ItemDagger;
+import mod.upcraftlp.playerluckyblocks.items.ItemDeathNote;
 import mod.upcraftlp.playerluckyblocks.items.ItemTeleportStaff;
 import mod.upcraftlp.playerluckyblocks.items.ItemWaterOrb;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
@@ -16,6 +17,7 @@ public class LuckyItems {
 	/**Misc**/
 	public static final Item WATER_ORB = new ItemWaterOrb();
 	public static final Item TELEPORT_STAFF = new ItemTeleportStaff();
+	public static final Item DEATH_NOTE = new ItemDeathNote();
 	
 	/**Fruits**/
 	public static final Item FRUIT_FLIGHT = new ItemFruitFlight();
