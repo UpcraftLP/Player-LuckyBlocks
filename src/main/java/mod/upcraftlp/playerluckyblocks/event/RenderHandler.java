@@ -19,19 +19,15 @@ public class RenderHandler {
         EntityLivingBase entity = event.getEntity();
         if(entity.isSneaking() && (entity.getHeldItemMainhand().getItem() == LuckyItems.DAGGER || entity.getHeldItemOffhand().getItem() == LuckyItems.DAGGER)) {
             event.setCanceled(true);
-            GlStateManager.pushAttrib();
             GlStateManager.pushMatrix();
-            //TODO: OpenGL shader overlay
-        }
-        
-    }
-    
-    @SubscribeEvent
-    public static void afterRenderDagger(RenderLivingEvent.Post<EntityLivingBase> event) {
-        EntityLivingBase entity = event.getEntity();
-        if(entity.isSneaking() && (entity.getHeldItemMainhand().getItem() == LuckyItems.DAGGER || entity.getHeldItemOffhand().getItem() == LuckyItems.DAGGER)) {
-            GlStateManager.popMatrix();
+            GlStateManager.pushAttrib();
+            GlStateManager.disableLighting();
+          //TODO: OpenGL shader overlay
+            
+            GlStateManager.enableLighting();
             GlStateManager.popAttrib();
+            GlStateManager.popMatrix();
+            
         }
     }
 }
