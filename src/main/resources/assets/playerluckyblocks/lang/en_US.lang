@@ -24,6 +24,7 @@ death.attack.enderDenyWater.player=%1$s's Ender Armor couldn't handle water when
 config.playerluckyblocks.name=Player Lucky Blocks
 
 #Messages
+info.lucky.NodragonFollow=There's already a dragon following you!
 info.lucky.deathNote.notFound=No player found with name %s
 death.attack.deathNote=%2$s wrote %1$s's name into the DeathNote!
 death.attack.backStab=%1$s got backstabbed by %2$s
