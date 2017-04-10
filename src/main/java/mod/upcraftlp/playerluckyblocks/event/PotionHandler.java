@@ -24,7 +24,7 @@ private static final Random RANDOM = new Random();
     };
 	
 	@SubscribeEvent
-	public static void dizzyPotionColor(PotionColorCalculationEvent event) {
+	public static void setPotionColor(PotionColorCalculationEvent event) {
 		Iterator<PotionEffect> i = event.getEffects().iterator();
 		while(i.hasNext()) {
 			PotionEffect effect = i.next();
