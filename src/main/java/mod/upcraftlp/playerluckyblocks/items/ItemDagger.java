@@ -79,7 +79,17 @@ public class ItemDagger extends ItemSword {
     public ImmutableMap<String, ITimeValue> getAnimationParameters(ItemStack stack, World world,
             EntityLivingBase entity) {
         // TODO stabbing animation
+	    //or maybe not...
         return super.getAnimationParameters(stack, world, entity);
     }
+	
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	    if(isSelected && !worldIn.isRemote && entityIn.isSneaking() && entityIn instanceof EntityPlayer && worldIn.getTotalWorldTime() % 30 == 0) {
+	        EntityPlayer player = (EntityPlayer) entityIn;
+	        stack.damageItem(1, player);
+	        player.inventory.setInventorySlotContents(itemSlot, stack);
+	    }
+	}
 
 }
