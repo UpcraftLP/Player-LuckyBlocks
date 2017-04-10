@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
+import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,7 +26,7 @@ public class FlightHandler {
         UUID uuid = player.getUniqueID();
         boolean isNotCreative = !player.capabilities.isCreativeMode;
         if(flightPlayers.contains(uuid)) {
-            if(player.inventory.armorInventory.get(2).getItem() != LuckyItems.JETPACK) {
+            if(!isFlightPlayer(player)) {
                 flightPlayers.remove(player.getUniqueID());
                 if(isNotCreative) {
                     player.capabilities.allowFlying = false;
@@ -38,6 +39,15 @@ public class FlightHandler {
                 player.sendPlayerAbilities();
             }
         }
+    }
+    
+    /**
+     * determine if a player meets at least one of the specified conditions to fly
+     */
+    private static boolean isFlightPlayer(EntityPlayerMP player) {
+        return 
+                player.isPotionActive(LuckyPotions.FLIGHT) ||
+                player.inventory.armorInventory.get(2).getItem() == LuckyItems.JETPACK;
     }
     
 }

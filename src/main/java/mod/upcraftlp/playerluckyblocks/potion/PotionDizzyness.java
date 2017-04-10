@@ -1,11 +1,11 @@
 package mod.upcraftlp.playerluckyblocks.potion;
 
-import core.upcraftlp.craftdev.API.templates.Potion;
+import mod.upcraftlp.playerluckyblocks.potion.core.LuckyPotion;
 
-public class PotionDizzyness extends Potion {
+public class PotionDizzyness extends LuckyPotion {
 
-	public PotionDizzyness() {
-		super("dizzyness", true, 0xffffffaa);
+	public PotionDizzyness(int textureOffset) {
+		super("dizzyness", true, 0xffffffaa, textureOffset);
 	}
 	
 }

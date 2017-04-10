@@ -2,6 +2,7 @@ package mod.upcraftlp.playerluckyblocks;
 
 import java.time.Year;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 
@@ -25,5 +26,19 @@ public class Reference {
     public static final String SERVERSIDE_PATH = "mod.upcraftlp." + MODID + ".proxy.ServerProxy";
     public static final String ID_PREFIX = MODID + ":";
     public static final String GUI_FACTORY = "mod.upcraftlp.playerluckyblocks.config.LuckyConfigGuiFactory";
-
+    public static final ResourceLocation POTION_ICON = new ResourceLocation(MODID, "textures/gui/potions.png");
+    
+    /**
+     * get the texture offsets for a 32x32 texture on a 256x256 texture sheet<br/>
+     * <b>Potions:</b><br/>
+     * Flight:      0<br/>
+     * Dizzyness:   1<br/>
+     * Giant:       2<br/>
+     */
+    public static int[] getTextureOffset(int index) {
+        int rowOffset = (index / 8) * 32;
+        int columnOffset = (index % 8) * 32;
+        return new int[]{rowOffset, rowOffset + 16, columnOffset, columnOffset + 16};
+    }
+    
 }

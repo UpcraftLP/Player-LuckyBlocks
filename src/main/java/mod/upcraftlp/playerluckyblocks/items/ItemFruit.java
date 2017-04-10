@@ -1,6 +1,9 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
+import java.util.List;
+
 import core.upcraftlp.craftdev.API.templates.ItemFood;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -10,6 +13,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class ItemFruit extends ItemFood {
@@ -91,6 +95,11 @@ public class ItemFruit extends ItemFood {
         for(int i = 0; i < 16; i++) {
             subItems.add(new ItemStack(this, 1, i));
         }
+    }
+    
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        tooltip.add(TextFormatting.GRAY + I18n.format("tooltip.lucky.devilsfruit"));
     }
     
 }
