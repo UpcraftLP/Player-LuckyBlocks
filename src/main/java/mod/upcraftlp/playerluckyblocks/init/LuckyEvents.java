@@ -68,6 +68,7 @@ public class LuckyEvents {
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.DEATH_NOTE)), "deathNote", POSITIVE);
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.LIGHTNING_BOLT, 8)), "zeus", POSITIVE);
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.SHADOW_DAGGER, 2)), "assassin", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BOOSTER)), "assassin", NEUTRAL);
 		
 		/**Vanilla Stuff**/
 		//rare drops (ores, ingots, etc.)

@@ -33,3 +33,4 @@ messge.lucky.deleteWorld=If this was a hardcore world it would have just been de
 tooltip.lucky.additionalInfo.name=Press <%s> for more information!
 tooltip.lucky.dagger.1=will cause additional damage when attacking from behind (even more when sneaking)
 tooltip.lucky.dagger.2=everything comes at a price...
+tooltip.lucky.booster=Handle with care!

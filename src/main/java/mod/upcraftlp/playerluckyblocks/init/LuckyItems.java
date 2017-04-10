@@ -26,7 +26,7 @@ public class LuckyItems {
 	public static final Item TELEPORT_STAFF = new ItemTeleportStaff();
 	public static final Item DEATH_NOTE = new ItemDeathNote();
 	public static final Item LIGHTNING_BOLT = new ItemLightningBolt();
-	public static final Item BOOSTER = new ItemBooster(); //missing
+	public static final Item BOOSTER = new ItemBooster();
 	
 	/**Fruits**/
 	public static final Item FRUIT_FLIGHT = new ItemFruitFlight(); //missing, unfinished
