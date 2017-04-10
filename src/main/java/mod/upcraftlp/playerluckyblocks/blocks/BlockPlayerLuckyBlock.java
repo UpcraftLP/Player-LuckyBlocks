@@ -76,8 +76,6 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY);
 	}
 	
-	
-	
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if(worldIn.isRemote || player.capabilities.isCreativeMode) return;
