@@ -25,7 +25,7 @@ import net.minecraftforge.common.animation.ITimeValue;
 public class ItemDagger extends ItemSword {
 
 	public ItemDagger() {
-		super("dagger", ToolMaterial.IRON);
+		super("shadow_dagger", ToolMaterial.IRON);
 		this.setMaxDamage(100);
 	}
 	
