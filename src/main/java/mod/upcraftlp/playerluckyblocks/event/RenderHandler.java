@@ -22,7 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @EventBusSubscriber(modid = Reference.MODID, value = {Side.CLIENT})
 public class RenderHandler {
 
-    //TODO clean up render logic
     private static FloatBuffer colorBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer();
     
     @SubscribeEvent
