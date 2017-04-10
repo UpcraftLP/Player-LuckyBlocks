@@ -8,7 +8,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ColorItemFruit implements IItemColor {
 
-    private static final int[] fruit_colors = {};
+    private static final int[] fruit_colors = {
+            0x9acd32, //flight
+            0xfecdca, //dizzyness
+            0x2fc38b //giant
+    };
     
     @Override
     public int getColorFromItemstack(ItemStack stack, int tintIndex) {
