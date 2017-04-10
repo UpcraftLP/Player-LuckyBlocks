@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.init;
 
 import mod.upcraftlp.playerluckyblocks.blocks.BlockPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
-import mod.upcraftlp.playerluckyblocks.render.RenderPlayerLuckyBlock;
+import mod.upcraftlp.playerluckyblocks.render.tile.RenderPlayerLuckyBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 

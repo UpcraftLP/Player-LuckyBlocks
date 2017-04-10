@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.render;
+package mod.upcraftlp.playerluckyblocks.render.tile;
 
 import java.util.Map;
 
