@@ -1,8 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.event;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import mod.upcraftlp.playerluckyblocks.Reference;
@@ -17,21 +15,21 @@ public class PotionHandler {
 
 private static final Random RANDOM = new Random();
 	
-	private static final List<String> rainbowColors = Arrays.asList(new String[] {
-			"a51488",
-			"32d01e",
-			"595c71",
-			"1eaac2",
-			"c3c30e"
-	});
+    private static final int[] rainbowColors = {
+            0xa51488,
+            0x32d01e,
+            0x595c71,
+            0x1eaac2,
+            0xc3c30e
+    };
 	
 	@SubscribeEvent
-	public static void onDizzyPotion(PotionColorCalculationEvent event) {
+	public static void dizzyPotionColor(PotionColorCalculationEvent event) {
 		Iterator<PotionEffect> i = event.getEffects().iterator();
 		while(i.hasNext()) {
 			PotionEffect effect = i.next();
-			if(effect.getPotion().equals(LuckyPotions.DIZZYNESS)) {
-				int color = Integer.parseUnsignedInt(rainbowColors.get(RANDOM.nextInt(rainbowColors.size())), 16);
+			if(effect.getPotion() == LuckyPotions.DIZZYNESS) {
+				int color = rainbowColors[RANDOM.nextInt(rainbowColors.length)];
 				event.setColor(color);
 			}
 		}
