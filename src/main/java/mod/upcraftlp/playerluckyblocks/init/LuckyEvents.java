@@ -10,10 +10,10 @@ import mod.upcraftlp.playerluckyblocks.baseevents.EventDizzyPotion;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventEnderPigZombie;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventKill;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventLuckyBlockTower;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventMiniDragon;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventNotFound;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventNuke;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventSwapPositions;
-import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -35,6 +35,7 @@ public class LuckyEvents {
 		EventRegistry.registerEvent(new EventLuckyBlockTower(), EnumLuck.NEUTRAL);
 		
 		/**POSTIVIE**/
+		EventRegistry.registerEvent(new EventMiniDragon(), EnumLuck.POSITIVE);
 		
 		/**NEGATIVE**/
 		EventRegistry.registerEvent(new EventSwapPositions(), EnumLuck.NEGATIVE);
@@ -42,16 +43,8 @@ public class LuckyEvents {
 		EventRegistry.registerEvent(new EventDizzyPotion(), EnumLuck.NEGATIVE);
 		
 		/**BADASS**/
-		if(LuckyConfig.pussyMode) {
-			EventRegistry.registerEvent(new EventNotFound(), EnumLuck.BADASS);
-		}
-		else
-		{
-			EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
-			EventRegistry.registerEvent(new EventKill(), EnumLuck.BADASS);
-		}
-		
-		
+		EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
+        EventRegistry.registerEvent(new EventKill(), EnumLuck.BADASS);
 	}
 	
 	public static void initDrops() {

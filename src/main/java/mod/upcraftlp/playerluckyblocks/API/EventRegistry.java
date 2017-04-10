@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventItemDrop;
+import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import net.minecraft.item.ItemStack;
 
 public class EventRegistry {
@@ -40,6 +41,7 @@ public class EventRegistry {
 	
 	@Nullable
 	public static IEventProvider getEvent(EnumLuck luck) {
+	    if(luck == EnumLuck.BADASS && LuckyConfig.pussyMode) luck = EnumLuck.NEGATIVE;
 		List<IEventProvider> list = getListFromLuck(luck);
 		if(list.isEmpty()) return null;
 		return list.get(RANDOM.nextInt(list.size()));

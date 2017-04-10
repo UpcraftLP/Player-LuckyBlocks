@@ -2,6 +2,7 @@ package mod.upcraftlp.playerluckyblocks.API;
 
 import java.util.Random;
 
+import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.MathHelper;
 
@@ -27,7 +28,7 @@ public enum EnumLuck implements IStringSerializable {
 	{
 		luck = MathHelper.clamp(luck, -100, 100);
 		//REAL BAD LUCK
-		if(luck <= -90) return BADASS;
+		if(luck <= -90) return LuckyConfig.pussyMode ? NEGATIVE : BADASS;
 		
 		//BAD LUCK
 		if(luck > -90 && luck < 0)
