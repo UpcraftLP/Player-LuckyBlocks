@@ -32,7 +32,6 @@ public class EventFruitChest implements IEventProvider {
         LuckyItems.DEVILS_FRUIT.getSubItems(LuckyItems.DEVILS_FRUIT, null, fruits);
         for(int i = 0; i < RANDOM.nextInt(5); i++) {
             ItemStack stack = fruits.get(RANDOM.nextInt(fruits.size()));
-            stack.setCount(1 + RANDOM.nextInt(4));
             chestTile.setInventorySlotContents(RANDOM.nextInt(chestTile.getSizeInventory()), stack);
         }
         

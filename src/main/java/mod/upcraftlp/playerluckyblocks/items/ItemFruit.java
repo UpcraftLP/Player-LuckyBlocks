@@ -9,17 +9,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 public class ItemFruit extends ItemFood {
 
+    public static final String KEY_FRUIT_MODEL = "model";
+    
 	public ItemFruit() {
 		super("devils_fruit", 3, 3.0f, false);
+		this.setMaxStackSize(1);
 	}
 	
 	@Override
@@ -100,6 +105,24 @@ public class ItemFruit extends ItemFood {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         tooltip.add(TextFormatting.GRAY + I18n.format("tooltip.lucky.devilsfruit"));
+    }
+    
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        if(!stack.hasTagCompound()) nbt = new NBTTagCompound();
+        nbt.setInteger(KEY_FRUIT_MODEL, itemRand.nextInt(16));
+        stack.setTagCompound(nbt);
+        return super.initCapabilities(stack, nbt);
+    }
+    
+    @Override
+    public boolean getHasSubtypes() {
+        return true;
+    }
+    
+    @Override
+    public boolean getShareTag() {
+        return false;
     }
     
 }
