@@ -11,12 +11,19 @@ public abstract class AbstractItemFruit extends ItemFood {
 	
 	public AbstractItemFruit(String name) {
 		super("fruit_" + name, 3, 3.0f, false);
-		this.KEY = name;
+		this.KEY = "fruit_" + name;
 	}
 	
 	@Override
-	public void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-		player.addTag(KEY);
+	public final void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+		super.onFoodEaten(stack, worldIn, player);
+	    player.addTag(KEY);
+		this.fruitEffect(stack, worldIn, player);
 	}
+
+	/**
+	 * method called in a fruit's {@link net.minecraft.item.ItemFood#onFoodEaten()} method to allow for customization
+	 */
+    public void fruitEffect(ItemStack stack, World worldIn, EntityPlayer player) {}
 
 }

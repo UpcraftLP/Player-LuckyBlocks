@@ -26,4 +26,5 @@ public class ItemJetPack extends ItemArmor {
 	    }
 	    if(player.capabilities.isFlying && world.getTotalWorldTime() % 20 == 0) itemStack.damageItem(1, player); 
 	}
+	
 }
