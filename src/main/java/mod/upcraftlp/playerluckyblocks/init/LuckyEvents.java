@@ -1,10 +1,12 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.BADASS;
+import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.NEGATIVE;
+import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.NEUTRAL;
+import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.POSITIVE;
 
-import mod.upcraftlp.playerluckyblocks.API.EnumLuck;
+import com.google.common.collect.Lists;
+
 import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventDizzyPotion;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventEnderPigZombie;
@@ -31,20 +33,20 @@ public class LuckyEvents {
     
 	public static void initEvents() {
 		/**NEUTRAL**/
-		EventRegistry.registerEvent(new EventNotFound(), EnumLuck.NEUTRAL);
-		EventRegistry.registerEvent(new EventLuckyBlockTower(), EnumLuck.NEUTRAL);
+		EventRegistry.registerEvent(new EventNotFound(), NEUTRAL);
+		EventRegistry.registerEvent(new EventLuckyBlockTower(), NEUTRAL);
 		
 		/**POSTIVIE**/
-		EventRegistry.registerEvent(new EventMiniDragon(), EnumLuck.POSITIVE);
+		EventRegistry.registerEvent(new EventMiniDragon(), POSITIVE);
 		
 		/**NEGATIVE**/
-		EventRegistry.registerEvent(new EventSwapPositions(), EnumLuck.NEGATIVE);
-		EventRegistry.registerEvent(new EventEnderPigZombie(), EnumLuck.NEGATIVE);
-		EventRegistry.registerEvent(new EventDizzyPotion(), EnumLuck.NEGATIVE);
+		EventRegistry.registerEvent(new EventSwapPositions(), NEGATIVE);
+		EventRegistry.registerEvent(new EventEnderPigZombie(), NEGATIVE);
+		EventRegistry.registerEvent(new EventDizzyPotion(), NEGATIVE);
 		
 		/**BADASS**/
-		EventRegistry.registerEvent(new EventNuke(), EnumLuck.BADASS);
-        EventRegistry.registerEvent(new EventKill(), EnumLuck.BADASS);
+		EventRegistry.registerEvent(new EventNuke(), BADASS);
+        EventRegistry.registerEvent(new EventKill(), BADASS);
 	}
 	
 	public static void initDrops() {
@@ -52,66 +54,71 @@ public class LuckyEvents {
 		
 		/**Player Lucky Blocks**/
 		//Misc
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.TELEPORT_STAFF)}), "teleport_staff", EnumLuck.POSITIVE);
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.WATER_ORB)}), "water_orb", EnumLuck.NEUTRAL);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.TELEPORT_STAFF)), "teleport_staff", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.WATER_ORB)), "water_orb", NEUTRAL);
 		
 		//Ender Armor
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.ENDER_HELMET)}), "ender_helmet", EnumLuck.NEUTRAL);
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.ENDER_CHESTPLATE)}), "ender_chestplate", EnumLuck.POSITIVE);
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.ENDER_LEGGINGS)}), "ender_leggings", EnumLuck.NEUTRAL);
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(LuckyItems.ENDER_BOOTS)}), "ender_boots", EnumLuck.POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_HELMET)), "ender_helmet", NEUTRAL);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_CHESTPLATE)), "ender_chestplate", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_LEGGINGS)), "ender_leggings", NEUTRAL);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_BOOTS)), "ender_boots", POSITIVE);
 		
+		//Misc
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.JETPACK)), "jetpack", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.DEATH_NOTE)), "deathNote", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.LIGHTNING_BOLT, 8)), "zeus", POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.SHADOW_DAGGER, 2)), "assassin", POSITIVE);
 		
 		/**Vanilla Stuff**/
 		//rare drops (ores, ingots, etc.)
-		EventRegistry.registerDrop(Arrays.asList(new ItemStack[] {new ItemStack(Blocks.DIAMOND_BLOCK, 2)}), "diamond_block", EnumLuck.POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(Blocks.DIAMOND_BLOCK, 2)), "diamond_block", POSITIVE);
 		
 		//Redstone Engineer
-		List<ItemStack> rs_engineer = new ArrayList<ItemStack>();
-		rs_engineer.add(new ItemStack(Items.REDSTONE, 64));
-		rs_engineer.add(new ItemStack(Items.REDSTONE, 64));
-		rs_engineer.add(new ItemStack(Blocks.PISTON, 16));
-		rs_engineer.add(new ItemStack(Blocks.STICKY_PISTON, 32));
-		rs_engineer.add(new ItemStack(Blocks.SLIME_BLOCK, 3));
-		rs_engineer.add(new ItemStack(Blocks.DAYLIGHT_DETECTOR, 8));
-		rs_engineer.add(new ItemStack(Blocks.REDSTONE_BLOCK, 4));
-		rs_engineer.add(new ItemStack(Blocks.REDSTONE_LAMP, 16));
-		rs_engineer.add(new ItemStack(Blocks.REDSTONE_TORCH, 20));
-		rs_engineer.add(new ItemStack(Blocks.LEVER, 8));
-		rs_engineer.add(new ItemStack(Blocks.WOODEN_BUTTON, 3));
-		rs_engineer.add(new ItemStack(Blocks.STONE_BUTTON, 3));
-		rs_engineer.add(new ItemStack(Blocks.DROPPER, 10));
-		rs_engineer.add(new ItemStack(Blocks.DISPENSER, 4));
-		rs_engineer.add(new ItemStack(Blocks.TNT, 16));
-		EventRegistry.registerDrop(rs_engineer, "rs_engineer", EnumLuck.NEUTRAL);
+		EventRegistry.registerDrop(Lists.newArrayList(
+                new ItemStack(Items.REDSTONE, 64),
+                new ItemStack(Items.REDSTONE, 64),
+                new ItemStack(Blocks.PISTON, 16),
+                new ItemStack(Blocks.STICKY_PISTON, 32),
+                new ItemStack(Blocks.SLIME_BLOCK, 3),
+                new ItemStack(Blocks.DAYLIGHT_DETECTOR, 8),
+                new ItemStack(Blocks.REDSTONE_BLOCK, 4),
+                new ItemStack(Blocks.REDSTONE_LAMP, 16),
+                new ItemStack(Blocks.REDSTONE_TORCH, 20),
+                new ItemStack(Blocks.LEVER, 8),
+                new ItemStack(Blocks.WOODEN_BUTTON, 3),
+                new ItemStack(Blocks.STONE_BUTTON, 3),
+                new ItemStack(Blocks.DROPPER, 10),
+                new ItemStack(Blocks.DISPENSER, 4),
+                new ItemStack(Blocks.TNT, 16)
+		        ), "rs_engineer", NEUTRAL);
 		
 		//Demolisher
-		List<ItemStack> demolisher = new ArrayList<ItemStack>();
-		demolisher.add(new ItemStack(Blocks.REDSTONE_TORCH, 16));
-		demolisher.add(new ItemStack(Blocks.LEVER, 16));
-		demolisher.add(new ItemStack(Items.REDSTONE, 32));
-		demolisher.add(new ItemStack(Items.GUNPOWDER, 20));
-		demolisher.add(new ItemStack(Blocks.SAND, 16));
-		demolisher.add(new ItemStack(Blocks.TNT, 48));
-		EventRegistry.registerDrop(demolisher, "demolisher", EnumLuck.POSITIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(
+		        new ItemStack(Blocks.REDSTONE_TORCH, 16),
+		        new ItemStack(Blocks.LEVER, 16),
+		        new ItemStack(Items.REDSTONE, 32),
+		        new ItemStack(Items.GUNPOWDER, 20),
+		        new ItemStack(Blocks.SAND, 16),
+		        new ItemStack(Blocks.TNT, 48)
+		        ), "demolisher", POSITIVE);
 		
 		//Woodcutter
-		List<ItemStack> woodcutter = new ArrayList<ItemStack>();
-		woodcutter.add(new ItemStack(Items.IRON_AXE));
-		woodcutter.add(new ItemStack(Items.IRON_AXE));
-		woodcutter.add(new ItemStack(Items.IRON_AXE));
-		woodcutter.add(new ItemStack(Blocks.LOG, 16, 0));
-		woodcutter.add(new ItemStack(Blocks.LOG, 16, 1));
-		woodcutter.add(new ItemStack(Blocks.LOG, 16, 2));
-		woodcutter.add(new ItemStack(Blocks.LOG, 16, 3));
-		woodcutter.add(new ItemStack(Blocks.LOG2, 16, 0));
-		woodcutter.add(new ItemStack(Blocks.LOG2, 16, 1));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 0));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 1));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 2));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 3));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 4));
-		woodcutter.add(new ItemStack(Blocks.SAPLING, 32, 5));
-		EventRegistry.registerDrop(woodcutter, "woodcutter", EnumLuck.NEGATIVE);
+		EventRegistry.registerDrop(Lists.newArrayList(
+		        new ItemStack(Items.IRON_AXE),
+		        new ItemStack(Items.IRON_AXE),
+		        new ItemStack(Items.IRON_AXE),
+		        new ItemStack(Blocks.LOG, 16, 0),
+		        new ItemStack(Blocks.LOG, 16, 1),
+		        new ItemStack(Blocks.LOG, 16, 2),
+		        new ItemStack(Blocks.LOG, 16, 3),
+		        new ItemStack(Blocks.LOG2, 16, 0),
+		        new ItemStack(Blocks.LOG2, 16, 1),
+		        new ItemStack(Blocks.SAPLING, 32, 0),
+		        new ItemStack(Blocks.SAPLING, 32, 1),
+		        new ItemStack(Blocks.SAPLING, 32, 2),
+		        new ItemStack(Blocks.SAPLING, 32, 3),
+		        new ItemStack(Blocks.SAPLING, 32, 4),
+		        new ItemStack(Blocks.SAPLING, 32, 5)
+		        ), "woodcutter", NEGATIVE);
 	}
 }
