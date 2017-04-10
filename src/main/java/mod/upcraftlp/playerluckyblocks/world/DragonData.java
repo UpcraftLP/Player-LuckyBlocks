@@ -56,6 +56,10 @@ public class DragonData extends WorldSavedData {
         }
     }
     
+    public static DragonData get(EntityPlayer player) {
+        return get(player.getEntityWorld());
+    }
+    
     public static DragonData get(World world) {
         MapStorage storage = world.getMapStorage();
         DragonData instance = (DragonData) storage.getOrLoadData(DragonData.class, DATA_NAME);

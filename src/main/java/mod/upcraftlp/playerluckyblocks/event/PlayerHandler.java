@@ -8,6 +8,6 @@ public class PlayerHandler {
 
     public static void onPlayerJoined(PlayerLoggedInEvent event) {
         EntityPlayer player = event.player;
-        DragonData.get(player.world).playerJoin(player);
+        DragonData.get(player).playerJoin(player);
     }
 }
