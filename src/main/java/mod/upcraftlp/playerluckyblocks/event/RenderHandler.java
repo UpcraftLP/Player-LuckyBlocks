@@ -28,7 +28,7 @@ public class RenderHandler {
     @SubscribeEvent
     public static void onRenderDagger(RenderLivingEvent.Pre<EntityLivingBase> event) {
         EntityLivingBase entity = event.getEntity();
-        boolean holdsDagger = entity.getHeldItemMainhand().getItem() == LuckyItems.DAGGER || entity.getHeldItemOffhand().getItem() == LuckyItems.DAGGER;
+        boolean holdsDagger = entity.getHeldItemMainhand().getItem() == LuckyItems.SHADOW_DAGGER || entity.getHeldItemOffhand().getItem() == LuckyItems.SHADOW_DAGGER;
         boolean isNonPlayerOrSneaking = entity instanceof EntityPlayer ? entity.isSneaking() : true; 
         if(isNonPlayerOrSneaking && holdsDagger) {
             long x = Minecraft.getSystemTime();
