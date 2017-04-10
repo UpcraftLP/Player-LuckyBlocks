@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventDizzyPotion;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventEnderPigZombie;
+import mod.upcraftlp.playerluckyblocks.baseevents.EventFruitChest;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventKill;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventLuckyBlockTower;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventMiniDragon;
@@ -38,6 +39,7 @@ public class LuckyEvents {
 		
 		/**POSTIVIE**/
 		EventRegistry.registerEvent(new EventMiniDragon(), POSITIVE);
+		EventRegistry.registerEvent(new EventFruitChest(), POSITIVE);
 		
 		/**NEGATIVE**/
 		EventRegistry.registerEvent(new EventSwapPositions(), NEGATIVE);
@@ -68,7 +70,7 @@ public class LuckyEvents {
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.DEATH_NOTE)), "deathNote", POSITIVE);
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.LIGHTNING_BOLT, 8)), "zeus", POSITIVE);
 		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.SHADOW_DAGGER, 2)), "assassin", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BOOSTER)), "assassin", NEUTRAL);
+		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BOOSTER)), "booster", NEUTRAL);
 		
 		/**Vanilla Stuff**/
 		//rare drops (ores, ingots, etc.)

@@ -4,16 +4,12 @@ import mod.upcraftlp.playerluckyblocks.items.ItemAdminArk;
 import mod.upcraftlp.playerluckyblocks.items.ItemBooster;
 import mod.upcraftlp.playerluckyblocks.items.ItemDagger;
 import mod.upcraftlp.playerluckyblocks.items.ItemDeathNote;
+import mod.upcraftlp.playerluckyblocks.items.ItemFruit;
 import mod.upcraftlp.playerluckyblocks.items.ItemLightningBolt;
 import mod.upcraftlp.playerluckyblocks.items.ItemTeleportStaff;
 import mod.upcraftlp.playerluckyblocks.items.ItemWaterOrb;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemJetPack;
-import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitDeath;
-import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitFlight;
-import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitGiant;
-import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitMagic;
-import mod.upcraftlp.playerluckyblocks.items.fruits.ItemFruitWater;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 
@@ -27,13 +23,7 @@ public class LuckyItems {
 	public static final Item DEATH_NOTE = new ItemDeathNote();
 	public static final Item LIGHTNING_BOLT = new ItemLightningBolt();
 	public static final Item BOOSTER = new ItemBooster();
-	
-	/**Fruits**/
-	public static final Item FRUIT_FLIGHT = new ItemFruitFlight(); //missing, unfinished
-	public static final Item FRUIT_MAGIC = new ItemFruitMagic(); //missing, unfinished
-	public static final Item FRUIT_DEATH = new ItemFruitDeath(); //missing
-	public static final Item FRUIT_GIANT = new ItemFruitGiant(); //missing, unfinished
-	public static final Item FRUIT_WATER = new ItemFruitWater(); //missing
+	public static final Item DEVILS_FRUIT = new ItemFruit();
 	
 	/**JetPack**/
 	public static final Item JETPACK = new ItemJetPack();
