@@ -1,11 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.render.tile;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.util.Map;
-
-import org.lwjgl.opengl.GL11;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -26,17 +21,14 @@ import net.minecraft.util.ResourceLocation;
 public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntityPlayerLuckyBlock> {
 	
 	private final ModelHumanoidHead head = new ModelHumanoidHead();
-	private static final FloatBuffer colorBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer();
 	private ResourceLocation resourcelocation;
 	
 	@Override
 	public void renderTileEntityAt(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
 	    
-	    boolean isRenderInventory = false;
 	    if(te == null) { //check if rendering in inventory
 	        te = new TileEntityPlayerLuckyBlock();
-	        isRenderInventory = true;
 	    }
 	    Minecraft mc = Minecraft.getMinecraft();
 		GameProfile profile = te.getGameProfile();
@@ -59,14 +51,6 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 		}
 		else
 		{
-		  //FIXME: get rid of dirty render code in BakedModelWrapperCustomRenderer
-//		    if(isRenderInventory) {
-//		        GlStateManager.getFloat(GL11.GL_CURRENT_COLOR, colorBuffer); //save original color
-//		        //render cube here    
-//		        GL11.glColor3ub((byte)255, (byte)216, (byte)0);
-//		        GlStateManager.color(colorBuffer.get(), colorBuffer.get(), colorBuffer.get()); //restore color
-//		        colorBuffer.clear();
-//		    }
 			this.renderPlayerHead(x, y, z, EnumFacing.NORTH, destroyStage);
 			this.renderPlayerHead(x, y, z, EnumFacing.EAST, destroyStage);
 			this.renderPlayerHead(x, y, z, EnumFacing.SOUTH, destroyStage);

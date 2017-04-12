@@ -38,9 +38,9 @@ public class BakedModelWrapperCustomRenderer implements IBakedModel {
     }
 
     @Override
-    public boolean isBuiltInRenderer() {
+    public boolean isBuiltInRenderer() { //FIXME: get rid of dirty render code
         GlStateManager.translate(0.5F, 0.5F, 0.5F);
-        Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK), this.model); //dirtiest of all dirty ways to do this
+        Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK), this.model);
         GlStateManager.translate(-0.5F, -0.5F, -0.5F);
         return true;
     }
