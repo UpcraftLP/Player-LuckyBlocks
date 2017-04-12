@@ -9,10 +9,16 @@ import mod.upcraftlp.playerluckyblocks.special.TempNetworkHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class GuiDeathNote extends GuiScreen {
 
+//    private static final ResourceLocation BOOK_GUI_TEXTURES = new ResourceLocation("textures/gui/book.png");
+    
     private GuiTextField text;
 
     public GuiDeathNote() {
@@ -22,7 +28,11 @@ public class GuiDeathNote extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.text.drawTextBox();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+//        this.mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
+//        int i = (this.width - 192) / 2;
+//        this.drawTexturedModalRect(i, 2, 0, 0, 192, 192);
+        this.text.drawTextBox(); //TODO: book entry
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
     
