@@ -23,7 +23,8 @@ public class SoupHandler {
             EntityPlayer player = event.getEntityPlayer();
             player.heal(item.getHealAmount(stack));
             player.getFoodStats().addStats(item, stack);
-            player.setHeldItem(event.getHand(), ItemStack.EMPTY);
+            stack.shrink(1);
+            player.setHeldItem(event.getHand(), stack);
             EntityItem itemEntity = new EntityItem(event.getWorld(), player.posX, player.posY, player.posZ, new ItemStack(Items.BOWL));
             itemEntity.setDefaultPickupDelay();
             event.getWorld().spawnEntity(itemEntity);
