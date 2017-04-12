@@ -23,7 +23,6 @@ public class LuckyItems {
 	public static final Item DEATH_NOTE = new ItemDeathNote();
 	public static final Item LIGHTNING_BOLT = new ItemLightningBolt();
 	public static final Item BOOSTER = new ItemBooster();
-	public static final Item DEVILS_FRUIT = new ItemFruit();
 	
 	/**JetPack**/
 	public static final Item JETPACK = new ItemJetPack();
@@ -38,4 +37,12 @@ public class LuckyItems {
 	public static final Item ADMIN_ARK = new ItemAdminArk(); //missing, unfinished
 	public static final Item SHADOW_DAGGER = new ItemDagger();
 	
+	/**
+	 * class needed to trick resource loader to not register these items and register them manually instead
+	 */
+	public static class SpecialItems {
+	    
+	    public static final Item DEVILS_FRUIT = new ItemFruit();
+	
+	}
 }

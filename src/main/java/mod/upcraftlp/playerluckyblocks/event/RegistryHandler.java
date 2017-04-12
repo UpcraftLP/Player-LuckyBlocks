@@ -12,6 +12,7 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @EventBusSubscriber(modid = Reference.MODID)
 public class RegistryHandler {
@@ -24,6 +25,7 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event) {
         RegistryUtils.createRegistryEntries(Item.class, event, LuckyItems.class, Reference.MODID, LuckyTabs.tabPlayerLucky);
+        GameRegistry.register(LuckyItems.SpecialItems.DEVILS_FRUIT);
     }
     
     @SubscribeEvent

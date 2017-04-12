@@ -17,6 +17,11 @@ import net.minecraft.world.World;
 public class EventFruitChest implements IEventProvider {
 
     private static final Random RANDOM = new Random();
+    private static final NonNullList<ItemStack> fruits;
+    static {
+        fruits = NonNullList.create();
+        LuckyItems.SpecialItems.DEVILS_FRUIT.getSubItems(LuckyItems.SpecialItems.DEVILS_FRUIT, null, fruits);
+    }
     
     @Override
     public String getName() {
@@ -28,8 +33,7 @@ public class EventFruitChest implements IEventProvider {
         world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, player.getHorizontalFacing()));
         TileEntityChest chestTile = (TileEntityChest) world.getTileEntity(pos);
         chestTile.setCustomName("Treasure Chest");
-        NonNullList<ItemStack> fruits = NonNullList.create();
-        LuckyItems.DEVILS_FRUIT.getSubItems(LuckyItems.DEVILS_FRUIT, null, fruits);
+       
         for(int i = 0; i < RANDOM.nextInt(5); i++) {
             ItemStack stack = fruits.get(RANDOM.nextInt(fruits.size()));
             chestTile.setInventorySlotContents(RANDOM.nextInt(chestTile.getSizeInventory()), stack);

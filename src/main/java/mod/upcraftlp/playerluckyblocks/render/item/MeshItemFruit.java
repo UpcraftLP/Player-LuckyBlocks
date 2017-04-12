@@ -8,13 +8,26 @@ import net.minecraft.item.ItemStack;
 
 public class MeshItemFruit implements ItemMeshDefinition {
 
+    private static final ModelResourceLocation[] locations;
+    
+    static {
+        locations = new ModelResourceLocation[16];
+        for(int i = 0; i < 16; i++) {
+            locations[i] = new ModelResourceLocation(LuckyItems.SpecialItems.DEVILS_FRUIT.getRegistryName(), "texture=" + i);
+        }
+    }
+    
     @Override
     public ModelResourceLocation getModelLocation(ItemStack stack) {
         int model = 0;
         if(stack.hasTagCompound()) {
-            stack.getTagCompound().getInteger(ItemFruit.KEY_FRUIT_MODEL);
+            model = stack.getTagCompound().getInteger(ItemFruit.KEY_FRUIT_MODEL);
         }
-        return new ModelResourceLocation(LuckyItems.DEVILS_FRUIT.getRegistryName() + "_" + model, "inventory");
+        return locations[model];
     }
-
+    
+    public static ModelResourceLocation[] getAll() {
+        return locations;
+    }
+    
 }

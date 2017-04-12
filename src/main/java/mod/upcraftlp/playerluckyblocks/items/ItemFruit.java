@@ -1,8 +1,10 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
 import java.util.List;
+import java.util.Random;
 
 import core.upcraftlp.craftdev.API.templates.ItemFood;
+import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +22,13 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 public class ItemFruit extends ItemFood {
 
+    private static final Random rand = new Random();
     public static final String KEY_FRUIT_MODEL = "model";
     
 	public ItemFruit() {
 		super("devils_fruit", 3, 3.0f, false);
 		this.setMaxStackSize(1);
+		this.setCreativeTab(LuckyTabs.tabPlayerLucky); //need this here because the fruit is handled special
 	}
 	
 	@Override
@@ -109,8 +113,8 @@ public class ItemFruit extends ItemFood {
     
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        if(!stack.hasTagCompound()) nbt = new NBTTagCompound();
-        nbt.setInteger(KEY_FRUIT_MODEL, itemRand.nextInt(16));
+        if(nbt == null) nbt = new NBTTagCompound();
+        nbt.setInteger(KEY_FRUIT_MODEL, rand.nextInt(16));
         stack.setTagCompound(nbt);
         return super.initCapabilities(stack, nbt);
     }
