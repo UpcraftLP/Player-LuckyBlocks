@@ -18,7 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntityPlayerLuckyBlock>{
+public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntityPlayerLuckyBlock> {
 	
 	private final ModelHumanoidHead head = new ModelHumanoidHead();
 	private ResourceLocation resourcelocation;
@@ -26,8 +26,14 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 	@Override
 	public void renderTileEntityAt(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks,
 			int destroyStage) {
+	    
+	    boolean isRenderInventory = false;
+	    if(te == null) { //check if rendering in inventory
+	        te = new TileEntityPlayerLuckyBlock();
+	        isRenderInventory = true;
+	    }
+	    Minecraft mc = Minecraft.getMinecraft();
 		GameProfile profile = te.getGameProfile();
-		Minecraft mc = Minecraft.getMinecraft();
 		if(profile == null) profile = mc.player.getGameProfile();
 		
 		SkinManager manager = mc.getSkinManager();
@@ -47,6 +53,10 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 		}
 		else
 		{
+		    if(isRenderInventory) {
+		        //TODO: render lucky block cube
+		        //GL11.glColor3ub((byte)255, (byte)216, (byte)0);
+		    }
 			this.renderPlayerHead(x, y, z, EnumFacing.NORTH, destroyStage);
 			this.renderPlayerHead(x, y, z, EnumFacing.EAST, destroyStage);
 			this.renderPlayerHead(x, y, z, EnumFacing.SOUTH, destroyStage);
