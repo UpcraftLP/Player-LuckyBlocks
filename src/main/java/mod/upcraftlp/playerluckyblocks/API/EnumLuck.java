@@ -28,7 +28,10 @@ public enum EnumLuck implements IStringSerializable {
 	{
 		luck = MathHelper.clamp(luck, -100, 100);
 		//REAL BAD LUCK
-		if(luck <= -90) return LuckyConfig.pussyMode ? NEGATIVE : BADASS;
+		if(luck <= -90) {
+		    if(random.nextFloat() < 0.65f) return LuckyConfig.pussyMode ? NEGATIVE : BADASS;
+		    else luck = -80;
+		}
 		
 		//BAD LUCK
 		if(luck > -90 && luck < 0)
