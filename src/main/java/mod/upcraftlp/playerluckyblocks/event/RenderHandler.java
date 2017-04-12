@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @EventBusSubscriber(modid = Reference.MODID, value = {Side.CLIENT})
 public class RenderHandler {
 
-    private static FloatBuffer colorBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer();
+    private static final FloatBuffer colorBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer();
     
     @SubscribeEvent
     public static void onRenderDagger(RenderLivingEvent.Pre<EntityLivingBase> event) {

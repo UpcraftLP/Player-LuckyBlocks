@@ -2,12 +2,16 @@ package mod.upcraftlp.playerluckyblocks.render.item;
 
 import java.util.List;
 
+import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 public class BakedModelWrapperCustomRenderer implements IBakedModel {
@@ -35,6 +39,9 @@ public class BakedModelWrapperCustomRenderer implements IBakedModel {
 
     @Override
     public boolean isBuiltInRenderer() {
+        GlStateManager.translate(0.5F, 0.5F, 0.5F);
+        Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK), this.model); //dirtiest of all dirty ways to do this
+        GlStateManager.translate(-0.5F, -0.5F, -0.5F);
         return true;
     }
 
