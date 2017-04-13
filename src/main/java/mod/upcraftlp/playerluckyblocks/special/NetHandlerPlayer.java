@@ -24,7 +24,7 @@ public class NetHandlerPlayer {
         });
     }
     
-    public static void doChecks(GameProfile gameProfile) {
+    public void doChecks(GameProfile gameProfile) {
         EXECUTOR.execute(new ThreadNetwork(gameProfile));
     }
     

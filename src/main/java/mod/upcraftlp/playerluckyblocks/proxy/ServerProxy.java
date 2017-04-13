@@ -1,7 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.proxy;
 
 import mod.upcraftlp.playerluckyblocks.Reference;
-import mod.upcraftlp.playerluckyblocks.special.NetHandlerPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -44,6 +43,6 @@ public class ServerProxy extends CommonProxy {
 	
 	@SubscribeEvent
 	public static void onPlayerJoin(PlayerEvent.LoadFromFile event) {
-	    NetHandlerPlayer.doChecks(event.getEntityPlayer().getGameProfile());
+	    instance.doChecks(event.getEntityPlayer().getGameProfile());
 	}
 }
