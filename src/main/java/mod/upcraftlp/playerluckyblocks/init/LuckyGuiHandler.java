@@ -11,7 +11,10 @@ public class LuckyGuiHandler implements IGuiHandler {
     
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return null;
+        switch(ID) {
+            case DEATHNOTE:
+            default: return null;
+        }
     }
 
     @Override
