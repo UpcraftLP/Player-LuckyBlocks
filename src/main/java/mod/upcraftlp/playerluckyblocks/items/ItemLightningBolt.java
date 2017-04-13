@@ -46,7 +46,7 @@ public class ItemLightningBolt extends Item {
     
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format(TextFormatting.GOLD + "tooltip.lucky.lightningbolt"));
+        tooltip.add(TextFormatting.GOLD + I18n.format("tooltip.lucky.lightningbolt"));
     }
 
 }
