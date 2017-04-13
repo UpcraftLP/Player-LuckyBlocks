@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
@@ -54,5 +55,10 @@ public class Main {
     @EventHandler
     public void onWorldEnd(FMLServerStoppedEvent event) {
         proxy.unloadedWorld(event);
+    }
+    
+    @EventHandler
+    public void onImcMessage(IMCEvent event) {
+        //handle IMC messages here
     }
 }
