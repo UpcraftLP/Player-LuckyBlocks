@@ -3,12 +3,16 @@ package mod.upcraftlp.playerluckyblocks.world;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.UUID;
 
 import com.google.common.collect.Maps;
 
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.entity.EntityMiniDragon;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.dragon.phase.PhaseList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -21,8 +25,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class DragonData extends WorldSavedData {
 
+    private static final Random rand = new Random();
     private final Map<UUID, UUID> activeDragons = Maps.newHashMap();
     private final Map<UUID, Integer> inactiveDragons = Maps.newHashMap();
+    private World world;
     private static final String DATA_NAME = Reference.MODID + "_DragonHandler";
     private static final String KEY_DRAGONS = "dragons";
     private static final String KEY_OWNER = "owner";
@@ -39,10 +45,12 @@ public class DragonData extends WorldSavedData {
     public boolean spawnDragon(EntityPlayer player, int color) {
         UUID uuid = player.getUniqueID();
         if(!activeDragons.containsKey(uuid)) {
-            EntityMiniDragon dragon = new EntityMiniDragon(player.world);
+            EntityMiniDragon dragon = new EntityMiniDragon(this.world);
             dragon.setOwner(player);
             dragon.setColor(color);
-            player.world.spawnEntity(dragon);
+            dragon.setPositionAndUpdate(player.posX + (rand.nextDouble() * 20.0D) - 10.0D, player.posY + (rand.nextDouble() * 10.0D) - 5.0D, player.posZ  + (rand.nextDouble() * 20.0D) - 10.0D);
+            dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
+            this.world.spawnEntity(dragon);
             activeDragons.put(uuid, dragon.getUniqueID());
             return true;
         }
@@ -53,11 +61,21 @@ public class DragonData extends WorldSavedData {
         UUID uuid = player.getUniqueID();
         if(inactiveDragons.containsKey(uuid)) {
             spawnDragon(player, inactiveDragons.get(uuid));
+            inactiveDragons.remove(uuid);
+            this.setDirty(true);
         }
     }
     
-    public static DragonData get(EntityPlayer player) {
-        return get(player.getEntityWorld());
+    public static DragonData get(ICommandSender sender) {
+        return get(sender.getEntityWorld());
+    }
+    
+    public static DragonData get(Entity entity) {
+        return get(entity.getEntityWorld());
+    }
+    
+    public World getWorld() {
+        return this.world;
     }
     
     public static DragonData get(World world) {
@@ -67,7 +85,23 @@ public class DragonData extends WorldSavedData {
             instance = new DragonData();
             storage.setData(DATA_NAME, instance);
         }
+        instance.setWorld(world);
         return instance;
+    }
+    
+    public void reset() {
+        for(UUID uuid : this.activeDragons.values()) {
+            FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(uuid).setDead();
+        }
+        this.activeDragons.clear();
+        this.inactiveDragons.clear();
+        this.setDirty(true);
+        this.world.getMapStorage().saveAllData();
+    }
+
+    private void setWorld(World world) {
+        this.world = world;
+        this.setDirty(true);
     }
 
     @Override
