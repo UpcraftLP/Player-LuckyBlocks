@@ -123,9 +123,12 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		NBTTagCompound nbt = new NBTTagCompound();
 		TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) world.getTileEntity(pos);
 		nbt.setInteger(KEY_LUCK, te.getLuck());
-		NBTTagCompound profileNBT = new NBTTagCompound();
-		NBTUtil.writeGameProfile(profileNBT, te.getGameProfile());
-		nbt.setTag(KEY_OWNER, profileNBT);
+		GameProfile gp = te.getGameProfile();
+		if(gp != null) {
+		    NBTTagCompound profileNBT = new NBTTagCompound();
+		    NBTUtil.writeGameProfile(profileNBT, gp);
+	        nbt.setTag(KEY_OWNER, profileNBT);
+		}
 		stack.setTagCompound(nbt);
 		return stack;
 	}
