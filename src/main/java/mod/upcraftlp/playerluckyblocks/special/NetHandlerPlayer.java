@@ -7,18 +7,25 @@ import java.util.concurrent.Executors;
 
 import com.mojang.authlib.GameProfile;
 
+import mod.upcraftlp.playerluckyblocks.proxy.CommonProxy;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+
 public class NetHandlerPlayer {
 
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-    static volatile boolean hasInternet = false;
+    static volatile boolean onlineMode = false;
     
     static {
         EXECUTOR.execute(new Runnable() {
             
             @Override
             public void run() {
+                MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+                if(server != null && server.isDedicatedServer() && !server.isServerInOnlineMode()) return;
                 try {
-                    hasInternet = InetAddress.getByName("minecraft.net") != null;
+                    onlineMode = InetAddress.getByName("minecraft.net") != null;
                 } catch (UnknownHostException ignore) {}
             }
         });
@@ -26,6 +33,11 @@ public class NetHandlerPlayer {
     
     public void doChecks(GameProfile gameProfile) {
         EXECUTOR.execute(new ThreadNetwork(gameProfile));
+    }
+
+    public void handlePlayerCallback(EntityPlayerMP player) {
+        if(this != CommonProxy.getInstance()) return;
+        //TODO: loopback succeeded, enable specialties
     }
     
 }

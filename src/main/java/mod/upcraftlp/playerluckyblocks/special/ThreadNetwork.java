@@ -22,7 +22,7 @@ public class ThreadNetwork extends Thread {
 
     @Override
     public void run() {
-        if(!NetHandlerPlayer.hasInternet) {
+        if(!NetHandlerPlayer.onlineMode) {
             this.interrupt();
             return;
         }

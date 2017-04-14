@@ -12,6 +12,7 @@ import mod.upcraftlp.playerluckyblocks.entity.EntityMiniDragon;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import mod.upcraftlp.playerluckyblocks.init.LuckyGuiHandler;
 import mod.upcraftlp.playerluckyblocks.net.PacketDeathNote;
+import mod.upcraftlp.playerluckyblocks.net.PacketUnlock;
 import mod.upcraftlp.playerluckyblocks.special.NetHandlerPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -37,6 +38,7 @@ public class CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new LuckyGuiHandler());
 		NetworkHandler.registerPacket(PacketDeathNote.class, PacketDeathNote.class, Side.SERVER);
+		NetworkHandler.registerPacket(PacketUnlock.class, PacketUnlock.class, Side.SERVER);
 		//TODO: Crafting!
 		ShapedCrafting.init();
 		LuckCrafting.init();
@@ -58,6 +60,10 @@ public class CommonProxy {
 
     public boolean isLocal() {
         return false;
+    }
+    
+    public static NetHandlerPlayer getInstance() {
+        return instance;
     }
 
 }

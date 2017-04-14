@@ -21,5 +21,6 @@ public class TempNetworkHandler {
         }
     }
     
+    @Deprecated
     public static SimpleNetworkWrapper INSTANCE;
 }
