@@ -99,11 +99,16 @@ public class ItemFruit extends ItemFood {
 	    }
 	}
 	
-    @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        for(int i = 0; i < 16; i++) {
+	//needed for the fruit chest event
+	public void getSubItems(NonNullList<ItemStack> subItems) {
+	    for(int i = 0; i < 16; i++) {
             subItems.add(new ItemStack(this, 1, i));
         }
+	}
+	
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        getSubItems(subItems);
     }
     
     @Override
