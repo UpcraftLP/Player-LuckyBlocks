@@ -86,7 +86,7 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 	    GlStateManager.enableAlpha();
 	    GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
 		//RENDER!
-	    modelbase.render(null, 0.0f, 0.0F, 0.0F, f, 0.0F, 0.0625F);
+	    head.render(null, 0.0f, 0.0F, 0.0F, f, 0.0F, 0.0625F);
 		
 		GlStateManager.popMatrix();
 		 if (destroyStage >= 0)

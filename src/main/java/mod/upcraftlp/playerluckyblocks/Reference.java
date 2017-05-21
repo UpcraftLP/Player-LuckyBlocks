@@ -8,7 +8,7 @@ import net.minecraftforge.common.ForgeVersion;
 
 public class Reference {
 
-    public static final String MCVERSIONS = "[1.11,1.11.2]";
+    public static final String MCVERSIONS = "[1.11,1.11.2,)";
     public static final String VERSION = "@VERSION@";
 
     /** TEAM **/
