@@ -6,6 +6,7 @@ import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -40,6 +41,9 @@ public class BakedModelWrapperCustomRenderer implements IBakedModel {
     @Override
     public boolean isBuiltInRenderer() { //FIXME: get rid of dirty render code
         GlStateManager.translate(0.5F, 0.5F, 0.5F);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
+        //TODO proper rendering; blocks turn black when stacked on ground :(
         Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK), this.model);
         GlStateManager.translate(-0.5F, -0.5F, -0.5F);
         return true;
@@ -50,6 +54,7 @@ public class BakedModelWrapperCustomRenderer implements IBakedModel {
         return this.model.getParticleTexture();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @Deprecated
     public ItemCameraTransforms getItemCameraTransforms() {

@@ -49,18 +49,14 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 	         GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 	         GlStateManager.matrixMode(5888);
 		}
-		else
-		{
-			this.renderPlayerHead(x, y, z, EnumFacing.NORTH, destroyStage);
-			this.renderPlayerHead(x, y, z, EnumFacing.EAST, destroyStage);
-			this.renderPlayerHead(x, y, z, EnumFacing.SOUTH, destroyStage);
-			this.renderPlayerHead(x, y, z, EnumFacing.WEST, destroyStage);
-		}
+		this.renderPlayerHead(x, y, z, EnumFacing.NORTH, destroyStage);
+		this.renderPlayerHead(x, y, z, EnumFacing.EAST, destroyStage);
+		this.renderPlayerHead(x, y, z, EnumFacing.SOUTH, destroyStage);
+		this.renderPlayerHead(x, y, z, EnumFacing.WEST, destroyStage);
+		this.renderPlayerHead(x, y, z, EnumFacing.WEST, destroyStage);
 	}
 	
 	public void renderPlayerHead(double x, double y, double z, EnumFacing facing, int destroyStage) {
-		ModelBase modelbase = this.head;
-		
 		this.bindTexture(this.resourcelocation);
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();
@@ -90,7 +86,7 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 	    GlStateManager.enableAlpha();
 	    GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
 		//RENDER!
-	    modelbase.render((Entity)null, 0.0f, 0.0F, 0.0F, f, 0.0F, 0.0625F);
+	    modelbase.render(null, 0.0f, 0.0F, 0.0F, f, 0.0F, 0.0625F);
 		
 		GlStateManager.popMatrix();
 		 if (destroyStage >= 0)

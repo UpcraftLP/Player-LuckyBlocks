@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @EventBusSubscriber(modid = Reference.MODID)
 public class EnderArmorHandler {
 
-	private static final List<DamageSource> restrictedSources = Arrays.asList(new DamageSource[]{DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK, DamageSource.FALL, DamageSource.FLY_INTO_WALL});
+	private static final List<DamageSource> restrictedSources = Arrays.asList(DamageSources.enderDenyWater, DamageSource.DROWN, DamageSource.OUT_OF_WORLD, DamageSource.IN_WALL, DamageSource.FALLING_BLOCK, DamageSource.FALL, DamageSource.FLY_INTO_WALL);
 	
 	@SubscribeEvent
 	public static void onEnderHit(LivingAttackEvent event) {

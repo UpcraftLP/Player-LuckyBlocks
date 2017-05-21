@@ -10,15 +10,15 @@ import javax.annotation.Nullable;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.baseevents.EventItemDrop;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
+import mod.upcraftlp.playerluckyblocks.util.Utils;
 import net.minecraft.item.ItemStack;
 
 public class EventRegistry {
 
-	private static final Random RANDOM = new Random();
-	private static List<IEventProvider> positive = new ArrayList<IEventProvider>();
-	private static List<IEventProvider> negative = new ArrayList<IEventProvider>();
-	private static List<IEventProvider> neutral = new ArrayList<IEventProvider>();
-	private static List<IEventProvider> badass = new ArrayList<IEventProvider>();
+	private static List<IEventProvider> positive = new ArrayList<>();
+	private static List<IEventProvider> negative = new ArrayList<>();
+	private static List<IEventProvider> neutral = new ArrayList<>();
+	private static List<IEventProvider> badass = new ArrayList<>();
 	
 	public static void registerEvent(IEventProvider event, EnumLuck luck) {
 		getListFromLuck(luck).add(event);
@@ -44,7 +44,7 @@ public class EventRegistry {
 	    if(luck == EnumLuck.BADASS && LuckyConfig.pussyMode) luck = EnumLuck.NEGATIVE;
 		List<IEventProvider> list = getListFromLuck(luck);
 		if(list.isEmpty()) return null;
-		return list.get(RANDOM.nextInt(list.size()));
+		return list.get(Utils.RANDOM.nextInt(list.size()));
 	}
 	
 	/**
@@ -54,12 +54,10 @@ public class EventRegistry {
 	public void unregister(String eventName) {
 		for(EnumLuck luck : EnumLuck.values()) {
 			List<IEventProvider> providers = getListFromLuck(luck);
-			Iterator<IEventProvider> i = providers.iterator();
-			while(i.hasNext()) {
-				IEventProvider event = i.next();
-				if(event.getName().equals(eventName)) {
+			for (IEventProvider event : providers) {
+				if (event.getName().equals(eventName)) {
 					providers.remove(event);
-					Main.getLogger().println("Successfully unregistered Event: " + eventName);
+					Main.getLogger().info("Successfully unregistered Event: " + eventName);
 				}
 			}
 		}

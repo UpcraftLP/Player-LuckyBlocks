@@ -44,8 +44,8 @@ public class EventSwapPositions implements IEventProvider {
 			player2.setPositionAndUpdate(d1, d2, d3);
 			player.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + random.nextFloat() * 0.4f, random.nextFloat());
 			player2.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + random.nextFloat() * 0.4f, random.nextFloat());
-			player.sendMessage(new TextComponentTranslation("message.lucky.whoosh"));
-			player2.sendMessage(new TextComponentTranslation("message.lucky.whoosh"));
+			player.sendMessage(new TextComponentTranslation("info.lucky.whoosh"));
+			player2.sendMessage(new TextComponentTranslation("info.lucky.whoosh"));
 			player.setHealth(MathHelper.clamp(player.getHealth() * random.nextFloat(), 0.5f, player.getMaxHealth()));
 			player.setHealth(MathHelper.clamp(player2.getHealth() * random.nextFloat(), 0.5f, player2.getMaxHealth()));
 			
@@ -57,7 +57,7 @@ public class EventSwapPositions implements IEventProvider {
 		else {
 		    if (EnderArmorHandler.randomTeleport(player, 32))
             {
-		        player.sendMessage(new TextComponentTranslation("message.lucky.whoosh"));
+		        player.sendMessage(new TextComponentTranslation("info.lucky.whoosh"));
 		        player.setHealth(MathHelper.clamp(player.getHealth() * random.nextFloat(), 0.5f, player.getMaxHealth()));
             }
 		}

@@ -25,10 +25,8 @@ private static final Random RANDOM = new Random();
 	
 	@SubscribeEvent
 	public static void setPotionColor(PotionColorCalculationEvent event) {
-		Iterator<PotionEffect> i = event.getEffects().iterator();
-		while(i.hasNext()) {
-			PotionEffect effect = i.next();
-			if(effect.getPotion() == LuckyPotions.DIZZYNESS) {
+		for (PotionEffect effect : event.getEffects()) {
+			if (effect.getPotion() == LuckyPotions.DIZZYNESS) {
 				int color = rainbowColors[RANDOM.nextInt(rainbowColors.length)];
 				event.setColor(color);
 			}

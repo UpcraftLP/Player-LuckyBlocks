@@ -26,7 +26,7 @@ public class SoupHandler {
             stack.shrink(1);
             player.setHeldItem(event.getHand(), stack);
             EntityItem itemEntity = new EntityItem(event.getWorld(), player.posX, player.posY, player.posZ, new ItemStack(Items.BOWL));
-            itemEntity.setDefaultPickupDelay();
+            itemEntity.setPickupDelay(40);
             event.getWorld().spawnEntity(itemEntity);
             event.setCanceled(true);
         }

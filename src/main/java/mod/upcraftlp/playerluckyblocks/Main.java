@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(name = Reference.MODNAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MCVERSIONS, modid = Reference.MODID, canBeDeactivated = false, dependencies = Reference.DEPENDENCIES, updateJSON = Reference.UPDATE_JSON, guiFactory = Reference.GUI_FACTORY)
 public class Main {
@@ -20,9 +22,9 @@ public class Main {
     @Instance
     public static Main instance;
 
-    private static ModLogger log = Loggers.get(Reference.MODID);
+    private static Logger log = LogManager.getFormatterLogger(Reference.MODID);
 
-    public static ModLogger getLogger() {
+    public static Logger getLogger() {
         return log;
     }
 
@@ -32,19 +34,19 @@ public class Main {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
-        log.println("Pre-Initialization finished.");
+        log.info("Pre-Initialization finished.");
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
-        log.println("Initialization finished.");
+        log.info("Initialization finished.");
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        log.println("Post-Initialization finished.");
+        log.info("Post-Initialization finished.");
     }
     
     @EventHandler

@@ -18,7 +18,7 @@ public class EventKill implements IEventProvider {
 	public void execute(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		player.onKillCommand();
 		player.setDead();
-		if(!world.getWorldInfo().isHardcoreModeEnabled()) player.sendMessage(new TextComponentTranslation("messge.lucky.deleteWorld"));
+		if(!world.getWorldInfo().isHardcoreModeEnabled()) player.sendMessage(new TextComponentTranslation("info.lucky.deleteWorld"));
 	}
 
 }

@@ -16,7 +16,7 @@ public class EventEnderPigZombie implements IEventProvider {
 
 	@Override
 	public String getName() {
-		return "EventEnderPigZombie";
+		return "ender_pigman";
 	}
 
 	@Override

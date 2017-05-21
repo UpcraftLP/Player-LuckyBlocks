@@ -7,19 +7,14 @@ import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.POSITIVE;
 
 import com.google.common.collect.Lists;
 
-import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventDizzyPotion;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventEnderPigZombie;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventFruitChest;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventKill;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventLuckyBlockTower;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventMiniDragon;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventNotFound;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventNuke;
-import mod.upcraftlp.playerluckyblocks.baseevents.EventSwapPositions;
+import static mod.upcraftlp.playerluckyblocks.API.EventRegistry.*;
+import mod.upcraftlp.playerluckyblocks.API.StructureProvider;
+import mod.upcraftlp.playerluckyblocks.Reference;
+import mod.upcraftlp.playerluckyblocks.baseevents.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class LuckyEvents {
@@ -34,50 +29,72 @@ public class LuckyEvents {
     
 	public static void initEvents() {
 		/**NEUTRAL**/
-		EventRegistry.registerEvent(new EventNotFound(), NEUTRAL);
-		EventRegistry.registerEvent(new EventLuckyBlockTower(), NEUTRAL);
+		registerEvent(new EventNotFound(), NEUTRAL);
+		registerEvent(new EventLuckyBlockTower(), NEUTRAL);
+		registerEvent(new EventStructure(), NEUTRAL);
 		
 		/**POSTIVIE**/
-		EventRegistry.registerEvent(new EventMiniDragon(), POSITIVE);
-		EventRegistry.registerEvent(new EventFruitChest(), POSITIVE);
+		registerEvent(new EventMiniDragon(), POSITIVE);
+		registerEvent(new EventFruitChest(), POSITIVE);
 		
 		/**NEGATIVE**/
-		EventRegistry.registerEvent(new EventSwapPositions(), NEGATIVE);
-		EventRegistry.registerEvent(new EventEnderPigZombie(), NEGATIVE);
-		EventRegistry.registerEvent(new EventDizzyPotion(), NEGATIVE);
+		registerEvent(new EventSwapPositions(), NEGATIVE);
+		registerEvent(new EventEnderPigZombie(), NEGATIVE);
+		registerEvent(new EventDizzyPotion(), NEGATIVE);
+		registerEvent(new EventHarmPlayer(), NEGATIVE);
 		
 		/**BADASS**/
-		EventRegistry.registerEvent(new EventNuke(), BADASS);
-        EventRegistry.registerEvent(new EventKill(), BADASS);
+		registerEvent(new EventNuke(), BADASS);
+        registerEvent(new EventKill(), BADASS);
 	}
 	
 	public static void initDrops() {
-		
-		
+
 		/**Player Lucky Blocks**/
-		//Misc
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.TELEPORT_STAFF)), "teleport_staff", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.WATER_ORB)), "water_orb", NEUTRAL);
-		
-		//Ender Armor
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_HELMET)), "ender_helmet", NEUTRAL);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_CHESTPLATE)), "ender_chestplate", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_LEGGINGS)), "ender_leggings", NEUTRAL);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_BOOTS)), "ender_boots", POSITIVE);
-		
-		//Misc
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.JETPACK)), "jetpack", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.DEATH_NOTE)), "deathNote", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.LIGHTNING_BOLT, 8)), "zeus", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.SHADOW_DAGGER, 2)), "assassin", POSITIVE);
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BOOSTER)), "booster", NEUTRAL);
-		
+		//Armor
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_HELMET)), "ender_helmet", NEUTRAL);
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_CHESTPLATE)), "ender_chestplate", POSITIVE);
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_LEGGINGS)), "ender_leggings", NEUTRAL);
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENDER_BOOTS)), "ender_boots", POSITIVE);
+
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.JETPACK)), "jetpack", POSITIVE);
+
+        //Misc
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.DEATH_NOTE)), "deathNote", POSITIVE);
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.LIGHTNING_BOLT, 8)), "zeus", POSITIVE);
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BOOSTER)), "booster", NEUTRAL);
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.TELEPORT_STAFF)), "teleport_staff", POSITIVE);
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.WATER_ORB)), "water_orb", NEUTRAL);
+
+		registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ENERGY_BAR, 4)), "energyBar", POSITIVE);
+
+        //Swords
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.SHADOW_DAGGER, 2)), "assassin", POSITIVE);
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.BACON_SWORD, 1)), "baconSword", NEGATIVE);
+        registerDrop(Lists.newArrayList(new ItemStack(LuckyItems.ADMIN_ARK, 1)), "adminArk", POSITIVE);
+
 		/**Vanilla Stuff**/
 		//rare drops (ores, ingots, etc.)
-		EventRegistry.registerDrop(Lists.newArrayList(new ItemStack(Blocks.DIAMOND_BLOCK, 2)), "diamond_block", POSITIVE);
-		
+		registerDrop(Lists.newArrayList(new ItemStack(Blocks.DIAMOND_BLOCK, 5)), "diamond_blocks", POSITIVE);
+
+		registerDrop(Lists.newArrayList(
+		        new ItemStack(Items.APPLE, 5),
+                new ItemStack(Items.GOLDEN_APPLE, 7),
+                new ItemStack(Items.GOLDEN_APPLE, 4, 1),
+                new ItemStack(Items.GOLDEN_APPLE, 3),
+                new ItemStack(Items.APPLE, 9),
+                new ItemStack(Items.GOLDEN_APPLE, 3, 1)
+        ), "apples", POSITIVE);
+
+        registerDrop(Lists.newArrayList(
+
+                new ItemStack(Items.CHORUS_FRUIT, 7),
+                new ItemStack(Items.CHORUS_FRUIT_POPPED, 25),
+                new ItemStack(Items.CHORUS_FRUIT, 9)
+                ), "chorus", NEUTRAL);
+
 		//Redstone Engineer
-		EventRegistry.registerDrop(Lists.newArrayList(
+		registerDrop(Lists.newArrayList(
                 new ItemStack(Items.REDSTONE, 64),
                 new ItemStack(Items.REDSTONE, 64),
                 new ItemStack(Blocks.PISTON, 16),
@@ -96,7 +113,7 @@ public class LuckyEvents {
 		        ), "rs_engineer", NEUTRAL);
 		
 		//Demolisher
-		EventRegistry.registerDrop(Lists.newArrayList(
+		registerDrop(Lists.newArrayList(
 		        new ItemStack(Blocks.REDSTONE_TORCH, 16),
 		        new ItemStack(Blocks.LEVER, 16),
 		        new ItemStack(Items.REDSTONE, 32),
@@ -106,10 +123,10 @@ public class LuckyEvents {
 		        ), "demolisher", POSITIVE);
 		
 		//Woodcutter
-		EventRegistry.registerDrop(Lists.newArrayList(
-		        new ItemStack(Items.IRON_AXE),
-		        new ItemStack(Items.IRON_AXE),
-		        new ItemStack(Items.IRON_AXE),
+		registerDrop(Lists.newArrayList(
+		        new ItemStack(Items.IRON_AXE, 1, 56),
+		        new ItemStack(Items.IRON_AXE, 1, 102),
+		        new ItemStack(Items.IRON_AXE, 1, 30),
 		        new ItemStack(Blocks.LOG, 16, 0),
 		        new ItemStack(Blocks.LOG, 16, 1),
 		        new ItemStack(Blocks.LOG, 16, 2),
@@ -123,5 +140,18 @@ public class LuckyEvents {
 		        new ItemStack(Blocks.SAPLING, 32, 4),
 		        new ItemStack(Blocks.SAPLING, 32, 5)
 		        ), "woodcutter", NEGATIVE);
+	}
+
+	private static ResourceLocation getLocation(String name) {
+        return new ResourceLocation(Reference.MODID, name);
+    }
+
+	public static void initStructures() {
+    	//NBT
+        StructureProvider.registerNBT(getLocation("lucky_pyramid"));
+        StructureProvider.registerNBT(getLocation("tnt_pyramid"));
+
+		//Schematic
+        //nothing here atm, schematic structures suck :P
 	}
 }

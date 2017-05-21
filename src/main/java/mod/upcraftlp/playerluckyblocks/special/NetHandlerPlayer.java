@@ -18,16 +18,12 @@ public class NetHandlerPlayer {
     static volatile boolean onlineMode = false;
     
     static {
-        EXECUTOR.execute(new Runnable() {
-            
-            @Override
-            public void run() {
+        EXECUTOR.execute(() -> {
                 MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
-                if(server != null && server.isDedicatedServer() && !server.isServerInOnlineMode()) return;
+                if(server == null || server.isDedicatedServer() || !server.isServerInOnlineMode()) return;
                 try {
                     onlineMode = InetAddress.getByName("minecraft.net") != null;
                 } catch (UnknownHostException ignore) {}
-            }
         });
     }
     

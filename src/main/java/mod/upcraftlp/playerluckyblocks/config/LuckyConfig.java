@@ -56,9 +56,7 @@ public class LuckyConfig {
 	public static List<IConfigElement> getEntries() {
 		List<IConfigElement> entries = new ArrayList<IConfigElement>();
 		Set<String> categories = config.getCategoryNames();
-		Iterator<String> i = categories.iterator();
-		while(i.hasNext()) {
-			String categoryName = i.next();
+		for (String categoryName : categories) {
 			ConfigCategory category = config.getCategory(categoryName);
 			entries.addAll(new ConfigElement(category).getChildElements());
 		}

@@ -1,17 +1,11 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
-import mod.upcraftlp.playerluckyblocks.items.ItemAdminArk;
-import mod.upcraftlp.playerluckyblocks.items.ItemBooster;
-import mod.upcraftlp.playerluckyblocks.items.ItemDagger;
-import mod.upcraftlp.playerluckyblocks.items.ItemDeathNote;
-import mod.upcraftlp.playerluckyblocks.items.ItemFruit;
-import mod.upcraftlp.playerluckyblocks.items.ItemLightningBolt;
-import mod.upcraftlp.playerluckyblocks.items.ItemTeleportStaff;
-import mod.upcraftlp.playerluckyblocks.items.ItemWaterOrb;
+import mod.upcraftlp.playerluckyblocks.items.*;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemJetPack;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 
 public class LuckyItems {
 
@@ -23,6 +17,7 @@ public class LuckyItems {
 	public static final Item DEATH_NOTE = new ItemDeathNote();
 	public static final Item LIGHTNING_BOLT = new ItemLightningBolt();
 	public static final Item BOOSTER = new ItemBooster();
+	public static final Item ENERGY_BAR = new ItemEnergyBar();
 	
 	/**JetPack**/
 	public static final Item JETPACK = new ItemJetPack();
@@ -34,8 +29,9 @@ public class LuckyItems {
 	public static final Item ENDER_BOOTS = new ItemEnderArmor(EntityEquipmentSlot.FEET);
 	
 	/**Swords**/
-	public static final Item ADMIN_ARK = new ItemAdminArk(); //missing, unfinished
+	public static final Item ADMIN_ARK = new ItemAdminArk(); //unfinished
 	public static final Item SHADOW_DAGGER = new ItemDagger();
+	public static final Item BACON_SWORD = new ItemBaconSword();
 	
 	/**
 	 * class needed to trick resource loader to not register these items and register them manually instead

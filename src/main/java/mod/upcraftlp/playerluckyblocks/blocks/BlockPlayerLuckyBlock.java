@@ -38,9 +38,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Logger;
 
 public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider {
 
+	private static final Logger log = Main.getLogger();
 	public static final String KEY_LUCK = "Luck";
 	public static final String KEY_OWNER = "Owner";
 	
@@ -90,18 +92,17 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 			dropStack.setTagCompound(nbt);
 			EntityItem item = new EntityItem(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, dropStack);
 			worldIn.spawnEntity(item);
-			return;
 		}
 		else {
 		    EnumLuck luck = EnumLuck.rollTheDice(meta);
 	        IEventProvider event = EventRegistry.getEvent(luck);
 	        if(event != null) {
 	            if(LuckyConfig.isDebugMode()) { //debug console output
-	                Main.getLogger().println(event.getName());
-	                Main.getLogger().println(worldIn.toString());
-	                Main.getLogger().println(pos.toString());
-	                Main.getLogger().println(state.toString());
-	                Main.getLogger().println(player.toString());
+	                log.debug(event.getName());
+                    log.debug(worldIn.toString());
+                    log.debug(pos.toString());
+                    log.debug(state.toString());
+                    log.debug(player.toString());
 	            }
 	            event.execute(worldIn, pos, state, player);
 	            if(LuckyConfig.players.contains(player.getUniqueID()) && player instanceof EntityPlayerMP) {
@@ -111,7 +112,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	            }
 	        }
 	        else {
-	            Main.getLogger().println("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");
+	            log.warn("Lucky Block at [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "] got null event from " + EnumLuck.class.getSimpleName() + " value \"" + luck.getName() + "\"");
 	        }
 		}
 	}
@@ -137,11 +138,6 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return null;
 	}
-	
-	@Override
-	public boolean hasTileEntity() {
-		return true;
-	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -166,13 +162,18 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 			}
 			else {
 			    gp = new GameProfile(null, "Notch");
-			    Main.getLogger().errFatal(placer.getDisplayName() + " placed a lucky block and has no game profile!");
+			    log.warn(placer.getDisplayName() + " placed a lucky block and has no game profile!");
 			}
 			te.setGameProfile(gp, true);
 			te.setLuck(nbt.getInteger(KEY_LUCK));
 		}
 	}
-	
+
+	@Override
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+		return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand);
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
@@ -182,9 +183,10 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		stack.setTagCompound(nbt);
 		list.add(stack);
 	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+
+	@SuppressWarnings("deprecation")
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 }

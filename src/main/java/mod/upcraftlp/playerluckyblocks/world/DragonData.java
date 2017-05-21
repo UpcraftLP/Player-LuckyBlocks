@@ -117,14 +117,12 @@ public class DragonData extends WorldSavedData {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         NBTTagList nbt = new NBTTagList();
-        Iterator<Entry<UUID, UUID>> i = activeDragons.entrySet().iterator();
-        
+
         //active dragons
-        while(i.hasNext()) {
-            Entry<UUID, UUID> e = i.next();
+        for (Entry<UUID, UUID> e : activeDragons.entrySet()) {
             NBTTagCompound dragonNBT = new NBTTagCompound();
             dragonNBT.setTag(KEY_OWNER, NBTUtil.createUUIDTag(e.getKey()));
-            
+
             EntityMiniDragon dragon = (EntityMiniDragon) FMLCommonHandler.instance().getMinecraftServerInstance().getEntityFromUuid(e.getValue());
             int color = dragon.getDragonColor();
             dragonNBT.setInteger(KEY_DRAGON_COLOR, color);
@@ -132,9 +130,7 @@ public class DragonData extends WorldSavedData {
         }
         
         //inactive dragons
-        Iterator<Entry<UUID, Integer>> i2 = inactiveDragons.entrySet().iterator();
-        while(i2.hasNext()) {
-            Entry<UUID, Integer> e = i2.next();
+        for (Entry<UUID, Integer> e : inactiveDragons.entrySet()) {
             NBTTagCompound dragonNBT = new NBTTagCompound();
             dragonNBT.setTag(KEY_OWNER, NBTUtil.createUUIDTag(e.getKey()));
             dragonNBT.setInteger(KEY_DRAGON_COLOR, e.getValue());

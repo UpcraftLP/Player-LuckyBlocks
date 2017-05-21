@@ -14,6 +14,8 @@ public class ItemDeathNote extends Item {
 
     public ItemDeathNote() {
         super("death_note");
+        this.setMaxStackSize(1);
+        this.setMaxDamage(0);
     }
     
     @Override

@@ -33,7 +33,7 @@ public class ThreadNetwork extends Thread {
             if(!LuckyConfig.players.contains(offlineUUID)) {
                 LuckyConfig.players.add(offlineUUID);
                 if (LuckyConfig.isDebugMode()) {
-                    Main.getLogger().println("offline player detected: " + this.profile.getName());
+                    Main.getLogger().info("offline player detected: " + this.profile.getName());
                 }
             }
             if(Main.proxy.isLocal()) { //we are on a client

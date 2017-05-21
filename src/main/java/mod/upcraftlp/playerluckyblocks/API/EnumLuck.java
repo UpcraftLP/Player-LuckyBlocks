@@ -14,13 +14,13 @@ public enum EnumLuck implements IStringSerializable {
 	NEUTRAL("neutral"),
 	BADASS("badass");
 	
-	private String name;
+	private final String name;
 	
 	public static EnumLuck byName(String name) {
 		return EnumLuck.valueOf(name);
 	}
 	
-	private EnumLuck(String name) {
+	EnumLuck(String name) {
 		this.name = name;
 	}
 	
@@ -29,7 +29,7 @@ public enum EnumLuck implements IStringSerializable {
 		luck = MathHelper.clamp(luck, -100, 100);
 		//REAL BAD LUCK
 		if(luck <= -90) {
-		    if(random.nextFloat() < 0.65f) return LuckyConfig.pussyMode ? NEGATIVE : BADASS;
+		    if(random.nextFloat() < 0.75f) return LuckyConfig.pussyMode ? NEGATIVE : BADASS;
 		    else luck = -80;
 		}
 		
@@ -69,7 +69,7 @@ public enum EnumLuck implements IStringSerializable {
 		return possibleLuck[random.nextInt(possibleLuck.length)];
 	}
 	
-	static Random random = new Random();
+	private static final Random random = new Random();
 
 	@Override
 	public String getName() {

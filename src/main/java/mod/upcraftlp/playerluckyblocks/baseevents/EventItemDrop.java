@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 
 public class EventItemDrop implements IEventProvider {
 
-	private List<ItemStack> drops;
-	private String name;
+	private final List<ItemStack> drops;
+	private final String name;
 	
 	public EventItemDrop(List<ItemStack> toDrop, String dropsName) {
 		this.drops = toDrop;

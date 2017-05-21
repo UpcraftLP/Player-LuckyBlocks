@@ -20,6 +20,16 @@ public class LuckyConfigGuiFactory implements IModGuiFactory {
 	}
 
 	@Override
+	public boolean hasConfigGui() {
+		return true;
+	}
+
+	@Override
+	public GuiScreen createConfigGui(GuiScreen parentScreen) {
+		return new LuckyConfigGUI(parentScreen);
+	}
+
+	@Override
 	public Class<? extends GuiScreen> mainConfigGuiClass() {
 		return LuckyConfigGUI.class;
 	}
@@ -30,6 +40,7 @@ public class LuckyConfigGuiFactory implements IModGuiFactory {
 	}
 
 	@SuppressWarnings("deprecation")
+	@Deprecated
 	@Override
 	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
 		return null;

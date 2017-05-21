@@ -8,11 +8,13 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.EntityEquipmentSlot.Type;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class ItemAdminArk extends ItemSword {
@@ -42,7 +44,11 @@ public class ItemAdminArk extends ItemSword {
 	        for(EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
 	            if(slot.getSlotType() == Type.ARMOR) {
 	                ItemStack armor = entityLiving.getItemStackFromSlot(slot);
-	                if(!armor.isEmpty()) armor.damageItem(200, entityLiving);
+	                if(!armor.isEmpty()) {
+	                    if(armor.isItemStackDamageable()) armor.damageItem((armor.getMaxDamage() - armor.getItemDamage()) / 2 + 5, entityLiving);
+						else armor = ItemStack.EMPTY;
+	                    entity.setItemStackToSlot(slot, armor);
+	                }
 	            }
 	        }
 	    }
@@ -51,7 +57,7 @@ public class ItemAdminArk extends ItemSword {
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-	    tooltip.add(I18n.format("tooltip.lucky.adminArk"));
+	    tooltip.add(TextFormatting.GOLD + I18n.format("tooltip.lucky.adminArk"));
 	}
 	
 }

@@ -1,0 +1,91 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "item",
+		"transform": "forge:default-item"
+    },
+	"variants": {
+		"texture": {
+			"0": {
+                "textures": {
+				  "layer0": "playerluckyblocks:items/devil_fruit_0"
+			    }
+            },
+			"1": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_1"
+				}
+			},
+			"2": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_2"
+				}
+			},
+			"3": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_3"
+				}
+			},
+			"4": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_4"
+				}
+			},
+			"5": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_5"
+				}
+			},
+			"6": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_6"
+				}
+			},
+			"7": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_7"
+				}
+			},
+			"8": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_8"
+				}
+			},
+			"9": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_9"
+				}
+			},
+			"10": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_10"
+				}
+			},
+			"11": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_11"
+				}
+			},
+			"12": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_12"
+				}
+			},
+			"13": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_13"
+				}
+			},
+			"14": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_14"
+				}
+			},
+			"15": {
+				"textures": {
+					"layer0": "playerluckyblocks:items/devil_fruit_15"
+				}
+			}
+		}
+    }
+}

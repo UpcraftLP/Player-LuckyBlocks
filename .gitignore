@@ -22,3 +22,5 @@ eclipse
 run
 
 src/test/
+/classes/
+/.gradle/

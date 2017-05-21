@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import core.upcraftlp.craftdev.API.templates.ItemFood;
+import mod.upcraftlp.playerluckyblocks.event.FlightHandler;
+import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,6 +21,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFruit extends ItemFood {
 
@@ -26,7 +30,7 @@ public class ItemFruit extends ItemFood {
     public static final String KEY_FRUIT_MODEL = "model";
     
 	public ItemFruit() {
-		super("devils_fruit", 3, 3.0f, false);
+		super("devil_fruit", 3, 3.0f, false);
 		this.setMaxStackSize(1);
 		this.setCreativeTab(LuckyTabs.tabPlayerLucky); //need this here because the fruit is handled special
 	}
@@ -35,7 +39,7 @@ public class ItemFruit extends ItemFood {
 	public final void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 	    if(worldIn.isRemote || itemRand.nextFloat() >= 0.95f) return;
 	    switch(stack.getMetadata()) {
-	        case 0: //death
+	        case 0: //(black)death
 	            FoodStats stats = player.getFoodStats();
 	            stats.setFoodLevel(0);
 	            stats.setFoodSaturationLevel(100.0f);
@@ -43,58 +47,59 @@ public class ItemFruit extends ItemFood {
 	            player.addPotionEffect(new PotionEffect(MobEffects.WITHER, 6000, 9));
 	            break;
 	            
-	        case 1: //flight
-	            //TODO creative flight!
-	            //see flight handler!
+	        case 1: //(red)
+	            
 	            break;
 	            
-	        case 2: //giant
+	        case 2: //(green)giant
 	            //TODO enlarge player and hitbox, also reach distance!
 	            break;
 	            
-	        case 3: //magic
-	            //TODO magic effect?!
-	            //sparkling effect all the time
+	        case 3: //(brown)
 	            break;
 	            
-	        case 4: //water
+	        case 4: //(blue)water
 	            player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 6000));
 	            break;
 	            
-	        case 5:
+	        case 5: //(purple)dizzyness
+	            player.addPotionEffect(new PotionEffect(LuckyPotions.DIZZYNESS, ((int) rand.nextFloat() * 500) + 1000));
 	            break;
 	            
-	        case 6:
+	        case 6: //(cyan)sparkling
+	            player.addPotionEffect(new PotionEffect(LuckyPotions.SPARKLING, ((int) rand.nextFloat() * 500) + 1000));
                 break;
                 
-	        case 7:
+	        case 7: //(light gray)
                 break;
                 
-	        case 8:
+	        case 8: //(gray)
                 break;
                 
-	        case 9:
+	        case 9: //(pink)
                 break;
                 
-	        case 10:
+	        case 10: //(lime)
                 break;
                 
-	        case 11:
+	        case 11: //(yellow)
                 break;
                 
-	        case 12:
+	        case 12: //(light blue)flight
+	            player.addPotionEffect(new PotionEffect(LuckyPotions.FLIGHT, ((int) rand.nextFloat() * 800) + 1000, 1));
+                FlightHandler.flightPlayers.add(player.getUniqueID());
                 break;
                 
-	        case 13:
+	        case 13: //(magenta)
                 break;
                 
-	        case 14:
+	        case 14: //(orange)explosion
+				worldIn.createExplosion(player, player.posX, player.posY, player.posZ, 6.5F, true);
                 break;
                 
-	        case 15:
+	        case 15: //(white)
                 break;
-                
-            default:
+            default: //unsupported meta
                 break;
 	    }
 	}
@@ -107,11 +112,13 @@ public class ItemFruit extends ItemFood {
 	}
 	
     @Override
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         getSubItems(subItems);
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
         tooltip.add(TextFormatting.GRAY + I18n.format("tooltip.lucky.devilsfruit"));
     }

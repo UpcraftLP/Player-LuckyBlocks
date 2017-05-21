@@ -6,6 +6,14 @@ itemGroup.tabPlayerLucky.name=Player Lucky Blocks
 #Items
 item.teleport_staff.name=Teleport Staff
 item.water_orb.name=Water Orb
+item.bacon_sword.name=Bacon Sword
+item.shadow_dagger.name=Shadow Dagger
+item.booster.name=Booster
+item.lightning_bolt.name=Lightning Bolt
+item.admin_ark.name=Admin Ark
+item.devil_fruit.name=Devil Fruit
+item.death_note.name=Death Note
+item.energy_bar.name=Energy Snack
 
 #Blocks
 tile.player_luckyblock.name=Player Lucky Block
@@ -16,6 +24,8 @@ item.ender_chest.name=Ender Chestplate
 item.ender_legs.name=Ender Leggings
 item.ender_feet.name=Ender Boots
 
+item.jetpack_chest.name=JetPack
+
 #DamageSources
 death.attack.enderDenyWater=%1$s's Ender Armor couldn't handle water
 death.attack.enderDenyWater.player=%1$s's Ender Armor couldn't handle water when trying to escape %2$s
@@ -25,11 +35,12 @@ config.playerluckyblocks.name=Player Lucky Blocks
 
 #Messages
 info.lucky.NodragonFollow=There's already a dragon following you!
-info.lucky.deathNote.notFound=No player found with name %s
+info.lucky.deathNote.notFound=No player found with name \"%s\"
+info.lucky.deathNote.empty=You need to specify a player!
 death.attack.deathNote=%2$s wrote %1$s's name into the DeathNote!
 death.attack.backStab=%1$s got backstabbed by %2$s
-message.lucky.whoosh=Whooosh!
-messge.lucky.deleteWorld=If this was a hardcore world it would have just been deleted.
+info.lucky.whoosh=Whooosh!
+info.lucky.deleteWorld=If this was a hardcore world it would have just been deleted.
 tooltip.lucky.additionalInfo.name=Press <%s> for more information!
 tooltip.lucky.dagger.1=will cause additional damage when attacking from behind (even more when sneaking)
 tooltip.lucky.dagger.2=everything comes at a price...
@@ -37,3 +48,4 @@ tooltip.lucky.booster=Handle with care!
 tooltip.lucky.devilsfruit=I wonder what that color might do?
 tooltip.lucky.lightningbolt=You can feel the inner energies vibrating...
 tooltip.lucky.adminArk=Heavy weapon
+tooltip.lucky.baconSword=Tasty...

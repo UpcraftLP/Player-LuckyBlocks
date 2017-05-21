@@ -22,9 +22,9 @@ public abstract class LuckyPotion extends Potion {
     }
     
     @Override
-    public final void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+    public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
         mc.renderEngine.bindTexture(this.getTexture());
-        mc.currentScreen.drawTexturedModalRect(x + 8, y + 8, this.textureOffsets[0], this.textureOffsets[1], this.textureOffsets[2], this.textureOffsets[3]);
+        mc.currentScreen.drawTexturedModalRect(x + 8, y + 8, this.textureOffsets[0], this.textureOffsets[1], 16, 16);
     }
     
     public void setTextureOffsets(int[] offsets) {

@@ -24,7 +24,8 @@ public class LuckyMisc {
 		//public static ArmorMaterial INFINITY = ModHelper.registerArmor("infinity", MODID, 30, new int[]{3, 4, 7, 3}, 3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 5.0f);
 	}
 	
-	public static class DamageSources {
+	@SuppressWarnings("FinalStaticMethod")
+    public static class DamageSources {
 		
 		public static final DamageSource enderDenyWater = new DamageSource("enderDenyWater").setDamageBypassesArmor().setDamageIsAbsolute();
 		

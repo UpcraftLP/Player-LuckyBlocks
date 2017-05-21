@@ -33,6 +33,7 @@ public class CommonProxy {
 		LuckyEvents.initHandlers(event.getSide());
 		LuckyEvents.initEvents();
 		LuckyEvents.initDrops();
+		LuckyEvents.initStructures();
 	}
 	
 	public void init(FMLInitializationEvent event) {
