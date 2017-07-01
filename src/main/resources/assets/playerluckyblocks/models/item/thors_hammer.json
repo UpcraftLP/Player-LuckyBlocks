@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-    	"layer0": "playerluckyblocks:items/lightning_bolt"
+    	"layer0": "playerluckyblocks:items/thors_hammer"
     }
 }

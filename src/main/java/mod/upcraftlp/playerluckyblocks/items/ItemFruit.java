@@ -48,7 +48,7 @@ public class ItemFruit extends ItemFood {
 	            break;
 	            
 	        case 1: //(red)
-	            
+	            //TODO fire capability
 	            break;
 	            
 	        case 2: //(green)giant

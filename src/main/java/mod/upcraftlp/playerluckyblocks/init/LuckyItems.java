@@ -1,11 +1,11 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
 import mod.upcraftlp.playerluckyblocks.items.*;
+import mod.upcraftlp.playerluckyblocks.items.armor.ItemBombVest;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemJetPack;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 
 public class LuckyItems {
 
@@ -15,7 +15,7 @@ public class LuckyItems {
 	public static final Item WATER_ORB = new ItemWaterOrb();
 	public static final Item TELEPORT_STAFF = new ItemTeleportStaff();
 	public static final Item DEATH_NOTE = new ItemDeathNote();
-	public static final Item LIGHTNING_BOLT = new ItemLightningBolt();
+	public static final Item LIGHTNING_BOLT = new ItemThorsHammer();
 	public static final Item BOOSTER = new ItemBooster();
 	public static final Item ENERGY_BAR = new ItemEnergyBar();
 	
@@ -27,6 +27,8 @@ public class LuckyItems {
 	public static final Item ENDER_CHESTPLATE = new ItemEnderArmor(EntityEquipmentSlot.CHEST);
 	public static final Item ENDER_LEGGINGS = new ItemEnderArmor(EntityEquipmentSlot.LEGS);
 	public static final Item ENDER_BOOTS = new ItemEnderArmor(EntityEquipmentSlot.FEET);
+
+	public static final Item BOMB_VEST = new ItemBombVest(); //unimplemented, unfinished
 	
 	/**Swords**/
 	public static final Item ADMIN_ARK = new ItemAdminArk(); //unfinished

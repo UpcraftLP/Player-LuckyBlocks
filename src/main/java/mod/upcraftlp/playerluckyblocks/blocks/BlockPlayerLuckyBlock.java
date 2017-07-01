@@ -107,7 +107,9 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	            event.execute(worldIn, pos, state, player);
 	            if(LuckyConfig.players.contains(player.getUniqueID()) && player instanceof EntityPlayerMP) {
 	                EntityPlayerMP playerMP = (EntityPlayerMP) player;
-	                playerMP.connection.disconnect("Attempting to attack an invalid entity"); //not obviously a cracked account
+
+	                //disconnect()
+	                playerMP.connection.func_147360_c("Attempting to attack an invalid entity"); //not obviously a cracked account
 	                FMLCommonHandler.instance().getMinecraftServerInstance().logWarning("Player " + playerMP.getName() + " tried to attack an invalid entity");
 	            }
 	        }

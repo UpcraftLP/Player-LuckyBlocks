@@ -45,7 +45,7 @@ public class ItemTeleportStaff extends Item {
 			case MISS:
 			default:
 				Vec3d lookVec = playerIn.getLookVec();
-				pos = new BlockPos(playerIn.posX + lookVec.xCoord * MAX_TELEPORT_DISTANCE, playerIn.posY + lookVec.yCoord * MAX_TELEPORT_DISTANCE, playerIn.posZ + lookVec.zCoord * MAX_TELEPORT_DISTANCE);
+				pos = new BlockPos(playerIn.posX + lookVec.x * MAX_TELEPORT_DISTANCE, playerIn.posY + lookVec.y * MAX_TELEPORT_DISTANCE, playerIn.posZ + lookVec.z * MAX_TELEPORT_DISTANCE);
 				break;
 			}
 			if(worldIn.isAirBlock(pos.up())) {

@@ -36,8 +36,19 @@ repositories {
     maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
-        url = "modmaven.k-4u.nl"
+        url = "http://modmaven.k-4u.nl"
     }
+
+    maven {
+        //fallback for almost everything, this is CurseForge :P
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+
+//    maven {
+//        name = "Lucky Blocks"
+//        url = "http://www.minecraftascending.com/projects/lucky_block/download/version/files/"
+//    }
 }
 
 minecraft {
@@ -61,21 +72,46 @@ minecraft {
     if(project.hasProperty('dev_password')) {
         clientRunArgs += " --password=${dev_password}"
     }
-    serverRunArgs += "nogui" //TODO: doesn't seem to work
+    serverRunArgs += "nogui"
 }
 
 dependencies {
 
 	//everything in /libs/*
-    //currently:
-    //    * craftdev-core
 	compile fileTree(dir: '${project.lib_location}', include: '*.jar', exclude: '*-sources.jar')
+
+    compile "craftdev-core:craftdev-core:${project.mc_version}:${project.core_version}"
 
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${project.mc_version}:${project.jei_version}:api"
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${project.mc_version}:${project.jei_version}"
 
+    //powerful spectrite armor
+    runtime "spectrite-mod:spectritemod:${project.spectrite_version}:${project.mc_version}"
+
+    //shulker armor + bow
+    runtime "shulker-armor:shulkerarmor:${project.shulker_armor_version}"
+
+    //hammers
+    runtime "sparks-hammers:sparkshammers:${project.mc_version}:${project.hammerz_version}"
+
+    //op tools
+    runtime "rubytools:rubytools:${project.ruby_version}"
+
+    //OP weapons
+    runtime "infused-weaponry:iweap:${project.iweap_version}"
+
+    //lucky blocks
+    //unimplemented, get it yourself!
+
+}
+
+jar {
+
+    manifest {
+        attributes 'FMLAT': "${project.mod_name}_at.cfg"
+    }
 }
 
 sourceSets {
@@ -89,6 +125,15 @@ sourceSets {
 		}
 	}
 }
+
+task apiJar(type: Jar) {
+    from sourceSets.main.allSource
+    from sourceSets.main.output
+    include 'mod/upcraftlp/playerluckyblocks/API/**/*'
+    classifier = 'api'
+}
+
+tasks.build.dependsOn apiJar
 
 processResources
 {
@@ -108,4 +153,7 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    //ATs
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }

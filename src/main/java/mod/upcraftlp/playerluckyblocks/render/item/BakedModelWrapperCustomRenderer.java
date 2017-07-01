@@ -40,12 +40,16 @@ public class BakedModelWrapperCustomRenderer implements IBakedModel {
 
     @Override
     public boolean isBuiltInRenderer() { //FIXME: get rid of dirty render code
+        GlStateManager.pushMatrix();
+        GlStateManager.pushAttrib();
         GlStateManager.translate(0.5F, 0.5F, 0.5F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         //TODO proper rendering; blocks turn black when stacked on ground :(
         Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(LuckyBlocks.PLAYER_LUCKYBLOCK), this.model);
         GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+        GlStateManager.popAttrib();
+        GlStateManager.popMatrix();
         return true;
     }
 

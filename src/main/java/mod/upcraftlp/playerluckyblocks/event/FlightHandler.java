@@ -9,6 +9,7 @@ import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -45,9 +46,12 @@ public class FlightHandler {
      * determine if a player meets at least one of the specified conditions to fly
      */
     private static boolean isFlightPlayer(EntityPlayerMP player) {
-        return 
-                player.isPotionActive(LuckyPotions.FLIGHT) ||
-                player.inventory.armorInventory.get(2).getItem() == LuckyItems.JETPACK;
+        if(player.isPotionActive(LuckyPotions.FLIGHT)) return true;
+        ItemStack jetPack = player.inventory.armorInventory.get(2);
+        if(!jetPack.isEmpty() && jetPack.getItem() == LuckyItems.JETPACK) {
+            if(jetPack.hasTagCompound()) return jetPack.getTagCompound().getBoolean("active");
+        }
+        return false;
     }
     
 }

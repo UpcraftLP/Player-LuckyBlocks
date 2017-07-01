@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelHumanoidHead;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
@@ -22,32 +23,35 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 	
 	private final ModelHumanoidHead head = new ModelHumanoidHead();
 	private ResourceLocation resourcelocation;
-	
+
 	@Override
-	public void renderTileEntityAt(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
-	    
-	    if(te == null) { //check if rendering in inventory
-	        te = new TileEntityPlayerLuckyBlock();
-	    }
-	    Minecraft mc = Minecraft.getMinecraft();
+	public void renderTileEntityFast(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks, int destroyStage, VertexBuffer buffer) {
+		super.renderTileEntityFast(te, x, y, z, partialTicks, destroyStage, buffer);
+	}
+
+	@Override //renderTileEntityAt
+	public void func_180535_a(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks, int destroyStage) {
+		if(te == null) { //check if rendering in inventory
+			te = new TileEntityPlayerLuckyBlock();
+		}
+		Minecraft mc = Minecraft.getMinecraft();
 		GameProfile profile = te.getGameProfile();
 		if(profile == null) profile = mc.player.getGameProfile();
-		
+
 		SkinManager manager = mc.getSkinManager();
 		Map<Type, MinecraftProfileTexture> skinmap = manager.loadSkinFromCache(profile);
-		if(skinmap != null && skinmap.get(Type.SKIN) != null) {
+		if(skinmap.get(Type.SKIN) != null) {
 			this.resourcelocation = manager.loadSkin(skinmap.get(Type.SKIN), Type.SKIN);
 		}
 		else this.resourcelocation = DefaultPlayerSkin.getDefaultSkinLegacy();
-		super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+		super.func_180535_a(te, x, y, z, partialTicks, destroyStage);
 		if(destroyStage >= 0) {
 			this.bindTexture(DESTROY_STAGES[destroyStage]);
-			 GlStateManager.matrixMode(5890);
-	         GlStateManager.pushMatrix();
-	         GlStateManager.scale(4.0F, 2.0F, 1.0F);
-	         GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-	         GlStateManager.matrixMode(5888);
+			GlStateManager.matrixMode(5890);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(4.0F, 2.0F, 1.0F);
+			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+			GlStateManager.matrixMode(5888);
 		}
 		this.renderPlayerHead(x, y, z, EnumFacing.NORTH, destroyStage);
 		this.renderPlayerHead(x, y, z, EnumFacing.EAST, destroyStage);
@@ -55,8 +59,8 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 		this.renderPlayerHead(x, y, z, EnumFacing.WEST, destroyStage);
 		this.renderPlayerHead(x, y, z, EnumFacing.WEST, destroyStage);
 	}
-	
-	public void renderPlayerHead(double x, double y, double z, EnumFacing facing, int destroyStage) {
+
+	private void renderPlayerHead(double x, double y, double z, EnumFacing facing, int destroyStage) {
 		this.bindTexture(this.resourcelocation);
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();

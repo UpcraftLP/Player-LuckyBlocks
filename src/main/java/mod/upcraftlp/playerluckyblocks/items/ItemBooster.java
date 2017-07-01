@@ -25,7 +25,7 @@ public class ItemBooster extends Item {
         if(!worldIn.isRemote) {
             stack.damageItem(1, playerIn);
             Vec3d lookVec = playerIn.getLookVec();
-            playerIn.addVelocity(lookVec.xCoord * 4.0D, lookVec.yCoord *1.5D, lookVec.zCoord * 4.0D);
+            playerIn.addVelocity(lookVec.x * 4.0D, lookVec.y *1.5D, lookVec.z * 4.0D);
             playerIn.getCooldownTracker().setCooldown(this, 100);
             playerIn.velocityChanged = true;
             if(itemRand.nextInt(20) == 0 && !playerIn.capabilities.isCreativeMode) stack = ItemStack.EMPTY;
