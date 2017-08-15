@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class TileEntityPlayerLuckyBlock extends TileEntity {
@@ -33,7 +34,7 @@ public class TileEntityPlayerLuckyBlock extends TileEntity {
 	}
 	
 	public void setLuck(int luck) {
-		this.luck = luck;
+		this.luck = MathHelper.clamp(luck, -100, 100);
 		this.markDirty();
 	}
 	
