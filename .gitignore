@@ -21,7 +21,7 @@ build
 eclipse
 run
 
-src/test/
+src/main/java/test/
 /classes/
 /.gradle/
 
