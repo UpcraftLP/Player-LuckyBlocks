@@ -2,14 +2,13 @@ package mod.upcraftlp.playerluckyblocks.blocks;
 
 import com.mojang.authlib.GameProfile;
 import core.upcraftlp.craftdev.API.templates.Block;
+import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.api.EnumLuck;
 import mod.upcraftlp.playerluckyblocks.api.EventRegistry;
 import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
-import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
-import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -29,7 +28,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -70,20 +68,6 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 		if(luck < -50) textformatting = TextFormatting.RED;
 		if(luck > 50) textformatting = TextFormatting.GREEN;
 		tooltip.add(TextFormatting.GRAY + "Luck: " + textformatting + luck);
-	}
-	
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing heldItem, float side, float hitX, float hitY) {
-		ItemStack stack = playerIn.getHeldItem(hand);
-		if(!worldIn.isRemote && stack.getItem() == LuckyItems.LUCKY_KEY) {
-			int luck = stack.hasTagCompound() ? MathHelper.clamp(stack.getTagCompound().getInteger(KEY_LUCK), -100, 100) : EnumLuck.randomLuck();
-			TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
-			te.setLuck(luck);
-			stack.shrink(1);
-			playerIn.setHeldItem(hand, stack);
-		}
-		return true;
 	}
 	
 	@Override
