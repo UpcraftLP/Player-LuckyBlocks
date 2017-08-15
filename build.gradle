@@ -7,8 +7,12 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.0.9"
+}
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
+
 
 def username = "${mod_name}"
 if (project.hasProperty('dev_mail')) {
@@ -17,7 +21,7 @@ if (project.hasProperty('dev_mail')) {
 else if(project.hasProperty('dev_username')) {
     username = "${dev_username}"
 }
-
+def lucky_addon_folder = "lucky_blocks"
 version = "${project.mc_version}-${project.mod_version}"
 group= project.base_package // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 //noinspection GroovyUnusedAssignment
@@ -44,11 +48,56 @@ repositories {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
+}
 
-//    maven {
-//        name = "Lucky Blocks"
-//        url = "http://www.minecraftascending.com/projects/lucky_block/download/version/files/"
-//    }
+String getChangelogText() {
+    def changelogFile = new File('changelog.txt')
+    String str = ''
+    String separator = '---'
+    int lineCount = 0
+    boolean done = false
+    changelogFile.eachLine {
+        if (done || it == null) {
+            return
+        }
+        if (lineCount < 3) {
+            lineCount++
+            if (it.startsWith(separator)) {
+                return
+            }
+        }
+        if (!it.startsWith(separator)) {
+            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
+            return
+        }
+        done = true // once we go past the first version block, parse no more
+    }
+    return str
+}
+
+configurations {
+    coreLib
+}
+
+task luckyBlocks(type: Copy) {
+    def lucky_addons = new File(lucky_addon_folder)
+    if(!lucky_addons.exists()) lucky_addons.mkdirs()
+    else {
+        def dest = new File("${minecraft.runDir}/addons/lucky_block")
+        if(!dest.exists()) dest.mkdirs()
+        from(fileTree(lucky_addons))
+        into(dest)
+    }
+}
+tasks.setupDecompWorkspace.dependsOn luckyBlocks
+
+def lib_folder = "libraries"
+task fetch(type: Copy) {
+    def lb = new File("${lib_folder}/luckyblock.zip")
+    if (!lb.exists()) {
+        new File("${lib_folder}").mkdirs()
+        new URL("${project.lb_link}").withInputStream{ i -> lb.withOutputStream{ it << i }}
+    }
 }
 
 minecraft {
@@ -77,10 +126,11 @@ minecraft {
 
 dependencies {
 
-	//everything in /libs/*
-	compile fileTree(dir: '${project.lib_location}', include: '*.jar', exclude: '*-sources.jar')
+    //lucky blocks: automatically downloaded into /lucky
+    tasks.dependencies.dependsOn fetch
+    runtime files("${lib_folder}/luckyblock.zip")
 
-    compile "craftdev-core:craftdev-core:${project.mc_version}:${project.core_version}"
+    coreLib "craftdev-core:craftdev-core:${project.mc_version}:${project.core_version}"
 
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${project.mc_version}:${project.jei_version}:api"
@@ -88,7 +138,7 @@ dependencies {
     runtime "mezz.jei:jei_${project.mc_version}:${project.jei_version}"
 
     //powerful spectrite armor
-    runtime "spectrite-mod:spectritemod:${project.spectrite_version}:${project.mc_version}"
+    runtime "spectrite:spectritemod:${project.spectrite_version}:${project.mc_version}"
 
     //shulker armor + bow
     runtime "shulker-armor:shulkerarmor:${project.shulker_armor_version}"
@@ -102,20 +152,36 @@ dependencies {
     //OP weapons
     runtime "infused-weaponry:iweap:${project.iweap_version}"
 
-    //lucky blocks
-    //unimplemented, get it yourself!
+    configurations.compile.extendsFrom(configurations.coreLib)
+}
 
+def curseRelations = { //TODO add other optional mods
+    optionalLibrary 'just-enough-items-jei'
 }
 
 jar {
+    into('/') {
+        from configurations.coreLib
+    }
+    manifest.mainAttributes(
+            "FMLAT": "${project.mod_name}_at.cfg",
+            "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
+            "Implementation-Title": project.name,
+            "Implementation-Version": version,
+            "Built-On": "${mc_version}-${forge_version}",
+            "ContainedDeps": "craftdev-core-${project.mc_version}-${project.core_version}.jar"
+    )
+}
 
-    manifest {
-        attributes 'FMLAT': "${project.mod_name}_at.cfg"
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
     }
 }
 
 sourceSets {
-	
 	main {
 		java {
 			srcDir 'src/main/java'
@@ -129,11 +195,35 @@ sourceSets {
 task apiJar(type: Jar) {
     from sourceSets.main.allSource
     from sourceSets.main.output
-    include 'mod/upcraftlp/playerluckyblocks/API/**/*'
+    include 'mod/upcraftlp/playerluckyblocks/api/**/*'
     classifier = 'api'
 }
 
-tasks.build.dependsOn apiJar
+task sourcesJar(type: Jar) {
+    classifier = ' sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc.destinationDir
+    classifier = ' javadoc'
+}
+
+tasks.withType(JavaCompile) { task ->
+    task.options.encoding = 'UTF-8'
+}
+
+task signJar(type: SignJar, dependsOn: reobfJar) {
+    if(project.hasProperty('sign_keyStore')) {
+        keyPass = "${sign_keyPass}"
+        keyStore = "${sign_keyStore}"
+        storePass = "${sign_storePass}"
+        alias = "${sign_alias}"
+    }
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+
+tasks.build.dependsOn apiJar, sourcesJar, javadocJar, signJar
 
 processResources
 {
@@ -156,4 +246,21 @@ processResources
 
     //ATs
     rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+curseforge {
+    if (project.hasProperty('curse_key'))
+        apiKey = project.curse_key
+
+    project {
+        id = "${project.curse_id}"
+        changelog = getChangelogText()
+        releaseType = 'release'
+
+        relations curseRelations
+
+        addArtifact javadocJar
+        addArtifact sourceJar
+        addArtifact apiJar
+    }
 }

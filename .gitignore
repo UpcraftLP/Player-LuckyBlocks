@@ -24,3 +24,7 @@ run
 src/test/
 /classes/
 /.gradle/
+
+libraries/
+
+lucky_blocks/
