@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 
-import static mod.upcraftlp.playerluckyblocks.blocks.BlockPlayerLuckyBlock.KEY_LUCK;
-
 import java.util.List;
+
+import static mod.upcraftlp.playerluckyblocks.blocks.BlockPlayerLuckyBlock.KEY_LUCK;
 
 /**
  * (c)2017 UpcraftLP

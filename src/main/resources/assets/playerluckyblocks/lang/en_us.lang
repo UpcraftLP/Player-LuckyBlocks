@@ -14,6 +14,7 @@ item.admin_ark.name=Admin Ark
 item.devil_fruit.name=Devil Fruit
 item.death_note.name=Death Note
 item.energy_bar.name=Energy Snack
+item.lucky_key.name=LuckyBlock Key
 
 #Blocks
 tile.player_luckyblock.name=Player Lucky Block
