@@ -13,7 +13,7 @@ public class DeathSoundHandler {
 	@SubscribeEvent
 	public static void playDeathSound(PlayerRespawnEvent event) {
 	    //TODO: multiple sounds
-		Main.getLogger().debug("death sound played"); //TODO remove debug
+		Main.getLogger().debug("death sound played"); //TODO remove debug //TODO sounds?
 		event.player.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 1.0f);
 	}
 }
