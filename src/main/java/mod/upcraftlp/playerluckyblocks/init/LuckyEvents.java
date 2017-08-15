@@ -1,14 +1,14 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
-import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.BADASS;
-import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.NEGATIVE;
-import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.NEUTRAL;
-import static mod.upcraftlp.playerluckyblocks.API.EnumLuck.POSITIVE;
+import static mod.upcraftlp.playerluckyblocks.api.EnumLuck.BADASS;
+import static mod.upcraftlp.playerluckyblocks.api.EnumLuck.NEGATIVE;
+import static mod.upcraftlp.playerluckyblocks.api.EnumLuck.NEUTRAL;
+import static mod.upcraftlp.playerluckyblocks.api.EnumLuck.POSITIVE;
 
 import com.google.common.collect.Lists;
 
-import static mod.upcraftlp.playerluckyblocks.API.EventRegistry.*;
-import mod.upcraftlp.playerluckyblocks.API.StructureProvider;
+import static mod.upcraftlp.playerluckyblocks.api.EventRegistry.*;
+import mod.upcraftlp.playerluckyblocks.api.StructureProvider;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.baseevents.*;
 import net.minecraft.init.Blocks;

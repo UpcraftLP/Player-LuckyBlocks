@@ -1,18 +1,15 @@
 package mod.upcraftlp.playerluckyblocks.blocks;
 
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.authlib.GameProfile;
-
 import core.upcraftlp.craftdev.API.templates.Block;
+import mod.upcraftlp.playerluckyblocks.api.EnumLuck;
+import mod.upcraftlp.playerluckyblocks.api.EventRegistry;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.Main;
-import mod.upcraftlp.playerluckyblocks.API.EnumLuck;
-import mod.upcraftlp.playerluckyblocks.API.EventRegistry;
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
+import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -32,6 +29,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -39,6 +37,9 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider {
 
@@ -74,8 +75,15 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing heldItem, float side, float hitX, float hitY) {
-		// TODO re-roll when using creative key!
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY);
+		ItemStack stack = playerIn.getHeldItem(hand);
+		if(!worldIn.isRemote && stack.getItem() == LuckyItems.LUCKY_KEY) {
+			int luck = stack.hasTagCompound() ? MathHelper.clamp(stack.getTagCompound().getInteger(KEY_LUCK), -100, 100) : EnumLuck.randomLuck();
+			TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
+			te.setLuck(luck);
+			stack.shrink(1);
+			playerIn.setHeldItem(hand, stack);
+		}
+		return true;
 	}
 	
 	@Override
@@ -108,8 +116,7 @@ public class BlockPlayerLuckyBlock extends Block implements ITileEntityProvider 
 	            if(LuckyConfig.players.contains(player.getUniqueID()) && player instanceof EntityPlayerMP) {
 	                EntityPlayerMP playerMP = (EntityPlayerMP) player;
 
-	                //disconnect()
-	                playerMP.connection.func_147360_c("Attempting to attack an invalid entity"); //not obviously a cracked account
+	                playerMP.connection.disconnect("Attempting to attack an invalid entity"); //not obviously a cracked account
 	                FMLCommonHandler.instance().getMinecraftServerInstance().logWarning("Player " + playerMP.getName() + " tried to attack an invalid entity");
 	            }
 	        }

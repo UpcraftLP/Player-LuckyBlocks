@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import core.upcraftlp.craftdev.API.world.WorldHelper;
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

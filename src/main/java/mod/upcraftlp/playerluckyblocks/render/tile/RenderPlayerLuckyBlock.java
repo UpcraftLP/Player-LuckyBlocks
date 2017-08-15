@@ -29,8 +29,8 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 		super.renderTileEntityFast(te, x, y, z, partialTicks, destroyStage, buffer);
 	}
 
-	@Override //renderTileEntityAt
-	public void func_180535_a(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks, int destroyStage) {
+	@Override
+	public void renderTileEntityAt(TileEntityPlayerLuckyBlock te, double x, double y, double z, float partialTicks, int destroyStage) {
 		if(te == null) { //check if rendering in inventory
 			te = new TileEntityPlayerLuckyBlock();
 		}
@@ -44,7 +44,7 @@ public class RenderPlayerLuckyBlock extends TileEntitySpecialRenderer<TileEntity
 			this.resourcelocation = manager.loadSkin(skinmap.get(Type.SKIN), Type.SKIN);
 		}
 		else this.resourcelocation = DefaultPlayerSkin.getDefaultSkinLegacy();
-		super.func_180535_a(te, x, y, z, partialTicks, destroyStage);
+		super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
 		if(destroyStage >= 0) {
 			this.bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);

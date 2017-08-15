@@ -18,6 +18,7 @@ public class LuckyItems {
 	public static final Item LIGHTNING_BOLT = new ItemThorsHammer();
 	public static final Item BOOSTER = new ItemBooster();
 	public static final Item ENERGY_BAR = new ItemEnergyBar();
+	public static final Item LUCKY_KEY = new core.upcraftlp.craftdev.API.templates.Item("lucky_key");
 	
 	/**JetPack**/
 	public static final Item JETPACK = new ItemJetPack();

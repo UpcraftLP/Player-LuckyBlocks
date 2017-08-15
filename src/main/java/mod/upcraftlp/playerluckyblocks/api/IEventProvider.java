@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.API;
+package mod.upcraftlp.playerluckyblocks.api;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

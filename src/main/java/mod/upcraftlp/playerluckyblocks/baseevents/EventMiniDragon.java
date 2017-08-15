@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.baseevents;
 
 import java.util.Random;
 
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.world.DragonData;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

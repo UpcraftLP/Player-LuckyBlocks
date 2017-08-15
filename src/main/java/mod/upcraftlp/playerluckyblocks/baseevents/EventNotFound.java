@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.baseevents;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;

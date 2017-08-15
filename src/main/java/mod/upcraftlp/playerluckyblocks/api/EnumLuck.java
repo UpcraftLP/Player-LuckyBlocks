@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.API;
+package mod.upcraftlp.playerluckyblocks.api;
 
 import java.util.Random;
 
@@ -23,7 +23,12 @@ public enum EnumLuck implements IStringSerializable {
 	EnumLuck(String name) {
 		this.name = name;
 	}
-	
+
+	public static int randomLuck() {
+		int luck = random.nextInt(150) - random.nextInt(150);
+		return MathHelper.clamp(luck, -100, 100);
+	}
+
 	public static EnumLuck rollTheDice(int luck)
 	{
 		luck = MathHelper.clamp(luck, -100, 100);

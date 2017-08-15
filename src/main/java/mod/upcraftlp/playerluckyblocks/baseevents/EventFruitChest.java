@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.baseevents;
 
 import java.util.Random;
 
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
 import mod.upcraftlp.playerluckyblocks.items.ItemFruit;
 import net.minecraft.block.BlockChest;

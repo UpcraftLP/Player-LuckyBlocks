@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.crafting;
 
-import mod.upcraftlp.playerluckyblocks.API.LuckRecipe;
+import mod.upcraftlp.playerluckyblocks.api.LuckRecipe;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 
 public class LuckCrafting {

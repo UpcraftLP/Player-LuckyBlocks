@@ -49,3 +49,6 @@ tooltip.lucky.devilsfruit=I wonder what that color might do?
 tooltip.lucky.lightningbolt=You can feel the inner energies vibrating...
 tooltip.lucky.adminArk=Heavy weapon
 tooltip.lucky.baconSword=Tasty...
+tooltip.lucky.key_luck=Use on a Lucky Block to change it's luck.
+tooltip.lucky.key_luck1=Wanna question your fate?
+tooltip.lucky.key_luck2=Luck: %s

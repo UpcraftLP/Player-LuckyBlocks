@@ -1,19 +1,9 @@
 package mod.upcraftlp.playerluckyblocks.baseevents;
 
-import static mod.upcraftlp.playerluckyblocks.Reference.MODID;
-
-import java.util.List;
-import java.util.Random;
-
-import com.google.common.collect.Lists;
-
-import core.upcraftlp.craftdev.API.structures.StructureLoaderNBT;
-import mod.upcraftlp.playerluckyblocks.API.StructureProvider;
-import mod.upcraftlp.playerluckyblocks.Main;
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.StructureProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.API;
+package mod.upcraftlp.playerluckyblocks.api;
 
 import com.google.common.collect.Lists;
 import core.upcraftlp.craftdev.API.structures.StructureLoaderNBT;

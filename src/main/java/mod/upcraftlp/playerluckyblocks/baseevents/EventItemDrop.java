@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.baseevents;
 
 import java.util.List;
 
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.baseevents;
 
-import mod.upcraftlp.playerluckyblocks.API.IEventProvider;
+import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityFallingBlock;

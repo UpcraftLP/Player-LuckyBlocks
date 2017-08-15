@@ -1,9 +1,7 @@
-package mod.upcraftlp.playerluckyblocks.API;
+package mod.upcraftlp.playerluckyblocks.api;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 

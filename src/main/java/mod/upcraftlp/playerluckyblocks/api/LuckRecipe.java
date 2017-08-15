@@ -1,4 +1,4 @@
-package mod.upcraftlp.playerluckyblocks.API;
+package mod.upcraftlp.playerluckyblocks.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +100,7 @@ public class LuckRecipe implements IRecipe {
 	}
 
 	@Override
-	public int func_77570_a() { //getRecipeSize
+	public int getRecipeSize() {
 		return 9;
 	}
 
