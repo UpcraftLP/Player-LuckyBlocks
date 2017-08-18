@@ -4,6 +4,7 @@ import core.upcraftlp.craftdev.API.net.NetworkHandler;
 import core.upcraftlp.craftdev.API.util.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.Reference;
+import mod.upcraftlp.playerluckyblocks.api.plugins.LegacyPluginAdapter;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.crafting.LuckCrafting;
@@ -11,15 +12,12 @@ import mod.upcraftlp.playerluckyblocks.crafting.ShapedCrafting;
 import mod.upcraftlp.playerluckyblocks.entity.EntityMiniDragon;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import mod.upcraftlp.playerluckyblocks.init.LuckyGuiHandler;
+import mod.upcraftlp.playerluckyblocks.init.LuckyModCompat;
 import mod.upcraftlp.playerluckyblocks.net.PacketDeathNote;
 import mod.upcraftlp.playerluckyblocks.net.PacketUnlock;
 import mod.upcraftlp.playerluckyblocks.special.NetHandlerPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,6 +32,7 @@ public class CommonProxy {
 		LuckyEvents.initEvents();
 		LuckyEvents.initDrops();
 		LuckyEvents.initStructures();
+		LegacyPluginAdapter.discoverPlugins(); //TODO add calls for the plguin adapter in registry events!
 	}
 	
 	public void init(FMLInitializationEvent event) {
@@ -45,10 +44,12 @@ public class CommonProxy {
 		LuckCrafting.init();
 		GameRegistry.registerTileEntity(TileEntityPlayerLuckyBlock.class, Reference.MODID + "_luckyBlock");
 		ModHelper.registerEntity(new ResourceLocation(Reference.MODID, "mini_dragon"), EntityMiniDragon.class, "mini_dragon", 64, 0, true);
+		LegacyPluginAdapter.initCrafting();
+		LegacyPluginAdapter.registerDrops();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
-		
+		LuckyModCompat.init();
 	}
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {

@@ -8,6 +8,7 @@ import com.mojang.authlib.GameProfile;
 
 import core.upcraftlp.craftdev.API.util.Loggers.ModLogger;
 import mod.upcraftlp.playerluckyblocks.Main;
+import mod.upcraftlp.playerluckyblocks.api.plugins.LegacyPluginAdapter;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
@@ -40,6 +41,8 @@ public class ClientProxy extends CommonProxy {
 		//TODO: metadata!
 		this.gp = Minecraft.getMinecraft().getSession().getProfile();
         instance.doChecks(this.gp);
+
+		LegacyPluginAdapter.initPluginResourcePacks();
 	}
 	
     @Override

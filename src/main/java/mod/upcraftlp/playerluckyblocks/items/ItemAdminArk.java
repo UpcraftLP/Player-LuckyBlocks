@@ -29,11 +29,11 @@ public class ItemAdminArk extends ItemSword {
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 	    if(!worldIn.isRemote && entityIn instanceof EntityPlayer) {
 	        EntityPlayer player = (EntityPlayer) entityIn;
-	        player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 10, 2));
-	        player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 10, 20));
-	        player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10, 5));
-	        player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 10, 3));
-	        player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 10, 2));
+	        player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 30, 2));
+	        player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 30, 20));
+	        player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 30, 5));
+	        player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 30, 3));
+	        player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 30, 2));
 	    }
 	}
 	

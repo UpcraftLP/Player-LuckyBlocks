@@ -53,6 +53,7 @@ repositories {
 String getChangelogText() {
     def changelogFile = new File('changelog.txt')
     String str = ''
+    if(!changelogFile.exists()) return str
     String separator = '---'
     int lineCount = 0
     boolean done = false
@@ -83,7 +84,7 @@ task luckyBlocks(type: Copy) {
     def lucky_addons = new File(lucky_addon_folder)
     if(!lucky_addons.exists()) lucky_addons.mkdirs()
     else {
-        def dest = new File("${minecraft.runDir}/addons/lucky_block")
+        def dest = new File("${minecraft.runDir}", "addons/lucky_block")
         if(!dest.exists()) dest.mkdirs()
         from(fileTree(lucky_addons))
         into(dest)
@@ -128,7 +129,7 @@ dependencies {
 
     //lucky blocks: automatically downloaded into /lucky
     tasks.dependencies.dependsOn fetch
-    runtime files("${lib_folder}/luckyblock.zip")
+    compile files("${lib_folder}/luckyblock.zip")
 
     coreLib "craftdev-core:craftdev-core:${project.mc_version}:${project.core_version}"
 
