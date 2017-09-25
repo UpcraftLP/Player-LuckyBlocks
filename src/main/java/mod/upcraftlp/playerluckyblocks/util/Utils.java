@@ -1,7 +1,10 @@
 package mod.upcraftlp.playerluckyblocks.util;
 
+import javax.annotation.Nullable;
+
 import static net.minecraft.util.ChatAllowedCharacters.ILLEGAL_FILE_CHARACTERS;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,5 +23,11 @@ public class Utils {
             input = input.replace(c, '_');
         }
         return input;
+    }
+
+    @Nullable
+    public static <T> T getRandomElementFromList(List<T> list) {
+        if(list.size() == 0) return null;
+        return list.get(RANDOM.nextInt(list.size()));
     }
 }

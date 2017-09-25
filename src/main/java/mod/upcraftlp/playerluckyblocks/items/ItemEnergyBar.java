@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import core.upcraftlp.craftdev.API.templates.ItemFood;
+import core.upcraftlp.craftdev.api.item.ItemFood;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;

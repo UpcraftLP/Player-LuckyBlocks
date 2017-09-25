@@ -1,8 +1,5 @@
 package mod.upcraftlp.playerluckyblocks.net;
 
-import java.util.UUID;
-
-import core.upcraftlp.craftdev.API.util.Loggers.ModLogger;
 import io.netty.buffer.ByteBuf;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.Reference;
@@ -22,6 +19,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import org.apache.logging.log4j.Logger;
 import scala.actors.threadpool.Arrays;
+
+import java.util.UUID;
 
 public class PacketUnlock implements IMessage, IMessageHandler<PacketUnlock, IMessage> {
 

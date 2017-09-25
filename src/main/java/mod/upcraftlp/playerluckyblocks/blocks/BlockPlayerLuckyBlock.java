@@ -1,7 +1,7 @@
 package mod.upcraftlp.playerluckyblocks.blocks;
 
 import com.mojang.authlib.GameProfile;
-import core.upcraftlp.craftdev.API.templates.Block;
+import core.upcraftlp.craftdev.api.block.Block;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.api.EnumLuck;
 import mod.upcraftlp.playerluckyblocks.api.EventRegistry;

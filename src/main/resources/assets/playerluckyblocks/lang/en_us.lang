@@ -2,6 +2,7 @@
 
 #CreativeTab
 itemGroup.tabPlayerLucky.name=Player Lucky Blocks
+itemGroup.tabAddonLucky.name=Lucky Block Legacy Addons
 
 #Items
 item.teleport_staff.name=Teleport Staff
@@ -18,6 +19,7 @@ item.lucky_key.name=LuckyBlock Key
 
 #Blocks
 tile.player_luckyblock.name=Player Lucky Block
+tile.magic_wall.name=Magic Wall
 
 #Armor
 item.ender_head.name=Ender Helmet
@@ -53,3 +55,6 @@ tooltip.lucky.baconSword=Tasty...
 tooltip.lucky.key_luck=Use on a Lucky Block to change it's luck.
 tooltip.lucky.key_luck1=Wanna question your fate?
 tooltip.lucky.key_luck2=Luck: %s
+tooltip.lucky.magic_wall_1=Unbreakable...
+tooltip.lucky.magic_wall_2=...but not blast resistant
+

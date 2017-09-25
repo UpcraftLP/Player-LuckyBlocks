@@ -3,7 +3,7 @@ package mod.upcraftlp.playerluckyblocks.baseevents;
 import java.util.List;
 import java.util.Random;
 
-import core.upcraftlp.craftdev.API.world.WorldHelper;
+import core.upcraftlp.craftdev.api.world.WorldHelper;
 import mod.upcraftlp.playerluckyblocks.api.IEventProvider;
 import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
 import net.minecraft.block.state.IBlockState;
@@ -48,11 +48,9 @@ public class EventSwapPositions implements IEventProvider {
 			player2.sendMessage(new TextComponentTranslation("info.lucky.whoosh"));
 			player.setHealth(MathHelper.clamp(player.getHealth() * random.nextFloat(), 0.5f, player.getMaxHealth()));
 			player.setHealth(MathHelper.clamp(player2.getHealth() * random.nextFloat(), 0.5f, player2.getMaxHealth()));
-			
-			for(int i = 0; i < 50; i++) {
-			    WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, true, player.posX, player.posY, player.posZ, EnderArmorHandler.getRandom(random), (random.nextDouble() - 0.5D) * 0.5D, EnderArmorHandler.getRandom(random));
-			    WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, true, player2.posX, player2.posY, player2.posZ, EnderArmorHandler.getRandom(random), (random.nextDouble() - 0.5D) * 0.5D, EnderArmorHandler.getRandom(random));
-			}
+			WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, player.posX, player.posY, player.posZ, 50, 0.0D, 0.0D, 0.0D, EnderArmorHandler.getRandom(random));
+			WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, player2.posX, player2.posY, player2.posZ, 50, 0.0D, 0.0D, 0.0D, EnderArmorHandler.getRandom(random));
+
 		}
 		else {
 		    if (EnderArmorHandler.randomTeleport(player, 32))

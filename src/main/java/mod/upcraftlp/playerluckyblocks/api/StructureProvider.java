@@ -1,8 +1,8 @@
 package mod.upcraftlp.playerluckyblocks.api;
 
 import com.google.common.collect.Lists;
-import core.upcraftlp.craftdev.API.structures.StructureLoaderNBT;
-import core.upcraftlp.craftdev.API.structures.StructureLoaderSchematic;
+import core.upcraftlp.craftdev.api.structures.StructureLoaderNBT;
+import core.upcraftlp.craftdev.api.structures.StructureLoaderSchematic;
 import jline.internal.Preconditions;
 import mod.upcraftlp.playerluckyblocks.Main;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import core.upcraftlp.craftdev.API.templates.Item;
+import core.upcraftlp.craftdev.api.item.Item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

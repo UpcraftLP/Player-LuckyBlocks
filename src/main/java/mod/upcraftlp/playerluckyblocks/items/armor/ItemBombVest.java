@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.items.armor;
 
-import core.upcraftlp.craftdev.API.templates.ItemArmor;
+import core.upcraftlp.craftdev.api.item.ItemArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

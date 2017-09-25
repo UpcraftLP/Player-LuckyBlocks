@@ -29,8 +29,9 @@ import java.util.zip.ZipFile;
 public class PluginResourcePack implements IResourcePack {
 
     private final ZipFile file;
-    private final Set<String> domains = Sets.newHashSet();
+    private final Set<String> domains = Sets.newConcurrentHashSet();
     private final String name;
+    private final Set<String> fileNames = Sets.newConcurrentHashSet();
 
     public PluginResourcePack(ZipFile zip) {
         this.file = zip;
@@ -38,11 +39,17 @@ public class PluginResourcePack implements IResourcePack {
         Enumeration<? extends ZipEntry> en = zip.entries();
         while (en.hasMoreElements()) {
             ZipEntry entry = en.nextElement();
-            if(entry.isDirectory() && entry.getName().startsWith("assets/")) {
-                String[] split = entry.getName().split("/");
-                if(split.length == 3 && !domains.contains(split[1])) {
-                    domains.add(split[1]);
-                    Main.getLogger().info("Successfully registered resourcedomain " + split[1] + " for PluginFile " + this.getName()); //cache the resource domains for efficiency
+
+            if(entry.getName().startsWith("assets/")) {
+                if(entry.isDirectory()) {
+                    String[] split = entry.getName().split("/");
+                    if(split.length == 3 && !domains.contains(split[1])) {
+                        domains.add(split[1]);
+                        Main.getLogger().info("Successfully registered resourcedomain " + split[1] + " for PluginFile " + this.getName()); //cache the resource domains for efficiency
+                    }
+                }
+                else {
+                    fileNames.add(entry.getName());
                 }
             }
         }
@@ -50,12 +57,11 @@ public class PluginResourcePack implements IResourcePack {
     }
 
     private InputStream getInputStreamInternal(String domain, String path) throws IOException {
-        ZipEntry entry;
-        if(domain == null) {
-            entry = this.file.getEntry(path);
+        if(domain != null && !domain.isEmpty()) path = "assets/" + domain + "/" + path;
+        for (String fileName : this.fileNames) {
+            if(fileName.equalsIgnoreCase(path)) return this.file.getInputStream(this.file.getEntry(fileName));
         }
-        else entry = this.file.getEntry("assets/" + domain + "/" + path);
-        return entry != null ? this.file.getInputStream(entry) : null;
+        return null;
     }
 
     @Override
@@ -65,7 +71,15 @@ public class PluginResourcePack implements IResourcePack {
 
     @Override
     public boolean resourceExists(ResourceLocation location) {
-        return this.file.getEntry("assets/" + location.getResourceDomain() + "/" + location.getResourcePath()) != null;
+        String resource = "assets/" + location.getResourceDomain() + "/" + location.getResourcePath();
+        Main.getLogger().warn("fileName: " + resource);
+        for(String fileName : this.fileNames) {
+            if(fileName.equalsIgnoreCase(resource)) {
+                Main.getLogger().warn("found: " + fileName);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

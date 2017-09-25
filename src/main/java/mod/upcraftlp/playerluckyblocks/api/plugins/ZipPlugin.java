@@ -2,8 +2,11 @@ package mod.upcraftlp.playerluckyblocks.api.plugins;
 
 import com.google.common.collect.Lists;
 import mod.upcraftlp.playerluckyblocks.Main;
-import mod.upcraftlp.playerluckyblocks.api.plugins.plugindrops.Drop;
+import mod.upcraftlp.playerluckyblocks.plugin.AddonLuckyBlock;
+import mod.upcraftlp.playerluckyblocks.plugin.AddonLuckyBow;
+import mod.upcraftlp.playerluckyblocks.plugin.AddonLuckySword;
 import mod.upcraftlp.playerluckyblocks.util.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -12,10 +15,13 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
@@ -25,7 +31,7 @@ public class ZipPlugin {
 
     private static final Logger log = Main.getLogger();
     private final ZipFile file;
-    private ResourceLocation blockname;
+    private ResourceLocation LUCKYBLOCK;
 
     public ZipPlugin(ZipFile file) {
         this.file = file;
@@ -67,68 +73,160 @@ public class ZipPlugin {
         return ret.toArray(new String[ret.size()]);
     }
 
-    public void registerCraftingRecipes() {
+    public void registerCraftingRecipes() { //TODO lootplusplus recipes!
+        Pattern CRAFTING_MATRIX = Pattern.compile("^(.?.?.,)?(.?.?.,)?(.?.?.,)");
         if(this.hasEntry("recipes.txt")) {
             String[] recipes = this.readLines("recipes.txt");
-            for(String recipe : recipes) {
-                String[] parts = recipe.split(",");
-                Item output = PluginUtils.getItemByText(parts[parts.length - 1]);
-                if(output == null) {
-                    log.error("Exception registering crafting recipes for " + this.getFileName() + ": " + parts[parts.length - 1] + " is no valid Item/Block, ignoring recipe!");
+            recipes:
+            for (String recipe : recipes) {
+                Matcher mMatrix = CRAFTING_MATRIX.matcher(recipe);
+                if(!mMatrix.find()) {
+                    log.error("Exception registering crafting recipes for " + this.getFileName() + ": \"" + recipe + "\" is no valid recipe and will be ignored!");
                     continue;
                 }
-                Object[] recipeData = new String[parts.length - 4];
-                System.arraycopy(parts, 3, recipeData, 0, recipeData.length);
-                GameRegistry.addRecipe(new ItemStack(output), recipeData);
-                log.info("successfully registered crafting recipe for " + parts[parts.length - 1]);
+                String matrix = mMatrix.group();
+                recipe = recipe.replace(matrix, "");
+                String[] craftMatrix = matrix.substring(0, matrix.length() - 1).split(","); //this is the craft matrix
+
+                String[] split = recipe.split(",");
+                List<Object> recipeList = Lists.newArrayList(craftMatrix);
+                for (int i = 0; i < split.length; i += 2){
+                    recipeList.add(split[i].charAt(0));
+                    String itemText = split[i + 1];
+                    Item item = PluginUtils.getItemByText(itemText);
+                    int meta = 0;
+                    if(item == null && itemText.contains(":")) { //item has meta
+                        String[] itemTextSplit = ResourceLocation.splitObjectName(itemText);
+                        item = PluginUtils.getItemByText(itemTextSplit[0]);
+                        try {
+                            meta = Integer.parseInt(itemTextSplit[1]);
+                        }
+                        catch (NumberFormatException e) { //item doesn't exist at all.
+                            log.error("Exception registering crafting recipes for " + this.getFileName() + ": \"" + meta + "\" is not a valid integer!");
+                            meta = 0;
+                        }
+                    }
+                    if(item == null) {
+                        log.error("Exception registering crafting recipes for " + this.getFileName() + ": \"" + itemText + "\" is not a valid item, ignoring recipe!");
+                        continue recipes;
+                    }
+                    else recipeList.add(new ItemStack(item, 1, meta));
+                }
+                Item item = Item.REGISTRY.getObject(this.LUCKYBLOCK);
+                assert item != null;
+                GameRegistry.addRecipe(new ItemStack(item), recipeList.toArray());
+                log.info("successfully registered crafting recipe for " + this.LUCKYBLOCK);
             }
         }
     }
 
-    public void registerBlocks() {
-        //TODO parse /config/block_additions/*
-        this.blockname = null; //FIXME get this plugin's lucky block and save it!
+    private static final String PLUGIN_INIT_FILE = "plugin_init.txt";
+
+    public void pluginInit() {
+        //register lucky blocks
+        Enumeration<? extends ZipEntry> en = this.file.entries();
+        while (en.hasMoreElements()) {
+            ZipEntry entry = en.nextElement();
+            String name = entry.getName();
+            if(entry.isDirectory() || name.startsWith("assets")) continue; //we don't want directories or assets
+
+            if(name.equals(PLUGIN_INIT_FILE)) {
+                Scanner sc = null;
+                try {
+                    sc = new Scanner(this.file.getInputStream(entry));
+                    while (sc.hasNextLine()) {
+                        String currentLine = sc.nextLine().trim();
+                        if(currentLine.isEmpty()) continue;
+                        if(currentLine.startsWith("block_id=")) {
+                            Block luckyBlock = new AddonLuckyBlock(currentLine.substring(9));
+                            Main.proxy.registerBlock(luckyBlock);
+                            this.LUCKYBLOCK = luckyBlock.getRegistryName();
+                            log.warn(this.LUCKYBLOCK);
+                            log.warn(currentLine.substring(9));
+                        }
+                        else if(currentLine.startsWith("id=")) {
+                            Block luckyBlock = new AddonLuckyBlock(currentLine.substring(3));
+                            Main.proxy.registerBlock(luckyBlock);
+                            this.LUCKYBLOCK = luckyBlock.getRegistryName();
+                            log.warn(this.LUCKYBLOCK);
+                            log.warn(currentLine.substring(9));
+                        }
+                        else if(currentLine.startsWith("sword_id=")) { //TODO lucky bow + potions + sword
+                            String swordName = currentLine.substring(9);
+                            Item sword = new AddonLuckySword(swordName);
+                            Main.proxy.registerItem(sword);
+                        }
+                        else if(currentLine.startsWith("bow_id=")) {
+                            String bowName = currentLine.substring(7);
+                            Item bow = new AddonLuckyBow(bowName);
+                            Main.proxy.registerItem(bow);
+                        } else if (currentLine.startsWith("potion_id=")) {
+                            String potionName = currentLine.substring(10);
+                            //TODO potions
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    IOUtils.closeQuietly(sc);
+                }
+                break; //luckyblock found, parse no more.
+                //TODO lootplusplus stuff
+                //TODO parse /config/item_additions/*
+            }
+        }
     }
 
-    public void registerItems() {
-        //TODO parse /config/item_additions/*
-        //see PluginUtils$Registries!
-    }
-
-    private static final Pattern LUCK_REGEX = Pattern.compile("@luck=\\d+"); //matches "@luck=" + Integer
+    private static final Pattern LUCK_REGEX = Pattern.compile("@luck=[+-]?\\d+"); //matches "@luck=" + [+/-] + Integer
     private static final Pattern CHANCE_REGEX = Pattern.compile("@chance=(\\d+\\.)?\\d+"); //matches "@chance=" + Float
-    private static final Pattern GROUP_REGEX = Pattern.compile("^group\\(.*\\)$"); //matches <line start> + "group(" + <string> + ")" + <line end>
 
     public void registerDrops() {
         if(!this.hasEntry("drops.txt")) return;
         String[] drops = this.readLines("drops.txt");
-        for(String drop : drops) {
-            float chance = 0.0F;
+        for(int i = 0; i < drops.length; i++) {
+            boolean shouldBreak = false;
+            StringBuilder builder = new StringBuilder();
+            do {
+                String line = drops[i].trim();
+                if(line.endsWith("\\")) {
+                    line = line.substring(0, line.length() - 1);
+                    i++;
+                }
+                else shouldBreak = true; //stop looping after this loop
+                if(!line.isEmpty() && !line.startsWith("/")) {
+                    builder.append(line);
+                }
+            } while (!shouldBreak && i < drops.length);
+            String lineString = fixBackslash(builder.toString()).trim();
+            if(lineString.isEmpty()) continue;
+
+            float chance = 0.1F;
             int luck = 0;
-            Matcher mLuck = LUCK_REGEX.matcher(drop);
+            Matcher mLuck = LUCK_REGEX.matcher(lineString);
             if(mLuck.find()) {
                 String found = mLuck.group();
                 luck = Integer.parseInt(found.substring(6));
-                drop = drop.replace(found, "");
+                lineString = lineString.replace(found, "");
             }
 
-            Matcher mChance = CHANCE_REGEX.matcher(drop);
+            Matcher mChance = CHANCE_REGEX.matcher(lineString);
             if(mChance.find()) {
                 String found = mChance.group();
                 chance = Float.parseFloat(found.substring(8));
-                drop = drop.replace(found, "");
+                lineString = lineString.replace(found, "");
             }
-
-            Matcher mGroup = GROUP_REGEX.matcher(drop);
-            if(mGroup.find()) {
-                String found = mGroup.group();
-                drop = found.substring(6, found.length() - 1);
-            }
-            registerDrop(drop, luck, chance);
+            DropRegistry.registerDrop(new Drop(lineString, chance), this.LUCKYBLOCK, luck);
         }
     }
 
-    public void registerDrop(String raw, int luck, float chance) {
-        Drop d = new Drop(raw, luck, chance); //TODO register drop
+    public static String fixBackslash(String string) {
+        string = string.replaceAll("\\\\t", "\t");
+        string = string.replaceAll("\\\\b", "\b");
+        string = string.replaceAll("\\\\n", "\n");
+        string = string.replaceAll("\\\\r", "\r");
+        string = string.replaceAll("\\\\f", "\f");
+        return string;
     }
+
 }

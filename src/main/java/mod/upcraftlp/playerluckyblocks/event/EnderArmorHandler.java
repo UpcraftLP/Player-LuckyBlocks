@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import core.upcraftlp.craftdev.API.world.WorldHelper;
+import core.upcraftlp.craftdev.api.world.WorldHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;
 import mod.upcraftlp.playerluckyblocks.items.armor.ItemEnderArmor;
@@ -70,9 +70,7 @@ public class EnderArmorHandler {
             }
             world.playSound(null, originX, originY, originZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, entity.getSoundCategory(), 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
             entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
-            for(int i = 0; i < 70; i++) {
-                WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, true, d1, d2, d3, getRandom(rand), (rand.nextDouble() - 0.5D) * 0.5D, getRandom(rand));
-            }
+			WorldHelper.spawnParticles(world, EnumParticleTypes.PORTAL, d1, d2, d3, 70, 0.0D, 0.0D, 0.0D, getRandom(rand));
         }
         return foundPos;
 	}

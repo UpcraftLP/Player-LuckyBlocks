@@ -1,7 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.proxy;
 
-import core.upcraftlp.craftdev.API.net.NetworkHandler;
-import core.upcraftlp.craftdev.API.util.ModHelper;
+import core.upcraftlp.craftdev.api.net.NetworkHandler;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.api.plugins.LegacyPluginAdapter;
@@ -9,14 +8,17 @@ import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.config.LuckyConfig;
 import mod.upcraftlp.playerluckyblocks.crafting.LuckCrafting;
 import mod.upcraftlp.playerluckyblocks.crafting.ShapedCrafting;
-import mod.upcraftlp.playerluckyblocks.entity.EntityMiniDragon;
 import mod.upcraftlp.playerluckyblocks.init.LuckyEvents;
 import mod.upcraftlp.playerluckyblocks.init.LuckyGuiHandler;
 import mod.upcraftlp.playerluckyblocks.init.LuckyModCompat;
+import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
 import mod.upcraftlp.playerluckyblocks.net.PacketDeathNote;
 import mod.upcraftlp.playerluckyblocks.net.PacketUnlock;
+import mod.upcraftlp.playerluckyblocks.plugin.TileEntityAddonLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.special.NetHandlerPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -32,7 +34,6 @@ public class CommonProxy {
 		LuckyEvents.initEvents();
 		LuckyEvents.initDrops();
 		LuckyEvents.initStructures();
-		LegacyPluginAdapter.discoverPlugins(); //TODO add calls for the plguin adapter in registry events!
 	}
 	
 	public void init(FMLInitializationEvent event) {
@@ -42,10 +43,12 @@ public class CommonProxy {
 		//TODO: Crafting!
 		ShapedCrafting.init();
 		LuckCrafting.init();
-		GameRegistry.registerTileEntity(TileEntityPlayerLuckyBlock.class, Reference.MODID + "_luckyBlock");
-		ModHelper.registerEntity(new ResourceLocation(Reference.MODID, "mini_dragon"), EntityMiniDragon.class, "mini_dragon", 64, 0, true);
 		LegacyPluginAdapter.initCrafting();
-		LegacyPluginAdapter.registerDrops();
+
+		GameRegistry.registerTileEntity(TileEntityPlayerLuckyBlock.class, Reference.MODID + "_luckyBlock");
+		GameRegistry.registerTileEntity(TileEntityAddonLuckyBlock.class, Reference.MODID + "_addonLuckyBlock");
+
+		LuckyTabs.updateIcons();
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
@@ -68,4 +71,21 @@ public class CommonProxy {
         return instance;
     }
 
+	/**
+	 * register a lucky block or a block added through the lootplusplus addon generator
+	 *
+	 * this method will automatically generate an itemblock and model for the block.
+	 * INTERNAL USE <b>ONLY</b>
+	 * @param block the block to be registered.
+	 */
+	public void registerBlock(Block block) {
+		GameRegistry.register(block);
+		block.setCreativeTab(LuckyTabs.LUCKY_ADDONS_TAB);
+		GameRegistry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()).setUnlocalizedName(block.getUnlocalizedName().substring(5)));
+    }
+
+    public void registerItem(Item item) {
+		GameRegistry.register(item);
+		item.setCreativeTab(LuckyTabs.LUCKY_ADDONS_TAB);
+    }
 }

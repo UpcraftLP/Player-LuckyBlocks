@@ -3,7 +3,7 @@ package mod.upcraftlp.playerluckyblocks.items;
 import java.util.List;
 import java.util.Random;
 
-import core.upcraftlp.craftdev.API.templates.ItemFood;
+import core.upcraftlp.craftdev.api.item.ItemFood;
 import mod.upcraftlp.playerluckyblocks.event.FlightHandler;
 import mod.upcraftlp.playerluckyblocks.init.LuckyPotions;
 import mod.upcraftlp.playerluckyblocks.init.LuckyTabs;
@@ -32,7 +32,7 @@ public class ItemFruit extends ItemFood {
 	public ItemFruit() {
 		super("devil_fruit", 3, 3.0f, false);
 		this.setMaxStackSize(1);
-		this.setCreativeTab(LuckyTabs.tabPlayerLucky); //need this here because the fruit is handled special
+		this.setCreativeTab(LuckyTabs.PLAYER_LUCKY_BLOCKS_TAB); //need this here because the fruit is handled special
 	}
 	
 	@Override

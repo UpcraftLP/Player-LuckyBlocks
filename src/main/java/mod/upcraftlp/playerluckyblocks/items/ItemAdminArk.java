@@ -1,14 +1,11 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import java.util.List;
-
-import core.upcraftlp.craftdev.API.templates.ItemSword;
+import core.upcraftlp.craftdev.api.item.ItemSword;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.ToolMaterials;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.EntityEquipmentSlot.Type;
@@ -16,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemAdminArk extends ItemSword {
 

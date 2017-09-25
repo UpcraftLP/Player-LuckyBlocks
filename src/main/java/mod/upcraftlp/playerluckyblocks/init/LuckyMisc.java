@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
-import core.upcraftlp.craftdev.API.util.ModHelper;
+import core.upcraftlp.craftdev.api.util.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;

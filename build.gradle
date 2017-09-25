@@ -76,10 +76,6 @@ String getChangelogText() {
     return str
 }
 
-configurations {
-    coreLib
-}
-
 task luckyBlocks(type: Copy) {
     def lucky_addons = new File(lucky_addon_folder)
     if(!lucky_addons.exists()) lucky_addons.mkdirs()
@@ -127,11 +123,14 @@ minecraft {
 
 dependencies {
 
-    //lucky blocks: automatically downloaded into /lucky
+    //lucky blocks: automatically downloaded into /libraries
     tasks.dependencies.dependsOn fetch
     compile files("${lib_folder}/luckyblock.zip")
 
-    coreLib "craftdev-core:craftdev-core:${project.mc_version}:${project.core_version}"
+    //compile against the core API
+    deobfCompile "craftdev-core:craftdev-core-${project.mc_version}:${project.core_version}:api"
+    //at runtime use the full core jar
+    runtime "craftdev-core:craftdev-core-${project.mc_version}:${project.core_version}:universal"
 
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${project.mc_version}:${project.jei_version}:api"
@@ -153,24 +152,20 @@ dependencies {
     //OP weapons
     runtime "infused-weaponry:iweap:${project.iweap_version}"
 
-    configurations.compile.extendsFrom(configurations.coreLib)
 }
 
 def curseRelations = { //TODO add other optional mods
     optionalLibrary 'just-enough-items-jei'
+    requiredLibrary 'craftdev-core'
 }
 
 jar {
-    into('/') {
-        from configurations.coreLib
-    }
     manifest.mainAttributes(
             "FMLAT": "${project.mod_name}_at.cfg",
             "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
             "Implementation-Title": project.name,
             "Implementation-Version": version,
-            "Built-On": "${mc_version}-${forge_version}",
-            "ContainedDeps": "craftdev-core-${project.mc_version}-${project.core_version}.jar"
+            "Built-On": "${mc_version}-${forge_version}"
     )
 }
 

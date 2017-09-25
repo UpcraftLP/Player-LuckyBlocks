@@ -34,7 +34,6 @@ public class LuckyEvents {
 		registerEvent(new EventStructure(), NEUTRAL);
 		
 		/**POSTIVIE**/
-		registerEvent(new EventMiniDragon(), POSITIVE);
 		registerEvent(new EventFruitChest(), POSITIVE);
 		
 		/**NEGATIVE**/

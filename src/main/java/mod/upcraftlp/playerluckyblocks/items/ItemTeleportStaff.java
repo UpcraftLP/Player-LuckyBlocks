@@ -2,8 +2,8 @@ package mod.upcraftlp.playerluckyblocks.items;
 
 import java.util.Random;
 
-import core.upcraftlp.craftdev.API.templates.Item;
-import core.upcraftlp.craftdev.API.world.WorldHelper;
+import core.upcraftlp.craftdev.api.item.Item;
+import core.upcraftlp.craftdev.api.world.WorldHelper;
 import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -52,19 +52,15 @@ public class ItemTeleportStaff extends Item {
 			    Random rand = playerIn.getRNG();
 				itemStackIn.damageItem(1, playerIn);
 				playerIn.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
-				for(int i = 0; i < 70; i++) {
-				    WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, true, playerIn.posX, playerIn.posY, playerIn.posZ, EnderArmorHandler.getRandom(rand), (rand.nextDouble() - 0.5D) * 0.5D, EnderArmorHandler.getRandom(rand));
-				}
+				WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, playerIn.posX, playerIn.posY, playerIn.posZ, 70, 0.0D, 0.0D, 0.0D, EnderArmorHandler.getRandom(rand));
 				playerIn.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 0.2D, pos.getZ() + 0.5D);
 				playerIn.fallDistance = 0.0f;
 				playerIn.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 0.6f + rand.nextFloat() * 0.4f, rand.nextFloat());
-				for(int i = 0; i < 70; i++) {
-                    WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, true, playerIn.posX, playerIn.posY, playerIn.posZ, EnderArmorHandler.getRandom(rand), (rand.nextDouble() - 0.5D) * 0.5D, EnderArmorHandler.getRandom(rand));
-                }
+				WorldHelper.spawnParticles(worldIn, EnumParticleTypes.PORTAL, playerIn.posX, playerIn.posY, playerIn.posZ, 70, 0.0D, 0.0D, 0.0D, EnderArmorHandler.getRandom(rand));
 				playerIn.setHealth(MathHelper.clamp(playerIn.getHealth() * rand.nextFloat(), 0.5f, playerIn.getMaxHealth()));
-				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+				return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
 			}
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+		return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
 	}
 }

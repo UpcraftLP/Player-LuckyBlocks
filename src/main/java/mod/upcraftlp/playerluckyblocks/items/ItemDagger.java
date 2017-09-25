@@ -6,7 +6,7 @@ import java.util.Random;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 
-import core.upcraftlp.craftdev.API.templates.ItemSword;
+import core.upcraftlp.craftdev.api.item.ItemSword;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;

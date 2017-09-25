@@ -1,7 +1,8 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import core.upcraftlp.craftdev.API.templates.Item;
+import core.upcraftlp.craftdev.api.item.Item;
 import mod.upcraftlp.playerluckyblocks.api.EnumLuck;
+import mod.upcraftlp.playerluckyblocks.api.ILuckHandler;
 import mod.upcraftlp.playerluckyblocks.blocks.tile.TileEntityPlayerLuckyBlock;
 import mod.upcraftlp.playerluckyblocks.init.LuckyBlocks;
 import mod.upcraftlp.playerluckyblocks.init.LuckyItems;
@@ -9,6 +10,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -40,14 +42,19 @@ public class ItemLuckyKey extends Item {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(!worldIn.isRemote && worldIn.getBlockState(pos).getBlock() == LuckyBlocks.PLAYER_LUCKYBLOCK) {
-            ItemStack stack = player.getHeldItem(hand);
-            int luck = stack.hasTagCompound() ? stack.getTagCompound().getInteger(KEY_LUCK) : EnumLuck.randomLuck();
-            TileEntityPlayerLuckyBlock te = (TileEntityPlayerLuckyBlock) worldIn.getTileEntity(pos);
-            te.setLuck(te.getLuck() + luck); //make it actually random
-            if(!player.isCreative()) player.setHeldItem(hand, ItemStack.EMPTY);
+        if(!worldIn.isRemote) {
+            TileEntity te = worldIn.getTileEntity(pos);
+            if(te instanceof ILuckHandler) {
+                ILuckHandler luckHandler = (ILuckHandler) te;
+                ItemStack stack = player.getHeldItem(hand);
+                int luck = stack.hasTagCompound() ? stack.getTagCompound().getInteger(KEY_LUCK) : EnumLuck.randomLuck();
+                luckHandler.setLuck(luckHandler.getLuck() + luck); //make it actually random
+                stack.shrink(1);
+                if(!player.isCreative()) player.setHeldItem(hand, stack);
+                return EnumActionResult.SUCCESS;
+            }
         }
-        return EnumActionResult.SUCCESS;
+        return EnumActionResult.PASS;
     }
 
     @Override

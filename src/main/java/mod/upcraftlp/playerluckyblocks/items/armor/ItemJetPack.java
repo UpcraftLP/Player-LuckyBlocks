@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.items.armor;
 
 import java.util.UUID;
 
-import core.upcraftlp.craftdev.API.templates.ItemArmor;
+import core.upcraftlp.craftdev.api.item.ItemArmor;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import mod.upcraftlp.playerluckyblocks.event.FlightHandler;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.ArmorMaterials;

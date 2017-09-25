@@ -2,6 +2,7 @@ package mod.upcraftlp.playerluckyblocks.blocks.tile;
 
 import com.mojang.authlib.GameProfile;
 
+import mod.upcraftlp.playerluckyblocks.api.ILuckHandler;
 import mod.upcraftlp.playerluckyblocks.blocks.BlockPlayerLuckyBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-public class TileEntityPlayerLuckyBlock extends TileEntity {
+public class TileEntityPlayerLuckyBlock extends TileEntity implements ILuckHandler {
 	
 	private static final String KEY_OWNER = BlockPlayerLuckyBlock.KEY_OWNER;
 	private static final String KEY_LUCK = BlockPlayerLuckyBlock.KEY_LUCK;
@@ -32,12 +33,14 @@ public class TileEntityPlayerLuckyBlock extends TileEntity {
 	public GameProfile getGameProfile() {
 		return this.profile;
 	}
-	
+
+	@Override
 	public void setLuck(int luck) {
 		this.luck = MathHelper.clamp(luck, -100, 100);
 		this.markDirty();
 	}
-	
+
+	@Override
 	public int getLuck() {
 		return this.luck;
 	}

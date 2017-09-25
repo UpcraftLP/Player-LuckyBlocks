@@ -21,7 +21,6 @@ public class DropsHandler {
 
     @SubscribeEvent
     public static void onEntityDrops(LivingDropsEvent event) {
-        System.out.println("event called");
         EntityLivingBase entity = event.getEntityLiving();
         NBTTagCompound nbt = entity.getEntityData();
         if(nbt.hasKey(LOOT_CLASSIFIER, Constants.NBT.TAG_LIST)) {

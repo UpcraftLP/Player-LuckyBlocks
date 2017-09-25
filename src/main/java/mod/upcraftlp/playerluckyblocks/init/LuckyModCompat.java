@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.init;
 
-import static core.upcraftlp.craftdev.API.util.ModHelper.getIsModLoaded;
+import static core.upcraftlp.craftdev.api.util.ModHelper.getIsModLoaded;
 import static mod.upcraftlp.playerluckyblocks.init.LuckyModCompat.ModIds.*;
 
 /**

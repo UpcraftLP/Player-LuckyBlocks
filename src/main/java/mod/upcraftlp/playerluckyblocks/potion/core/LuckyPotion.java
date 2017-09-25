@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.potion.core;
 
-import core.upcraftlp.craftdev.API.templates.Potion;
+import core.upcraftlp.craftdev.api.potion.Potion;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.PotionEffect;

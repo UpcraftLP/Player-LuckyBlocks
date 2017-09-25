@@ -1,15 +1,19 @@
 package mod.upcraftlp.playerluckyblocks.api.plugins;
 
 import com.google.common.collect.Lists;
-import core.upcraftlp.craftdev.API.structures.StructureLoaderSchematic;
+import core.upcraftlp.craftdev.api.structures.StructureLoaderSchematic;
 import mod.upcraftlp.playerluckyblocks.Main;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.LegacyV2Adapter;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -48,27 +52,29 @@ public class LegacyPluginAdapter {
     @SideOnly(Side.CLIENT)
     public static void initPluginResourcePacks() {
         for (ZipPlugin plugin : PLUGIN_LIST) {
-            Minecraft.getMinecraft().defaultResourcePacks.add(new PluginResourcePack(plugin.getFile()));
+            Minecraft.getMinecraft().defaultResourcePacks.add(new LegacyV2Adapter(new PluginResourcePack(plugin.getFile())));
         }
     }
 
-    public static void discoverPlugins() { //TODO read data from zip!
+    public static void discoverAndRegisterPlugins() { //TODO read data from zip!
         List<File> files = getAllPlugins("1.8");
         File structureDir = new File(StructureLoaderSchematic.getStructureDir(), "lucky_block_compat");
         if(!structureDir.exists()) structureDir.mkdirs();
         for(File f : files) {
             try {
                 ZipFile zip = new ZipFile(f);
-                PLUGIN_LIST.add(new ZipPlugin(zip));
+                ZipPlugin plugin = new ZipPlugin(zip);
+                PLUGIN_LIST.add(plugin);
                 Enumeration<? extends ZipEntry> en = zip.entries();
                 while (en.hasMoreElements()) {
                     ZipEntry entry = en.nextElement();
                     if(entry.getName().startsWith("structures/") && !entry.isDirectory() && entry.getName().endsWith(".schematic")) {
-                        File out = new File(structureDir, new File(entry.getName()).getName());
+                        File out = new File(structureDir, entry.getName().substring(11));
+                        if(!out.getParentFile().exists()) out.getParentFile().mkdirs();
                         InputStream stream = null;
                         FileOutputStream outStream = null;
                         try {
-                            if(out.createNewFile()) { //only override if the destination file doesn't exist already.
+                            if(out.createNewFile()) { //only override if the destination file doesn't exist already. this also allows for overrides
                                 stream = zip.getInputStream(entry);
                                 outStream = new FileOutputStream(out);
                                 IOUtils.copy(stream, outStream, stream.available());
@@ -81,14 +87,10 @@ public class LegacyPluginAdapter {
                             IOUtils.closeQuietly(outStream);
                             IOUtils.closeQuietly(stream);
                         }
-
-
-
-
-
-
                     }
                 }
+                plugin.pluginInit();
+                plugin.registerDrops();
 
             }
             catch (IOException e) {
@@ -100,12 +102,6 @@ public class LegacyPluginAdapter {
     public static void initCrafting() {
         for (ZipPlugin plugin : PLUGIN_LIST) {
             plugin.registerCraftingRecipes();
-        }
-    }
-
-    public static void registerDrops() {
-        for (ZipPlugin plugin : PLUGIN_LIST) {
-            plugin.registerDrops();
         }
     }
 }

@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.items;
 
-import core.upcraftlp.craftdev.API.templates.Item;
+import core.upcraftlp.craftdev.api.item.Item;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.init.LuckyGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;

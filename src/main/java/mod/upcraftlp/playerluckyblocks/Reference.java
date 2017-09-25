@@ -19,7 +19,7 @@ public class Reference {
     // DO NOT CHANGE!!!
     public static final String MODNAME = "Player Lucky Blocks";
     public static final String MODID = "playerluckyblocks";
-    public static final String DEPENDENCIES = "required-after:craftdevcore@[2.0.3,)";
+    public static final String DEPENDENCIES = "required-after:craftdevcore@[2.0.3,);after:lucky@[7.4.0]";
     public static final String UPDATE_URL = "https://minecraft.curseforge.com/projects/player-lucky-blocks";
     public static final String UPDATE_JSON = "https://raw.githubusercontent.com/UpcraftLP/Player-LuckyBlocks/master/Version.json";
     public static final String CLIENTSIDE_PATH = "mod.upcraftlp." + MODID + ".proxy.ClientProxy";

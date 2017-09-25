@@ -1,7 +1,7 @@
 package mod.upcraftlp.playerluckyblocks.config;
 
 import com.google.common.collect.Lists;
-import core.upcraftlp.craftdev.API.util.ModHelper;
+import core.upcraftlp.craftdev.api.util.ModHelper;
 import mod.upcraftlp.playerluckyblocks.Reference;
 import net.minecraftforge.common.config.*;
 import net.minecraftforge.fml.client.config.IConfigElement;

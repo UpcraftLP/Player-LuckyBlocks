@@ -2,7 +2,7 @@ package mod.upcraftlp.playerluckyblocks.items;
 
 import java.util.List;
 
-import core.upcraftlp.craftdev.API.templates.Item;
+import core.upcraftlp.craftdev.api.item.Item;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;

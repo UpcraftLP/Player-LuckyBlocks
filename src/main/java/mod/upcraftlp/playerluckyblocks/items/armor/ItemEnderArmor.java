@@ -1,6 +1,6 @@
 package mod.upcraftlp.playerluckyblocks.items.armor;
 
-import core.upcraftlp.craftdev.API.templates.ItemArmor;
+import core.upcraftlp.craftdev.api.item.ItemArmor;
 import mod.upcraftlp.playerluckyblocks.event.EnderArmorHandler;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.ArmorMaterials;
 import mod.upcraftlp.playerluckyblocks.init.LuckyMisc.DamageSources;

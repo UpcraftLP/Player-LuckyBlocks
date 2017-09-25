@@ -1,7 +1,7 @@
 package mod.upcraftlp.playerluckyblocks.gui;
 
 import com.google.common.collect.Lists;
-import core.upcraftlp.craftdev.API.net.NetworkHandler;
+import core.upcraftlp.craftdev.api.net.NetworkHandler;
 import mod.upcraftlp.playerluckyblocks.Main;
 import mod.upcraftlp.playerluckyblocks.net.PacketDeathNote;
 import net.minecraft.client.gui.GuiButton;
